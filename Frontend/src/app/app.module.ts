@@ -8,13 +8,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Sidebar imports
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
+// Navbar icons imports
 import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -27,13 +22,7 @@ import { MatListModule } from '@angular/material/list';
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    // Sidebar imports
-    MatSidenavModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatIconModule,
-    MatDividerModule,
-    MatListModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
