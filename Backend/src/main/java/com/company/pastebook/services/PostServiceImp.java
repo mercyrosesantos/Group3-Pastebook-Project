@@ -12,7 +12,7 @@ public class PostServiceImp implements PostService{
     @Autowired
     private PostRepository postRepository;
 
-    //User Profile
+    //Get User Profile
     public Iterable<Post> findByTimelineUserIdOrderByPostTimestampDesc(Long timelineUserId) {
         return postRepository.findByTimelineUserIdOrderByPostTimestampDesc(timelineUserId);
     }
