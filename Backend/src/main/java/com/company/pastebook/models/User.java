@@ -51,7 +51,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<Reaction> userReactions;
-
     // Constructors
 
     public User() {

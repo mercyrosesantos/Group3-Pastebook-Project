@@ -42,6 +42,7 @@ public class Post {
         this.content = content;
         this.postTimestamp = postTimestamp;
         this.isActive = isActive;
+
     }
 
     // Getter and Setter
