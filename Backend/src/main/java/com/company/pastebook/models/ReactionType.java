@@ -1,6 +1,9 @@
 package com.company.pastebook.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "reaction_types")
@@ -15,9 +18,11 @@ public class ReactionType {
     @Column
     private String reactionTypeName;
 
+//    @OneToOne(mappedBy = "reactions")
+//    @JsonIgnore
+//    private Set<Reaction> reactions;
+
     // Constructor
-
-
     public ReactionType() {
     }
 
