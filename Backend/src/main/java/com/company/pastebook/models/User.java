@@ -48,6 +48,9 @@ public class User {
     @JsonIgnore
     private Set<Post> userPosts;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Reaction> userReactions;
     // Constructors
 
     public User() {

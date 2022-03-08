@@ -1,6 +1,9 @@
 package com.company.pastebook.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "posts")
@@ -20,19 +23,26 @@ public class Post {
     private String postTimestamp;
 
     @Column
-    private boolean isActive;
+    private boolean isActive = true;
 
     @ManyToOne
     @JoinColumn (name = "userId", nullable = true)
     private User user;
+
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    private Set<Reaction> postReactions;
 
     // Constructor
 
     public Post() {
     }
 
-    public Post(String content) {
+    public Post(String content, String postTimestamp, boolean isActive) {
         this.content = content;
+        this.postTimestamp = postTimestamp;
+        this.isActive = isActive;
+
     }
 
     // Getter and Setter
