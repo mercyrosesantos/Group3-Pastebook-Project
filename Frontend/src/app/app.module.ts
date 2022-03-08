@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -17,6 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { PostComponent } from './components/post/post.component';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
+import { HomeComponent } from './pages/home/home.component';
 
 
 const appRoutes: Routes = [
@@ -33,10 +35,12 @@ const appRoutes: Routes = [
     SidebarComponent,
     ProfileComponent,
     PostComponent,
-    NewsfeedComponent
+    NewsfeedComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     // Sidebar imports
