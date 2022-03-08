@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 public class UserController {
@@ -20,6 +23,23 @@ public class UserController {
     public ResponseEntity<Object> createUser(@RequestBody User user) {
         userService.createUser(user);
         return new ResponseEntity<>("User Registered Successfully", HttpStatus.CREATED);
+    }
+
+//    Login
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ResponseEntity<Object> verifyUser(@RequestBody Map<String, String> body){
+        String email = body.get("email");
+        if (userService.findByEmail(email).isPresent()){
+            ArrayList<String> input = new ArrayList<>();
+            input.add(body.get("password"));
+            if (userService.verifyUser(email).equals(input)) {
+                return new ResponseEntity<>("User successfully logged-in", HttpStatus.ACCEPTED);
+            }else {
+                return new ResponseEntity<>("Invalid credentials.", HttpStatus.BAD_REQUEST);
+            }
+          } else{
+            return new ResponseEntity<>("User does not exist.", HttpStatus.BAD_REQUEST);
+         }
     }
 
 

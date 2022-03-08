@@ -5,6 +5,9 @@ import com.company.pastebook.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 @Service
 public class UserServiceImp implements UserService {
 
@@ -20,4 +23,17 @@ public class UserServiceImp implements UserService {
     public Iterable<User> getUsers() {
         return userRepository.findAll();
     }
+
+//    Find by email
+    public Optional<User> findByEmail(String email) {
+        return Optional.ofNullable(userRepository.findByEmail(email));
+    }
+
+//    Login
+    public Iterable<String> verifyUser(String email){
+        ArrayList<String> key = new ArrayList<>();
+        key.add(userRepository.findByEmail(email).getPassword());
+        return key;
+    }
+
 }
