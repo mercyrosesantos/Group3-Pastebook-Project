@@ -41,4 +41,55 @@ public class Reaction {
         this.reactionTimestamp = reactionTimestamp;
         this.isActive = isActive;
     }
+
+    //Getter and Setter
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getReactionTimestamp() {
+        return reactionTimestamp;
+    }
+
+    public void setReactionTimestamp(String reactionTimestamp) {
+        this.reactionTimestamp = reactionTimestamp;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
 }
