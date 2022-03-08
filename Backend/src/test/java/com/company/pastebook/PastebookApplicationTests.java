@@ -1,4 +1,4 @@
-package com.company.discussion;
+package com.company.pastebook;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
