@@ -1,6 +1,9 @@
 package com.company.pastebook.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "posts")
@@ -25,6 +28,10 @@ public class Post {
     @ManyToOne
     @JoinColumn (name = "userId", nullable = true)
     private User user;
+
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    private Set<Reaction> postReactions;
 
     // Constructor
 
