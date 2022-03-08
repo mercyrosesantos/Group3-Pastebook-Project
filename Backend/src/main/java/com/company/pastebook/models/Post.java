@@ -33,6 +33,11 @@ public class Post {
     @JsonIgnore
     private Set<Reaction> postReactions;
 
+    @ManyToOne
+    @JoinColumn (name = "timelineUserId", nullable = true)
+    private User timelineUser;
+
+
     // Constructor
 
     public Post() {
