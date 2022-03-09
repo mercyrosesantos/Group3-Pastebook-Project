@@ -1,6 +1,7 @@
 package com.company.pastebook.models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "reactions")
@@ -17,7 +18,7 @@ public class Reaction {
     private String content;
 
     @Column
-    private String reactionTimestamp;
+    private Date reactionTimestamp;
 
     @Column
     private boolean isActive = true;
@@ -40,7 +41,7 @@ public class Reaction {
     public Reaction() {
     }
 
-    public Reaction(String content, String reactionTimestamp, boolean isActive) {
+    public Reaction(String content, Date reactionTimestamp, boolean isActive) {
         this.content = content;
         this.reactionTimestamp = reactionTimestamp;
         this.isActive = isActive;
@@ -65,11 +66,11 @@ public class Reaction {
         this.content = content;
     }
 
-    public String getReactionTimestamp() {
+    public Date getReactionTimestamp() {
         return reactionTimestamp;
     }
 
-    public void setReactionTimestamp(String reactionTimestamp) {
+    public void setReactionTimestamp(Date reactionTimestamp) {
         this.reactionTimestamp = reactionTimestamp;
     }
 

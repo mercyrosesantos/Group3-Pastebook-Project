@@ -31,10 +31,20 @@ public class UserController {
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@RequestBody User newUser) {
         HashMap<String, String> response = new HashMap<>();
+        LocalDate today = LocalDate.now();
+        String strDate = today.toString();
         String encodedPassword = new BCryptPasswordEncoder().encode(newUser.getPassword());
 
-        newUser.setDateJoined(new Date());
-        user.save(newUser);
+        user.save(new User(
+                newUser.getFirstName(),
+                newUser.getLastName(),
+                newUser.getEmail(),
+                encodedPassword,
+                newUser.getBirthDay(),
+                newUser.getGender(),
+                newUser.getMobileNumber(),
+                strDate
+        ));
 
         response.put("Result", "Added");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -55,5 +65,11 @@ public class UserController {
         } else{
             return new ResponseEntity<>("User does not exist.", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    // Get User Profile
+    @RequestMapping(value = "/api/profile/{userId}", method=RequestMethod.GET)
+    public ResponseEntity<Object> getUserProfile(@PathVariable long userId) {
+        return userService.getUserProfile(userId);
     }
 }

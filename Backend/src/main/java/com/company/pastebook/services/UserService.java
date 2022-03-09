@@ -1,6 +1,7 @@
 package com.company.pastebook.services;
 
 import com.company.pastebook.models.User;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
@@ -13,6 +14,9 @@ public interface UserService {
 
 //    Login user
     Iterable<String> verifyUser(String email);
+
+// Get User Profile
+    ResponseEntity getUserProfile(Long id);
 
 
 

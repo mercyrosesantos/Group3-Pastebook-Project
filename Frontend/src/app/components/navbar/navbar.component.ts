@@ -11,7 +11,9 @@ import { concat, Observable } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
 
-  hasToken: boolean = (localStorage.getItem('token') !== null);
+  // uncomment once other specs are complete:
+  // hasToken: boolean = (localStorage.getItem('token') !== null);
+  hasToken: boolean = true;
   firstName: String = localStorage.getItem('firstName')!;
   lastName: String = localStorage.getItem('lastName')!;
   fullName: Observable<String> = concat(this.firstName, " ", this.lastName);
@@ -28,8 +30,6 @@ export class NavbarComponent implements OnInit {
     })
 
   }
-
-  
 
   ngOnInit(): void {
   }
