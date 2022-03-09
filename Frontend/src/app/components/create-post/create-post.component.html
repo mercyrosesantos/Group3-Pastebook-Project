@@ -5,10 +5,11 @@
     </div>
     <div class="card-body">
         <!-- Include route for post creation -->
-      <form action="">
+      <form>
         <textarea class="textinput" placeholder="What's on your mind?"></textarea>
         <br/>
-        <input type="submit" value="Post" id="postButton">
+        <!-- To do: Verify if content is properly captured when submitted -->
+        <input type="submit" value="Post" id="postButton" (click)="addPost()">
       </form>
     </div>
 </div>
