@@ -12,8 +12,8 @@ import * as moment from 'moment';
 export class ProfileComponent implements OnInit {
 
   posts: Post[] = [];
-    user: User = new User();
-    formattedBirthday?: string;
+  user: User = new User();
+  formattedBirthday?: string;
     constructor(
       private profileService: ProfileService
     ) {
@@ -37,10 +37,5 @@ export class ProfileComponent implements OnInit {
       this.user = response;
       this.formattedBirthday = moment(this.user.birthDay).format('MMMM DD, YYYY');
     })
-  }
-
-  //Create Reaction
-  createReaction() {
-    
   }
 }

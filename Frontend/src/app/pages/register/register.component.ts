@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { User } from '@models/user';
+import { UserService } from '@services/user.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -14,8 +16,12 @@ export class RegisterComponent implements OnInit {
   birthDay: string = "";
   gender: string = "";
   mobileNumber: string = "";
+  formattedBirthday?: Date;
 
-  constructor() { }
+
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -29,6 +35,23 @@ export class RegisterComponent implements OnInit {
     console.log(this.gender);
     console.log(this.mobileNumber);
 
+    let user = new User();
+        user.firstName = this.firstName;
+        user.lastName = this.lastName;
+        user.email = this.email;
+        user.password = this.password;
+        this.formattedBirthday = moment(this.birthDay, 'YYYY-MM-DD').toDate();
+        user.gender = this.gender;
+        user.mobileNumber = this.mobileNumber;
+
+        this.register(user);
+  }
+
+  //Registration
+  register(user: User) {
+    this.userService.register(user).subscribe((response: Object) => {
+      console.log(response); 
+    });
   }
 
 }

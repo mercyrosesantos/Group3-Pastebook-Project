@@ -8,7 +8,7 @@ export class User {
         public birthDay?: Date,
         public dateJoined?: Date,
         public gender?: string,
-        public mobileNumber?: number,
+        public mobileNumber?: string,
         public isActive?: boolean,
     ) {}
 }

@@ -28,7 +28,7 @@ public class UserController {
     @Autowired
     UserRepository user;
 
-    @Autowired
+   // @Autowired
     User userModel;
   
     @Autowired
