@@ -1,0 +1,20 @@
+<div class="d-flex flex-column">
+    <div class="container align-self-center">
+        <form (ngSubmit)="onSubmit()" class = "mainpage align-center">
+            <div class="form-row">
+                <h3>Enter email and password:</h3>
+                <div class="col-md-4 mb-3">
+                    <label for="validationDefault03">Email</label>
+                    <input type="text" class="form-control" [(ngModel)]="email" name="email" id="validationDefault03" placeholder="Email" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="InputPassword1">Password</label>
+                    <input type="password" class="form-control" [(ngModel)]="password" name="password" id="InputPassword1" placeholder="Password" required>
+                </div>
+            </div>
+            <a class="btn btn-primary col-md-4 mb-3" href="" role="button">Login</a>
+            <h5 class="col-md-4 mb-3">Not registered yet? Sign-up now!</h5>
+            <a class="btn btn-primary col-md-4 mb-3" href="/register" role="button">Register</a>
+        </form>
+    </div>
+</div>
