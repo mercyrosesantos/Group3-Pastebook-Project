@@ -12,7 +12,7 @@ import { User } from '@models/user';
 export class UserService {
 
   private baseUrl: string = environment.apiUrl + '/users';
-
+  private registerUrl: string = environment.apiUrl + '/users/register';
   constructor(
     private http: HttpClient
   ) { }
@@ -21,6 +21,8 @@ export class UserService {
     return this.http.post(this.baseUrl + '/login', {email, password});
   }
 
-  register(user: User): void { }
-
+  // Create user
+  register(user: User): Observable<Object> {
+    return this.http.post(this.registerUrl, {user, User});
+  }
 }
