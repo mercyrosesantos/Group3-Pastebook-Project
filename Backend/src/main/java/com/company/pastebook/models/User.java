@@ -3,6 +3,7 @@ package com.company.pastebook.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -38,9 +39,8 @@ public class User {
     @Column
     private String mobileNumber;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column
-    private Date dateJoined;
+    private String dateJoined;
 
     @Column
     private boolean isActive = true;
@@ -61,7 +61,7 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password, Date birthDay, String gender, String mobileNumber) {
+    public User(String firstName, String lastName, String email, String password, Date birthDay, String gender, String mobileNumber, String dateJoined) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -69,6 +69,7 @@ public class User {
         this.birthDay = birthDay;
         this.gender = gender;
         this.mobileNumber = mobileNumber;
+        this.dateJoined = dateJoined;
     }
 
     // Getters and Setters
@@ -133,11 +134,11 @@ public class User {
         this.mobileNumber = mobileNumber;
     }
 
-    public Date getDateJoined() {
+    public String getDateJoined() {
         return dateJoined;
     }
 
-    public void setDateJoined(Date dateJoined) {
+    public void setDateJoined(String dateJoined) {
         this.dateJoined = dateJoined;
     }
 
