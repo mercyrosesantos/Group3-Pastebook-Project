@@ -22,6 +22,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
 
 
 const appRoutes: Routes = [
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     NewsfeedComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,
