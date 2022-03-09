@@ -30,6 +30,10 @@ public class Reaction {
     @JoinColumn (name = "postId", nullable = true)
     private Post post;
 
+    @OneToOne
+    @JoinColumn (name= "reactionTypeId", nullable = true)
+    private ReactionType reactionType;
+
     // Constructor
 
 
@@ -91,5 +95,13 @@ public class Reaction {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public ReactionType getReactionType() {
+        return reactionType;
+    }
+
+    public void setReactionType(ReactionType reactionType) {
+        this.reactionType = reactionType;
     }
 }

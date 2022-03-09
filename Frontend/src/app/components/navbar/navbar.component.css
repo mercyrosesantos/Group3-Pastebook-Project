@@ -1,6 +1,10 @@
+.navbar {
+    position: sticky;
+    width: 100%;
+}
+
 #navContainer {
     display: flex;
-    /* justify-content: space-around; */
     flex-direction: row;
     align-items: baseline;
 }

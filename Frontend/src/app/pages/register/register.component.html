@@ -1,0 +1,42 @@
+<form (ngSubmit)="onSubmit()" class = "mainpage">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="validationDefault01">First name</label>
+            <input type="text" class="form-control" [(ngModel)]="firstName" name="firstName" id="validationDefault01" placeholder="First name" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="validationDefault02">Last name</label>
+            <input type="text" class="form-control" [(ngModel)]="lastName" name="lastName" id="validationDefault02" placeholder="Last name" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="validationDefault03">Email</label>
+            <input type="text" class="form-control" [(ngModel)]="email" name="email" id="validationDefault03" placeholder="Email" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="InputPassword1">Password</label>
+            <input type="password" class="form-control" [(ngModel)]="password" name="password" id="InputPassword1" placeholder="Password" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="InputDate1">Date</label>
+            <input type="date" class="form-control" [(ngModel)]="birthDay" name="birthDay" id="InputDate1" placeholder="Date" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="validationDefault04">Gender</label>
+            <input type="text" class="form-control" [(ngModel)]="gender" name="gender" id="validationDefault04" placeholder="Gender">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="validationDefault05">Mobile Number</label>
+            <input type="number" class="form-control" [(ngModel)]="mobileNumber" name="mobileNumber" id="validationDefault05" placeholder="Mobile Number" required>
+        </div>
+        
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+            <label class="form-check-label" for="invalidCheck2">
+                Agree to terms and conditions
+            </label>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit form</button>
+</form>
