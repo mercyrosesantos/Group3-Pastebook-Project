@@ -10,7 +10,7 @@ import { Post } from '../models/post';
 })
 export class ProfileService {
 
-  private baseUrl: string = environment.apiUrl + '/profile/1';
+  private baseUrl: string = environment.apiUrl + '/timeline/1';
   
   constructor(
     private http: HttpClient,
