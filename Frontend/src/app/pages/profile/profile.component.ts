@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '@models/user';
 import { Post } from 'src/app/models/post';
 import { ProfileService } from 'src/app/services/profile.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,7 @@ export class ProfileComponent implements OnInit {
 
   posts: Post[] = [];
     user: User = new User();
+    formattedBirthday?: string;
     constructor(
       private profileService: ProfileService
     ) {
@@ -33,7 +35,12 @@ export class ProfileComponent implements OnInit {
   getUserProfile() {
     this.profileService.getUserProfile().subscribe((response: User) => {
       this.user = response;
+      this.formattedBirthday = moment(this.user.birthDay).format('MMMM DD, YYYY');
     })
   }
 
+  //Create Reaction
+  createReaction() {
+    
+  }
 }

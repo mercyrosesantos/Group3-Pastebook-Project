@@ -3,6 +3,7 @@ package com.company.pastebook.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -20,7 +21,7 @@ public class Post {
     private String content;
 
     @Column
-    private String postTimestamp;
+    private Date postTimestamp;
 
     @Column
     private boolean isActive = true;
@@ -43,7 +44,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(String content, String postTimestamp, boolean isActive) {
+    public Post(String content, Date postTimestamp, boolean isActive) {
         this.content = content;
         this.postTimestamp = postTimestamp;
         this.isActive = isActive;
@@ -64,11 +65,11 @@ public class Post {
         this.content = content;
     }
 
-    public String getPostTimestamp() {
+    public Date getPostTimestamp() {
         return postTimestamp;
     }
 
-    public void setPostTimestamp(String postTimestamp) {
+    public void setPostTimestamp(Date postTimestamp) {
         this.postTimestamp = postTimestamp;
     }
 

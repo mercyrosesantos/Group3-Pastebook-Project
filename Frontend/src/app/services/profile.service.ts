@@ -13,6 +13,7 @@ export class ProfileService {
 
   private baseUrl: string = environment.apiUrl + '/timeline/1';
   private profileUrl: string = environment.apiUrl + '/profile/1';
+  private reactionUrl: string = environment.apiUrl + '/reactions';
 
   constructor(
     private http: HttpClient,
@@ -27,5 +28,10 @@ export class ProfileService {
   // Get User Profile
   getUserProfile(): Observable<User> {
     return this.http.get<User>(this.profileUrl);
+  }
+
+  // Create Reactions
+  createReaction(reaction: any): Observable<String> {
+    return this.http.post<String>(this.reactionUrl,reaction);
   }
 }

@@ -1,0 +1,10 @@
+div {
+    text-align: center;
+    border: 1px solid black;
+  }
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
