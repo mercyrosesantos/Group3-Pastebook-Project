@@ -13,7 +13,7 @@ public interface UserService {
     Optional<User> findByEmail(String email);
 
 //    Login user
-    Iterable<String> verifyUser(String email);
+    Iterable<User> verifyUser(String email);
 
 // Get User Profile
     ResponseEntity getUserProfile(Long id);
