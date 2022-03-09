@@ -11,8 +11,8 @@ import { User } from '@models/user';
 })
 export class ProfileService {
 
-  private baseUrl: string = environment.apiUrl + '/timeline/1';
-  private profileUrl: string = environment.apiUrl + '/profile/1';
+  private baseUrl: string = environment.apiUrl + '/timeline/4';
+  private profileUrl: string = environment.apiUrl + '/profile/4';
   private reactionUrl: string = environment.apiUrl + '/reactions';
 
   constructor(

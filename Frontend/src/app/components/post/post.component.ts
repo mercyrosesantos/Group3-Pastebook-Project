@@ -44,7 +44,7 @@ export class PostComponent implements OnInit {
   }
 
   //Create Comment Reaction
-  createCommentReaction(comment?: String) {
+  createCommentReaction() {
     let likeReaction = {
       "reactionType":{
           "id": 2
@@ -55,11 +55,13 @@ export class PostComponent implements OnInit {
       "user":{
           "id": 1
       },
-      "content": comment
+      "content": this.currentComment
     }
 
     console.log("test")
     this.profileService.createReaction(likeReaction).subscribe((response: Object) => {
+      this.currentComment = '';
+      this.getCommentsFromPost();
     });
   }
 
