@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class ReactionServiceImp implements ReactionService {
 
@@ -15,7 +17,13 @@ public class ReactionServiceImp implements ReactionService {
 
     //Create Reaction
     public ResponseEntity createReaction(Reaction reaction) {
+        reaction.setReactionTimestamp(new Date());
         reactionRepository.save(reaction);
         return new ResponseEntity<>("Reaction Recorded",HttpStatus.CREATED);
+    }
+
+    //Get Comments by Post
+    public ResponseEntity getCommentsByPost(Long postId) {
+        return new ResponseEntity(reactionRepository.findByReactionTypeIdAndPostId(2l, postId),HttpStatus.OK);
     }
 }

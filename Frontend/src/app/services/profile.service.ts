@@ -31,7 +31,7 @@ export class ProfileService {
   }
 
   // Create Reactions
-  createReaction(reaction: any): Observable<String> {
-    return this.http.post<String>(this.reactionUrl,reaction);
+  createReaction(reaction: any): Observable<Object> {
+    return this.http.post(this.reactionUrl,reaction,{responseType: 'text'});
   }
 }

@@ -2,6 +2,7 @@ package com.company.pastebook.controllers;
 
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.UserRepository;
+import com.company.pastebook.services.ReactionService;
 import com.company.pastebook.services.UserService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class UserController {
 
     @Autowired
     UserRepository user;
+
+    @Autowired
+    ReactionService reactionService;
 
     //    Register User
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
@@ -72,4 +76,6 @@ public class UserController {
     public ResponseEntity<Object> getUserProfile(@PathVariable long userId) {
         return userService.getUserProfile(userId);
     }
+
+
 }
