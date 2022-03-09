@@ -3,6 +3,8 @@ package com.company.pastebook.services;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,5 +37,12 @@ public class UserServiceImp implements UserService {
         key.add(userRepository.findByEmail(email).getPassword());
         return key;
     }
+
+// Get User Profile
+    public ResponseEntity getUserProfile(Long id){
+        User userProfile = userRepository.findById(id).get();
+        return new ResponseEntity(userProfile, HttpStatus.OK);
+}
+
 
 }

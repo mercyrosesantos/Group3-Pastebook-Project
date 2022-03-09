@@ -56,4 +56,10 @@ public class UserController {
             return new ResponseEntity<>("User does not exist.", HttpStatus.BAD_REQUEST);
         }
     }
+
+    // Get User Profile
+    @RequestMapping(value = "/api/profile/{userId}", method=RequestMethod.GET)
+    public ResponseEntity<Object> getUserProfile(@PathVariable long userid) {
+        return userService.getUserProfile(userid);
+    }
 }
