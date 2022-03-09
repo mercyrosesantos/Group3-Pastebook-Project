@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -30,12 +31,11 @@ public class UserController {
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@RequestBody User newUser) {
         HashMap<String, String> response = new HashMap<>();
+        String encodedPassword = new BCryptPasswordEncoder().encode(newUser.getPassword());
 
         newUser.setDateJoined(new Date());
         user.save(newUser);
 
-//        String strDate = today.format(JsonFormat);
-//        newUser.setDateJoined(today);
         response.put("Result", "Added");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
