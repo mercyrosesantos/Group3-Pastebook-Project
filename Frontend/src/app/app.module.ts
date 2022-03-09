@@ -21,12 +21,13 @@ import { PostComponent } from './components/post/post.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
 
 
 const appRoutes: Routes = [
-  // { path: '', component: HomeComponent }, // http://localhost:4200/
+  { path: '', component: HomeComponent }, // http://localhost:4200/
   { path: 'profile', component: ProfileComponent },
-  // { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   // { path: '**', component: NotFoundComponent }
 ];
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     PostComponent,
     RegisterComponent,
     NewsfeedComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
