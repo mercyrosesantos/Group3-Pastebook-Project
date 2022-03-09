@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
@@ -27,36 +26,27 @@ public class UserController {
 
     @Autowired
     UserRepository user;
-
-   // @Autowired
-    User userModel;
   
     @Autowired
     ReactionService reactionService;
 
     //    Register User
-    @RequestMapping(value = "/users/register", method = RequestMethod.POST)
-    public ResponseEntity<Object> createUser(@RequestBody User newUser, String siteUrl) throws MessagingException, UnsupportedEncodingException {
+    @RequestMapping(value = "/api/users/register", method = RequestMethod.POST)
+    public ResponseEntity<Object> createUser(@RequestBody User newUser) throws MessagingException, UnsupportedEncodingException {
         HashMap<String, String> response = new HashMap<>();
+
         LocalDate today = LocalDate.now();
         String strDate = today.toString();
         String encodedPassword = new BCryptPasswordEncoder().encode(newUser.getPassword());
         String email = newUser.getEmail();
         String randomCode = RandomString.make(64);
+        newUser.setPassword(encodedPassword);
+        newUser.setDateJoined(strDate);
+        newUser.setVerificationCode(randomCode);
 
         if (!userService.findByEmail(email).isPresent()) {
-            user.save(new User(
-                    newUser.getFirstName(),
-                    newUser.getLastName(),
-                    newUser.getEmail(),
-                    encodedPassword,
-                    newUser.getBirthDay(),
-                    newUser.getGender(),
-                    newUser.getMobileNumber(),
-                    strDate
-            ));
-            userModel.setVerificationCode(randomCode);
-            userModel.setEnabled(false);
+            user.save(newUser);
+            String siteUrl = "http://localhost:8080";
             userService.sendVerificationEmail(newUser, siteUrl);
 
             response.put("Result", "Added");

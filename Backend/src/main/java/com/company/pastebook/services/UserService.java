@@ -2,7 +2,6 @@ package com.company.pastebook.services;
 
 import com.company.pastebook.models.User;
 import org.springframework.http.ResponseEntity;
-
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.util.Optional;

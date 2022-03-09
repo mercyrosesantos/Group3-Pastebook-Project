@@ -23,6 +23,6 @@ export class UserService {
 
   // Create user
   register(user: User): Observable<Object> {
-    return this.http.post(this.registerUrl, {user, User});
+    return this.http.post(this.registerUrl, user);
   }
 }

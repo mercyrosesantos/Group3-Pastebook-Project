@@ -48,7 +48,7 @@ public class User {
     private String verificationCode;
 
     @Column
-    private boolean enabled;
+    private boolean enabled = true;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
