@@ -3,14 +3,27 @@
     width: 100%;
 }
 
-#navContainer {
+/* #navContainer {
     display: flex;
     flex-direction: row;
     align-items: baseline;
+} */
+
+#navMain {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+    width: 100%;
 }
 
 #navbarPeople {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+}
+
+#login {
+    margin-left: auto;
+    color: white;
 }

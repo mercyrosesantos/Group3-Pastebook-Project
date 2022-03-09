@@ -1,25 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid" id="navContainer">
-    <a class="navbar-brand" routerLink="/"><mat-icon>home</mat-icon></a>
-    <div class="navbar-nav" id="navbarPeople">
-        <a class="nav-link" routerLink="/profile"><mat-icon>person_outline</mat-icon></a>
-        <a class="nav-link" href="#"><mat-icon>people_outline</mat-icon></a>
-    </div>
-    <div class="container" id="form">
-      <form class="d-flex px-5">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit"><mat-icon>search</mat-icon></button>
-      </form>
-    </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarActions" aria-controls="navbarActions" aria-expanded="false" aria-label="Toggle navigation">
-       <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarActions">
-      <div class="navbar-nav">
-        <a class="nav-link" href="#"><mat-icon>notifications</mat-icon></a>
-        <a class="nav-link" href="#"><mat-icon>settings</mat-icon></a>
-        <a class="nav-link" href="#"><mat-icon>exit_to_app</mat-icon></a>
+    <div class="container-fluid" id="navMain" *ngIf="hasToken; else noToken">
+      <a class="navbar-brand" routerLink="/"><mat-icon>home</mat-icon></a>
+      <div class="navbar-nav" id="navbarPeople">
+          <a class="nav-link" routerLink="/profile"><mat-icon>person_outline</mat-icon></a>
+          <a class="nav-link" href="#"><mat-icon>people_outline</mat-icon></a>
+      </div>
+      <div class="container" id="form">
+        <form class="d-flex px-5">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit"><mat-icon>search</mat-icon></button>
+        </form>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarActions" aria-controls="navbarActions" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarActions">
+        <div class="navbar-nav">
+          <a class="nav-item">{{fullName}}</a>
+          <a class="nav-link" href="#"><mat-icon>notifications</mat-icon></a>
+          <a class="nav-link" href="#"><mat-icon>settings</mat-icon></a>
+          <a class="nav-link" (click)="logout()"><mat-icon>exit_to_app</mat-icon></a>
+        </div>
       </div>
     </div>
+    <ng-template #noToken>
+      <a class="navbar-brand" routerLink="/register">Pastebook</a>
+      <a class="nav-link" routerLink="/login" id="login">Login</a>
+    </ng-template>
   </div>
 </nav>

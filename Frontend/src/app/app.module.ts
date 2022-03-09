@@ -51,7 +51,6 @@ const appRoutes: Routes = [
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    // Sidebar imports
     MatIconModule,
     MatDividerModule,
     MatListModule,
