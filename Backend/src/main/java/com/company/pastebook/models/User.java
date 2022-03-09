@@ -38,6 +38,7 @@ public class User {
     @Column
     private String mobileNumber;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date dateJoined;
 

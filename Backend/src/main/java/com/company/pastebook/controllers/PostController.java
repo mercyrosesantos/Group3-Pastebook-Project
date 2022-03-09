@@ -13,6 +13,7 @@ public class PostController {
     @Autowired
     PostService postService;
 
+    //Get User Profile
     @RequestMapping(value = "/api/profile/{timelineUserId}", method = RequestMethod.GET)
     ResponseEntity getUserTimeline (@PathVariable Long timelineUserId){
         return new ResponseEntity <> (postService.findByTimelineUserIdOrderByPostTimestampDesc(timelineUserId),HttpStatus.OK);
