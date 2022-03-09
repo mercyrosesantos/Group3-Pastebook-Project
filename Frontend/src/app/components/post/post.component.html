@@ -1,12 +1,11 @@
 <div class="card mb-3" id="postContainer">
     <div class="card-body">
-        <h4 class="card-title">{{ post.content }}</h4>
-        <p>{{ post.user?.firstName }} {{ post.user?.lastName }}</p>
+        <h4>{{ post.user?.firstName }} {{ post.user?.lastName }}</h4>
+        <p class="card-title">{{ post.content }}</p>
         <div>
-            <mat-icon>thumb_up</mat-icon>
+            <mat-icon (click)="createLikeReaction()">thumb_up</mat-icon>
             <!-- <button type="button" class="btn btn-primary" (click)="like()">Like</button>&nbsp; -->
-
-            <button type="button" class="btn btn-warning" (click)="comment()">Commnent</button>
+            <!-- <button type="button" class="btn btn-warning" (click)="comment()">Comment</button> -->
         </div>
     
     </div>
