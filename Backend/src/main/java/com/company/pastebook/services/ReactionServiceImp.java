@@ -18,6 +18,9 @@ public class ReactionServiceImp implements ReactionService {
     //Create Reaction
     public ResponseEntity createReaction(Reaction reaction) {
         reaction.setReactionTimestamp(new Date());
+        System.out.println("reactionType: " + reaction.getReactionType());
+        System.out.println("post: " + reaction.getPost());
+        System.out.println("user: " + reaction.getUser());
         reactionRepository.save(reaction);
         return new ResponseEntity<>("Reaction Recorded",HttpStatus.CREATED);
     }
