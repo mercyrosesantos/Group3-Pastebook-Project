@@ -16,7 +16,6 @@ public class ReactionController {
     //Create Reaction
     @RequestMapping(value="/reactions", method= RequestMethod.POST)
     public ResponseEntity<Object> createReaction(@RequestBody Reaction reaction){
-        System.out.println(reaction);
         return reactionService.createReaction(reaction);
     }
 

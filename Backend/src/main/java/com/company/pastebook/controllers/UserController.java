@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,20 +30,13 @@ public class UserController {
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
     public ResponseEntity<Object> createUser(@RequestBody User newUser) {
         HashMap<String, String> response = new HashMap<>();
-        LocalDate today = LocalDate.now();
 
-        user.save(new User(
-                newUser.getFirstName(),
-                newUser.getLastName(),
-                newUser.getEmail(),
-                newUser.getPassword(),
-                newUser.getBirthDay(),
-                newUser.getGender(),
-                newUser.getMobileNumber()
-        ));
-        String strDate = today.format(JsonFormat);
-        newUser.setDateJoined(today);
-        response.put("Result", "Added" +today);
+        newUser.setDateJoined(new Date());
+        user.save(newUser);
+
+//        String strDate = today.format(JsonFormat);
+//        newUser.setDateJoined(today);
+        response.put("Result", "Added");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
