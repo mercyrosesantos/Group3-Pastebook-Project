@@ -38,6 +38,15 @@ export class SessionService {
 
   setLastName(value: string): void {
     localStorage.setItem('lastName', value);
+ }
+
+  getEmail(): string {
+    return localStorage.getItem('email')!;
+  }
+
+  setEmail(value: string): void {
+    localStorage.setItem('email', value);
+
   }
 
   clear(): void {
@@ -45,3 +54,4 @@ export class SessionService {
     this.hasToken.emit(false);
   }
 }
+

@@ -1,5 +1,8 @@
 package com.company.pastebook.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -28,10 +31,14 @@ public class Reaction {
     private User user;
 
     @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
     @JoinColumn (name = "postId", nullable = true)
     private Post post;
 
     @OneToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
     @JoinColumn (name= "reactionTypeId", nullable = true)
     private ReactionType reactionType;
 

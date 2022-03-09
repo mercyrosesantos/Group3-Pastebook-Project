@@ -3,7 +3,6 @@ package com.company.pastebook.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -44,6 +43,12 @@ public class User {
 
     @Column
     private boolean isActive = true;
+
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+    @Column
+    private boolean enabled;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
@@ -148,5 +153,21 @@ public class User {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
