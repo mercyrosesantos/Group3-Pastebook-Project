@@ -29,8 +29,7 @@ public class UserController {
     UserRepository user;
 
     @Autowired
-    User 
-      ;
+    User userModel;
   
     @Autowired
     ReactionService reactionService;
