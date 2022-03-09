@@ -59,7 +59,7 @@ public class UserController {
 
     // Get User Profile
     @RequestMapping(value = "/api/profile/{userId}", method=RequestMethod.GET)
-    public ResponseEntity<Object> getUserProfile(@PathVariable long userid) {
-        return userService.getUserProfile(userid);
+    public ResponseEntity<Object> getUserProfile(@PathVariable long userId) {
+        return userService.getUserProfile(userId);
     }
 }
