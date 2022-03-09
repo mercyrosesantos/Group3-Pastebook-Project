@@ -1,12 +1,25 @@
-<div class="card mb-3" id="postContainer">
-    <div class="card-body">
-        <h4>{{ post.user?.firstName }} {{ post.user?.lastName }}</h4>
-        <p class="card-title">{{ post.content }}</p>
-        <div>
-            <mat-icon (click)="createLikeReaction()">thumb_up</mat-icon>
-            <!-- <button type="button" class="btn btn-primary" (click)="like()">Like</button>&nbsp; -->
-            <!-- <button type="button" class="btn btn-warning" (click)="comment()">Comment</button> -->
-        </div>
-    
+<div class="container">
+    <div class="row">
+        <div class="card mb-3 col-md-6 offset-md-3" id="postContainer">
+            <div class="card-body container">
+                 <div class="row">
+                    <h4 class = "col-sm-3">{{ post.user?.firstName }} {{ post.user?.lastName }}</h4>
+                 </div>
+                 <div class="row">
+                    <p class="card-title col-sm-11 offset-md-1">{{ post.content }}</p>
+                </div>
+                <div class="row">
+                    <mat-icon (click)="createLikeReaction()" class = "col-sm-1 offset-md-3">thumb_up</mat-icon>
+                    <div class = "col-sm-6">
+                        <textarea class="textinput" placeholder="Comment" [(ngModel)]="currentComment"></textarea>
+                        <br/>
+                        <!-- <input type="submit" value="comment" id="commentButton"> -->
+                        <button mat-raised-button (click)="createCommentReaction()">Comment</button>
+                    </div>
+                </div>
+                <div class = "col-sm-5" *ngFor="let comment of comments"> <b> {{comment.user?.firstName}} {{comment.user?.lastName}}</b> - {{comment.content}}
+                </div>
+            </div>
+        </div>        
     </div>
 </div>

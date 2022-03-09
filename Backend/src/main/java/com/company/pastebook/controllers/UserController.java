@@ -2,6 +2,7 @@ package com.company.pastebook.controllers;
 
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.UserRepository;
+import com.company.pastebook.services.ReactionService;
 import com.company.pastebook.services.UserService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.bytebuddy.utility.RandomString;
@@ -28,7 +29,11 @@ public class UserController {
     UserRepository user;
 
     @Autowired
-    User userModel;
+    User 
+      ;
+  
+    @Autowired
+    ReactionService reactionService;
 
     //    Register User
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
@@ -64,19 +69,26 @@ public class UserController {
     }
 
     //    Login
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/users/login", method = RequestMethod.POST)
     public ResponseEntity<Object> verifyUser(@RequestBody Map<String, String> body){
+        HashMap<String, String> response = new HashMap<>();
         String email = body.get("email");
-        if (userService.findByEmail(email).isPresent()){
-            ArrayList<String> input = new ArrayList<>();
-            input.add(body.get("password"));
-            if (userService.verifyUser(email).equals(input)) {
-                return new ResponseEntity<>("User successfully logged-in", HttpStatus.ACCEPTED);
+        User newUser = user.findByEmail(email);
+        if (newUser != null){
+            String input =  body.get("password");
+
+            boolean isMatched = new BCryptPasswordEncoder().matches(input, newUser.getPassword());
+            if (isMatched) {
+                response.put("result", "successful");
+                response.put("email", newUser.getEmail());
+                return new ResponseEntity<>(response, HttpStatus.OK);
             }else {
-                return new ResponseEntity<>("Invalid credentials.", HttpStatus.BAD_REQUEST);
+                response.put("result", "incorrect_credentials");
+                return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
             }
         } else{
-            return new ResponseEntity<>("User does not exist.", HttpStatus.BAD_REQUEST);
+            response.put("result", "user_not_found");
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -85,4 +97,6 @@ public class UserController {
     public ResponseEntity<Object> getUserProfile(@PathVariable long userId) {
         return userService.getUserProfile(userId);
     }
+
+
 }

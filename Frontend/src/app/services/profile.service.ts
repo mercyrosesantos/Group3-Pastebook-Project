@@ -11,8 +11,8 @@ import { User } from '@models/user';
 })
 export class ProfileService {
 
-  private baseUrl: string = environment.apiUrl + '/timeline/1';
-  private profileUrl: string = environment.apiUrl + '/profile/1';
+  private baseUrl: string = environment.apiUrl + '/timeline/4';
+  private profileUrl: string = environment.apiUrl + '/profile/4';
   private reactionUrl: string = environment.apiUrl + '/reactions';
 
   constructor(
@@ -31,7 +31,7 @@ export class ProfileService {
   }
 
   // Create Reactions
-  createReaction(reaction: any): Observable<String> {
-    return this.http.post<String>(this.reactionUrl,reaction);
+  createReaction(reaction: any): Observable<Object> {
+    return this.http.post(this.reactionUrl,reaction,{responseType: 'text'});
   }
 }

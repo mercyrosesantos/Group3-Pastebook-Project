@@ -42,9 +42,9 @@ public class UserServiceImp implements UserService {
     }
 
 //    Login
-    public Iterable<String> verifyUser(String email){
-        ArrayList<String> key = new ArrayList<>();
-        key.add(userRepository.findByEmail(email).getPassword());
+    public Iterable<User> verifyUser(String email){
+        ArrayList<User> key = new ArrayList<>();
+        key.add(userRepository.findByEmail(email));
         return key;
     }
 

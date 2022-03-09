@@ -14,9 +14,14 @@ public class ReactionController {
     ReactionService reactionService;
 
     //Create Reaction
-    @RequestMapping(value="/reactions", method= RequestMethod.POST)
+    @RequestMapping(value="/api/reactions", method= RequestMethod.POST)
     public ResponseEntity<Object> createReaction(@RequestBody Reaction reaction){
         return reactionService.createReaction(reaction);
     }
 
+    //Get Comments by Post
+    @RequestMapping(value = "/api/comments/{postId}", method=RequestMethod.GET)
+    public ResponseEntity<Object> getCommentsByPost(@PathVariable long postId) {
+        return reactionService.getCommentsByPost(postId);
+    }
 }
