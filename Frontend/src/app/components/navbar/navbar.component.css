@@ -1,7 +1,12 @@
-#navbarContainer {
-    display: inline-flex;
+#navContainer {
+    display: flex;
+    /* justify-content: space-around; */
+    flex-direction: row;
+    align-items: baseline;
 }
 
-#form {
-    padding: 0;
+#navbarPeople {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 }

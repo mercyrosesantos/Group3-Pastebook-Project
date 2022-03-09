@@ -22,7 +22,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 
 const appRoutes: Routes = [
-  // { path: '', component: HomeComponent }, // http://localhost:4200/
+  { path: '', component: HomeComponent }, // http://localhost:4200/
   { path: 'profile', component: ProfileComponent },
   // { path: 'login', component: LoginComponent },
   // { path: 'register', component: RegisterComponent },
@@ -43,7 +43,6 @@ const appRoutes: Routes = [
     NgbModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    // Sidebar imports
     MatIconModule,
     MatDividerModule,
     MatListModule,
