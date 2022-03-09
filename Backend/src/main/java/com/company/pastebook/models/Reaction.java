@@ -1,5 +1,7 @@
 package com.company.pastebook.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -28,10 +30,12 @@ public class Reaction {
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn (name = "postId", nullable = true)
     private Post post;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn (name= "reactionTypeId", nullable = true)
     private ReactionType reactionType;
 

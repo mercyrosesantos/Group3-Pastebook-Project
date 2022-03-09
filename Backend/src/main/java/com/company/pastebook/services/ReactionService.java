@@ -7,4 +7,7 @@ public interface ReactionService {
 
     //Create Reaction
     ResponseEntity createReaction(Reaction reaction);
+
+    //Get Comments by Post
+    public ResponseEntity getCommentsByPost(Long postId);
 }
