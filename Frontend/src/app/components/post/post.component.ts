@@ -4,6 +4,8 @@ import { Post } from '@models/post';
 import { ProfileService } from '@services/profile.service';
 import { ReactionService } from '@services/reaction.service';
 import { Reaction } from '@models/reaction';
+import { LikeInformation } from '@models/like-information';
+import { User } from '@models/user';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -15,6 +17,8 @@ export class PostComponent implements OnInit {
   comments?: Reaction[];
   currentComment?: string;
 
+  likeInformation?: LikeInformation = new LikeInformation();
+
   constructor(
     private profileService: ProfileService,
     private reactionService: ReactionService
@@ -24,6 +28,7 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCommentsFromPost();
+    this.getLikesFromPost();
   }
 
   //Create like Reaction
@@ -41,6 +46,7 @@ export class PostComponent implements OnInit {
     }
     console.log("test")
     this.profileService.createReaction(likeReaction).subscribe((response: Object) => {
+      this.getLikesFromPost();
     });
   }
 
@@ -58,8 +64,6 @@ export class PostComponent implements OnInit {
       },
       "content": this.currentComment
     }
-
-    console.log("test")
     this.profileService.createReaction(commentReaction).subscribe((response: Object) => {
       this.currentComment = '';
       this.getCommentsFromPost();
@@ -70,6 +74,35 @@ export class PostComponent implements OnInit {
   getCommentsFromPost() {
     this.reactionService.getCommentsByPost(this.post.id).subscribe((response: Reaction[]) => {
       this.comments = response;
+      
     });
+  }
+
+  //Get Likes from Post
+  getLikesFromPost() {
+    this.reactionService.getLikesByPost(this.post.id).subscribe((response: User[]) => {
+      this.likeInformation = new LikeInformation();
+      this.likeInformation.like = response.length;
+      this.likeInformation.users = response;
+      this.likeInformation.likeIds = new Set<number>();
+      for (let user of response) {
+        if (user?.id != undefined) {
+          this.likeInformation.likeIds.add(user?.id!);
+        }
+      }
+    });
+  }
+
+  //To check if the user liked the post
+  isCurrentUserLiked(): boolean {
+    let isCurrentlyLiked = false;
+    isCurrentlyLiked = this.likeInformation?.likeIds?.has(1)!;
+    return isCurrentlyLiked;
+  }
+
+  
+  //Show users who liked the post(not in use yet)
+  formatLikers() {
+    return JSON.stringify(this.likeInformation?.users);
   }
 }

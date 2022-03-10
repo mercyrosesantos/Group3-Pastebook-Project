@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { Post } from '@models/post';
 import { Reaction } from '@models/reaction';
+import { User } from '@models/user';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ import { Reaction } from '@models/reaction';
 export class ReactionService {
 
   private commentsByPostUrl: string = environment.apiUrl + '/comments/';
+  private likesByPostUrl: string = environment.apiUrl + '/likes/';
 
   constructor(
     private http: HttpClient
@@ -22,5 +24,10 @@ export class ReactionService {
   // Get Comments by Post
   getCommentsByPost(postId?: number): Observable<Reaction[]> {
     return this.http.get<Reaction[]>(this.commentsByPostUrl+postId);
+  }
+
+  // Get Likes by Post
+  getLikesByPost(postId?: number): Observable<User[]> {
+    return this.http.get<User[]>(this.likesByPostUrl+postId);
   }
 }

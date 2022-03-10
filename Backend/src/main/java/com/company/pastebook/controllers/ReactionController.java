@@ -24,4 +24,9 @@ public class ReactionController {
     public ResponseEntity<Object> getCommentsByPost(@PathVariable long postId) {
         return reactionService.getCommentsByPost(postId);
     }
+    //Get Likes by Post
+    @RequestMapping(value = "/api/likes/{postId}", method=RequestMethod.GET)
+    public ResponseEntity<Object> getLikesByPost(@PathVariable long postId) {
+        return reactionService.getLikesByPost(postId);
+    }
 }

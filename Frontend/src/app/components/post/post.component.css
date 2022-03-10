@@ -1,9 +1,9 @@
 .textinput {
-    float: left;
     width: 100%;
-    min-height: 75px;
+    min-height: 30px;
     outline: none;
     resize: auto;
     border: 1px solid grey;
     margin-bottom: 3px;
+    background-color: darkgray;
 }
