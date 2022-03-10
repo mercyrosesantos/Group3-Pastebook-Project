@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Post } from '@models/post';
-import { SessionService } from './session.service';
 import { Observable } from 'rxjs';
+
+import { SessionService } from './session.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class SearchService {
 
-  private baseUrl: string = environment.apiUrl + '/posts';
-  private createPostUrl: string = environment.apiUrl + '/posts/create'
+  private baseUrl: string = environment.apiUrl + '/search/';
   private httpHeaders: HttpHeaders = new HttpHeaders({
     'Authorization': `${this.sessionService.getToken()}`
   })
 
   constructor(
     private http: HttpClient,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private userService: UserService
   ) { }
 
-  add(post: Post): Observable<Object> {
-    return this.http.post(this.createPostUrl, post);
+  searchAll(searchTerm: string): Observable<Object> { 
+    return this.http.get<Object>(`${this.baseUrl}${searchTerm}`);
   }
 
 }

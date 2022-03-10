@@ -20,7 +20,7 @@ public class SearchServiceImp implements SearchService {
          ArrayList<String> userFound = new ArrayList<>();
          ArrayList<ArrayList<String>> searchResult = new ArrayList<>();
          for(User user: userRepository.findAll()){
-             if (user.getFirstName().equalsIgnoreCase(keyword)||user.getLastName().equalsIgnoreCase(keyword)){
+             if (user.getFirstName().equalsIgnoreCase(keyword)||user.getLastName().equalsIgnoreCase(keyword)) {
                  userFound.add(user.getFirstName() + " " + user.getLastName());
                  // userFound.add(user.getProfileLink());
                  searchResult.add(userFound);

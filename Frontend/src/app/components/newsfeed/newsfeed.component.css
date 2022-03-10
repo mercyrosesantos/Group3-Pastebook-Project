@@ -11,3 +11,6 @@
     overflow-y: scroll;
 }
 
+app-create-post {
+    align-self: center;
+}
