@@ -19,6 +19,10 @@ export class SessionService {
     return localStorage.getItem('token')!;
   }
 
+  getUserId(): any {
+    return localStorage.getItem('userId')!;
+  }
+
   getFirstName(): string {
     return localStorage.getItem('firstName')!;
   }
@@ -30,6 +34,10 @@ export class SessionService {
   setToken(value: string): void {
     this.hasToken.emit(true);
     localStorage.setItem('token', value);
+  }
+
+  setUserId(value: any): void {
+    localStorage.setItem('userId', value);
   }
 
   setFirstName(value: string): void {

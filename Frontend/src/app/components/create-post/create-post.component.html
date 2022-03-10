@@ -5,11 +5,11 @@
     </div>
     <div class="card-body">
         <!-- Include route for post creation -->
-      <form action="">
-        <textarea class="textinput" placeholder="What's on your mind?"></textarea>
+      <form (ngSubmit)="onSubmit()">
+        <textarea type="text" class="form-control" [(ngModel)]="content" name="content" placeholder="What's on your mind?"></textarea>
         <br/>
         <!-- To do: Verify if content is properly captured when submitted -->
-        <input type="submit" value="Post" id="postButton" (click)="addPost()">
+        <button class="btn btn-primary" type="submit" id="postButton">Post</button>
       </form>
     </div>
 </div>

@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class PostService {
 
   private baseUrl: string = environment.apiUrl + '/posts';
+  private createPostUrl: string = environment.apiUrl + '/posts/create'
   private httpHeaders: HttpHeaders = new HttpHeaders({
     'Authorization': `${this.sessionService.getToken()}`
   })
@@ -22,7 +23,7 @@ export class PostService {
   ) { }
 
   add(post: Post): Observable<Object> {
-    return this.http.put(this.baseUrl + `/${post.id}`, post, {headers: this.httpHeaders});
+    return this.http.post(this.createPostUrl, post);
   }
 
 }
