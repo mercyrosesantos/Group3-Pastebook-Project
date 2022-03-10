@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @CrossOrigin
 public class SearchController {
@@ -15,8 +13,8 @@ public class SearchController {
     SearchService searchService;
 
     // Search user
-    @RequestMapping(value = "/api/search", method = RequestMethod.GET)
-    public ResponseEntity<Object> searchUser(@RequestBody Map<String, String> body){
-        return searchService.searchUser(body.get("keyword"));
+    @RequestMapping(value = "/api/search/{keyword}", method = RequestMethod.GET)
+    public ResponseEntity<Object> searchUser(@PathVariable String keyword){
+        return searchService.searchUser(keyword);
     }
 }

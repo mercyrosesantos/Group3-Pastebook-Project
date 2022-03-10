@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 import { Post } from '@models/post';
 import { PostService } from '@services/post.service';
@@ -17,6 +19,7 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private postService: PostService,
+    private router: Router,
     private sessionService: SessionService
   ) { }
 
@@ -40,6 +43,13 @@ export class CreatePostComponent implements OnInit {
     this.postService.add(post).subscribe((response: Object) => {
       console.log(response);
     });
+    Swal.fire({
+      title: 'Post uploaded',
+      text: 'Your post has been created successfully!',
+      icon: 'success'
+    }).then(() => {
+      this.router.navigate(['/']);
+    })
   }
 
 }
