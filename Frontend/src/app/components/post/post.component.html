@@ -4,6 +4,7 @@
             <div class="card-body container p-3 rounded" style=" background-color: lightgray;">
                  <div class="row rounde" >
                     <h4 class = "col-sm-3">{{ post.user?.firstName }} {{ post.user?.lastName }}</h4>
+                    {{formattedPostTimeStamp}}
                  </div>
                  <div class="row rounded p-2" style=" background-color: gray; ">
                     <p class="col-sm-12">{{ post.content }}</p>

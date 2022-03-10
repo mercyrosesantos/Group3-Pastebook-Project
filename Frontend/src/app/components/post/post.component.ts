@@ -6,6 +6,7 @@ import { ReactionService } from '@services/reaction.service';
 import { Reaction } from '@models/reaction';
 import { LikeInformation } from '@models/like-information';
 import { User } from '@models/user';
+import * as moment from 'moment';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -16,6 +17,7 @@ export class PostComponent implements OnInit {
   @Input() post!: Post;
   comments?: Reaction[];
   currentComment?: string;
+  formattedPostTimeStamp?: string;
 
   likeInformation?: LikeInformation = new LikeInformation();
 
@@ -74,7 +76,7 @@ export class PostComponent implements OnInit {
   getCommentsFromPost() {
     this.reactionService.getCommentsByPost(this.post.id).subscribe((response: Reaction[]) => {
       this.comments = response;
-      
+      this.formattedPostTimeStamp = moment(this.post.postTimestamp).format('MMMM DD, YYYY HH:mm:ss');
     });
   }
 

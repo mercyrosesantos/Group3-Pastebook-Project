@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 public interface PostService {
 
     //Get User Profile
-    Iterable<Post> findByTimelineUserIdOrderByPostTimestampDesc(Long timelineUserId);
+    Iterable<Post> findByTimelineUserIdOrderByPostTimestampDesc(Long timelineUserId,Long pageNo);
     // Create Post
     ResponseEntity createPost(Post post);
 }
