@@ -29,4 +29,9 @@ public class ReactionServiceImp implements ReactionService {
     public ResponseEntity getCommentsByPost(Long postId) {
         return new ResponseEntity(reactionRepository.findByReactionTypeIdAndPostId(2l, postId),HttpStatus.OK);
     }
+
+    //Get Likes by Post
+    public ResponseEntity getLikesByPost(Long postId) {
+        return new ResponseEntity(reactionRepository.findLikedUsers(postId), HttpStatus.OK);
+    }
 }
