@@ -10,4 +10,8 @@ public interface ReactionService {
 
     //Get Comments by Post
     public ResponseEntity getCommentsByPost(Long postId);
+
+    //Get Likes by Post
+    public ResponseEntity getLikesByPost(Long postId);
+
 }

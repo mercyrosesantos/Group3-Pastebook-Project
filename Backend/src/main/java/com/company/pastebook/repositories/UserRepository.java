@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, Object> {
 //    Find user by email
     @Query(value = "SELECT * FROM users WHERE email = ?1 LIMIT 1", nativeQuery = true)
     User findByEmail(String email);
+
+
 }
