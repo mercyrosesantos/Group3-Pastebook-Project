@@ -25,4 +25,8 @@ export class UserService {
   register(user: User): Observable<Object> {
     return this.http.post(this.registerUrl, user);
   }
+
+  getAll(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl);
+  }
 }

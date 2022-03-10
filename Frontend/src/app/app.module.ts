@@ -30,6 +30,7 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  // { path: 'search/searchTerm', component: SearchComponent }
   // { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
