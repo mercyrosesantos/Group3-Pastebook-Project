@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
 
   posts: Post[] = [];
   user: User = new User();
+  pageNo: number = 0;
   formattedBirthday?: string;
     constructor(
       private profileService: ProfileService
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit {
 
   // Get Posts
   getPosts() {
-    this.profileService.getUserTimeline().subscribe((response: Post[]) => {
+    this.profileService.getUserTimeline(this.pageNo).subscribe((response: Post[]) => {
       this.posts = response;
     })
   }

@@ -2,13 +2,13 @@
     <app-sidebar></app-sidebar> 
     <div class="mainpage">
         <div class="card-group">
-            <div class="card text-black bg-secondary mb-3">
+            <div class="card text-black bg-secondary border-0">
                 <img class="card-img-top" src="" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
                 </div>
             </div>
-            <div class="card text-black bg-secondary mb-3">
+            <div class="card text-black bg-secondary border-0">
                 <div class="card-body">
                     <h5 class="card-title">About Me</h5>
                     <ul class="list-unstyled card-text">
@@ -19,7 +19,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="card text-black bg-secondary mb-3">
+            <div class="card text-black bg-secondary border-0">
                 <div class="card-body">
                     <h5 class="card-title">Albums</h5>
                 </div>
@@ -27,9 +27,8 @@
         </div>
         <div style=" background-color: lightgray;">
             <div class="row rounded">
-                <app-create-post class="col-sm-8 offset-md-2"></app-create-post>
+                <app-create-post class="col-sm-9 offset-md-2"></app-create-post>
             </div>
-            
             <app-post *ngFor="let post of posts" [post] = "post">{{post.content}}</app-post>
         </div>
     </div>
