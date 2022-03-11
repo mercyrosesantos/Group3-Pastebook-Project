@@ -17,7 +17,7 @@ public class PostServiceImp implements PostService{
 
     //Get User Profile
     public Iterable<Post> findByTimelineUserIdOrderByPostTimestampDesc(Long timelineUserId,Long pageNo) {
-        Pageable myPage = PageRequest.of(pageNo.intValue(),10);
+        Pageable myPage = PageRequest.of(pageNo.intValue(),1);
         return postRepository.findByTimelineUserIdOrderByPostTimestampDesc(timelineUserId,myPage);
     }
 

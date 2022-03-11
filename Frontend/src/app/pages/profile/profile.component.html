@@ -3,14 +3,35 @@
     <div class="mainpage">
         <div class="card-group">
             <div class="card text-black bg-secondary border-0">
-                <img class="card-img-top" src="" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img class="card-img-top" src={{photoSrc}} class="rounded-circle"  width="100" height="110">
+                       
+                        <button mat-button class="mat-icon-button"> 
+                            ​<mat-icon >photo_camera</mat-icon>​
+                        </button>
+                       
+                        
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5><br>
+                            <div class="row">
+                                <mat-icon class="col-md-6">edit</mat-icon>
+                                <h6 class="Card-text col-md-6">About Me</h6> 
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+                        </div>
+                    </div> 
                 </div>
-            </div>
+            </div>        
+               
             <div class="card text-black bg-secondary border-0">
                 <div class="card-body">
-                    <h5 class="card-title">About Me</h5>
+                    <div class="row">
+                        <mat-icon class="col-md-6">edit</mat-icon>
+                        <h5 class="card-title col-md-8">Profile Information</h5>
+                    </div>
                     <ul class="list-unstyled card-text">
                         <li>Birth Date: {{formattedBirthday}}</li>
                         <li>Email: {{user.email}}</li>
@@ -30,6 +51,11 @@
                 <app-create-post class="col-sm-9 offset-md-2"></app-create-post>
             </div>
             <app-post *ngFor="let post of posts" [post] = "post">{{post.content}}</app-post>
+            <div class="d-flex align-items-center" *ngIf ="isLoading">
+                <strong>Loading...</strong>
+                <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+              </div>
+              
         </div>
     </div>
 </div>

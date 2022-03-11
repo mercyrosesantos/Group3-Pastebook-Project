@@ -33,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { PhotoComponent } from './components/photo/photo.component';
 
 
 const appRoutes: Routes = [
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     NewsfeedComponent,
     HomeComponent,
     LoginComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    PhotoComponent
   ],
   imports: [
     BrowserModule,

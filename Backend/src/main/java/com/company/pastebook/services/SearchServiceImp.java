@@ -26,9 +26,9 @@ public class SearchServiceImp implements SearchService {
                  searchResult.add(userFound);
              }
          }
-         if (searchResult.isEmpty()){
+         if (userFound.isEmpty()){
              return new ResponseEntity("No user found.", HttpStatus.BAD_REQUEST);
          }
-         return new ResponseEntity(searchResult, HttpStatus.OK);
+         return new ResponseEntity(userFound, HttpStatus.OK);
     }
 }

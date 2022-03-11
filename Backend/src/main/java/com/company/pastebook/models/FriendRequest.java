@@ -21,7 +21,7 @@ public class FriendRequest {
 
     // Requestor Id
     @Column
-    private Long requestorId;
+        private Long requestorId;
 
     // Requestee Id
     @ManyToOne
