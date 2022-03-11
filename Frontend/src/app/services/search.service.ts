@@ -23,8 +23,8 @@ export class SearchService {
     private userService: UserService
   ) { }
 
-  searchAll(searchTerm: string): Observable<User> { 
-    return this.http.get<User>(`${this.baseUrl}${searchTerm}`);
+  searchAll(searchTerm: string): Observable<Object> { 
+    return this.http.get(`${this.baseUrl}${searchTerm}`);
   }
 
 }

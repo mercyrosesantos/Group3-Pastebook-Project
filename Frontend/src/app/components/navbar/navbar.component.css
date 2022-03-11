@@ -27,3 +27,8 @@
     margin-left: auto;
     color: white;
 }
+
+#result {
+    margin-left: auto;
+    width: 80%;
+}
