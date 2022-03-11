@@ -34,6 +34,26 @@ public class Post {
     @JsonIgnore
     private Set<Reaction> postReactions;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<Reaction> getPostReactions() {
+        return postReactions;
+    }
+
+    public void setPostReactions(Set<Reaction> postReactions) {
+        this.postReactions = postReactions;
+    }
+
+    public User getTimelineUser() {
+        return timelineUser;
+    }
+
+    public void setTimelineUser(User timelineUser) {
+        this.timelineUser = timelineUser;
+    }
+
     @ManyToOne
     @JoinColumn (name = "timelineUserId", nullable = true)
     private User timelineUser;
