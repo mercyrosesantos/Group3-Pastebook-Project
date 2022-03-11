@@ -17,11 +17,12 @@ public class SearchServiceImp implements SearchService {
 
     // Display all matches (users and posts)
      public ResponseEntity<Object> searchUser(String keyword){
-         ArrayList<String> userFound = new ArrayList<>();
-         ArrayList<ArrayList<String>> searchResult = new ArrayList<>();
+         ArrayList<User> userFound = new ArrayList<>();
+         ArrayList<ArrayList<User>> searchResult = new ArrayList<>();
          for(User user: userRepository.findAll()){
              if (user.getFirstName().equalsIgnoreCase(keyword)||user.getLastName().equalsIgnoreCase(keyword)) {
-                 userFound.add(user.getFirstName() + " " + user.getLastName());
+                 userFound.add(user);
+                 // userFound.add(user.getFirstName() + " " + user.getLastName());
                  // userFound.add(user.getProfileLink());
                  searchResult.add(userFound);
              }
@@ -29,6 +30,6 @@ public class SearchServiceImp implements SearchService {
          if (searchResult.isEmpty()){
              return new ResponseEntity("No user found.", HttpStatus.BAD_REQUEST);
          }
-         return new ResponseEntity(searchResult, HttpStatus.OK);
+         return new ResponseEntity(searchResult.get(0), HttpStatus.OK);
     }
 }

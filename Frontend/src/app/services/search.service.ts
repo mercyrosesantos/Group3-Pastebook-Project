@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { SessionService } from './session.service';
 import { UserService } from './user.service';
+import { User } from '@models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class SearchService {
   ) { }
 
   searchAll(searchTerm: string): Observable<Object> { 
-    return this.http.get<Object>(`${this.baseUrl}${searchTerm}`);
+    return this.http.get(`${this.baseUrl}${searchTerm}`);
   }
 
 }

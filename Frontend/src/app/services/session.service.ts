@@ -47,7 +47,7 @@ export class SessionService {
 
   setLastName(value: string): void {
     localStorage.setItem('lastName', value);
- }
+  }
 
   getEmail(): string {
     return localStorage.getItem('email')!;
@@ -55,7 +55,14 @@ export class SessionService {
 
   setEmail(value: string): void {
     localStorage.setItem('email', value);
+  }
 
+  getKeyword(): string {
+    return localStorage.getItem('keyword')!;
+  }
+
+  setKeyword(value: string): void {
+    localStorage.setItem('keyword', value);
   }
 
   clear(): void {

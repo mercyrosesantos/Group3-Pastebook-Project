@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <div class="card" style="width: 50%;">
+        <div class="card-body">
+          <a class="card-title" routerLink="/search"><h5>Search Result</h5></a>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let user of result">
+            <div class="card" style="width: 18rem;">
+                <!-- <img src="profilePic" class="card-img-top" alt="..."> -->
+                <div class="card-body">
+                  <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
+                  <a routerLink="/profile/{{user.id}}" class="btn btn-primary">Visit Profile</a>
+                </div>
+              </div>
+          </li>
+        </ul>
+    </div>
+</div>
