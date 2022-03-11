@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { SessionService } from '@services/session.service';
-import { SearchService } from '@services/search.service';
 import { concat, Observable } from 'rxjs';
 
 @Component({
@@ -13,8 +13,8 @@ import { concat, Observable } from 'rxjs';
 export class NavbarComponent implements OnInit {
 
   // uncomment once other specs are complete:
-  // hasToken: boolean = (localStorage.getItem('token') !== null);
-  hasToken: boolean = true;
+  hasToken: boolean = (localStorage.getItem('token') !== null);
+  // hasToken: boolean = true;
   firstName: String = localStorage.getItem('firstName')!;
   lastName: String = localStorage.getItem('lastName')!;
   fullName: Observable<String> = concat(this.firstName, " ", this.lastName);
@@ -22,8 +22,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private sessionService: SessionService,
-    private searchService: SearchService
+    private route: ActivatedRoute,
+    private sessionService: SessionService
   ) {
 
     sessionService.hasToken.subscribe(hasToken => {
@@ -38,11 +38,14 @@ export class NavbarComponent implements OnInit {
   }
 
   onSubmit(){
+
     console.log(this.keyword);
+    this.sessionService.setKeyword(this.keyword);
 
-    let result = this.searchService.searchAll(this.keyword);
+    let searchUrl = '/search/' + this.keyword;
 
-    console.log(result);
+    this.router.navigate([searchUrl]);
+
   }
 
   logout(): void {

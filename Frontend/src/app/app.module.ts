@@ -34,14 +34,15 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PhotoComponent } from './components/photo/photo.component';
+import { ResultComponent } from './pages/result/result.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }, // http://localhost:4200/
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile/:id', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  // { path: 'search', component: SearchComponent }
+  { path: 'search/:keyword', component: ResultComponent }
   // { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
@@ -56,7 +57,8 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     CreatePostComponent,
-    PhotoComponent
+    PhotoComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,

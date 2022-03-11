@@ -8,7 +8,7 @@
         <!-- Include display latest posts code here -->
         <!-- *ngFor posts array -->
         <div class="card-body" id="indivPost">
-            <app-post></app-post>
+            <app-post *ngFor="let post of posts" [post]="post">{{post.content}}</app-post>
         </div>
     </div>
 </div>
