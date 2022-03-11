@@ -8,6 +8,7 @@ export class Post {
         public isActive?: boolean,
         public userId?: number,
         public user?: User,
-        public timelineUserId?: number
+        public timelineUserId?: number,
+        public timelineUser?: User
     ) {}
 }

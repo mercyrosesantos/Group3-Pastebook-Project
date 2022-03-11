@@ -75,6 +75,7 @@ public class UserController {
                 response.put("result", "successful");
                 response.put("email", newUser.getEmail());
                 response.put("token", generateToken(newUser.getId(), newUser.getEmail()));
+                response.put("id", newUser.getId().toString());
                 return new ResponseEntity<>(response , HttpStatus.OK);
             }else {
                 response.put("result", "incorrect_credentials");
