@@ -15,9 +15,9 @@ public class PostController {
     PostService postService;
 
     //Get User Profile
-    @RequestMapping(value = "/api/timeline/{timelineUserId}", method = RequestMethod.GET)
-    ResponseEntity getUserTimeline (@PathVariable Long timelineUserId){
-        return new ResponseEntity <> (postService.findByTimelineUserIdOrderByPostTimestampDesc(timelineUserId),HttpStatus.OK);
+    @RequestMapping(value = "/api/timeline/{timelineUserId}/{pageNo}", method = RequestMethod.GET)
+    ResponseEntity getUserTimeline (@PathVariable Long timelineUserId, @PathVariable Long pageNo){
+        return new ResponseEntity <> (postService.findByTimelineUserIdOrderByPostTimestampDesc(timelineUserId,pageNo),HttpStatus.OK);
     }
 
     // Create Post

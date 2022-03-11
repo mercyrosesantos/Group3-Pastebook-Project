@@ -1,42 +1,92 @@
-<form (ngSubmit)="onSubmit()" class = "mainpage">
+<form (ngSubmit)="onSubmit()" class="mainpage">
     <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <label for="validationDefault01">First name</label>
-            <input type="text" class="form-control" [(ngModel)]="firstName" name="firstName" id="validationDefault01" placeholder="First name" required>
+        <!-- First Name -->
+        <div>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input type="text" matInput [formControl]="firstNameFormControl" [errorStateMatcher]="matcher" [(ngModel)]="firstName" name="firstName"
+                    placeholder="Ex. John, Jane, Michael">
+                    <mat-error *ngIf="firstNameFormControl.hasError('text') && !firstNameFormControl.hasError('required')">
+                        Please enter a valid First Name
+                    </mat-error>
+                    <mat-error *ngIf="firstNameFormControl.hasError('required')">
+                        First Name is <strong>required</strong>
+                    </mat-error>
+            </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
-            <label for="validationDefault02">Last name</label>
-            <input type="text" class="form-control" [(ngModel)]="lastName" name="lastName" id="validationDefault02" placeholder="Last name" required>
+        <!-- Last Name -->
+        <div>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input type="text" matInput [formControl]="lastNameFormControl" [errorStateMatcher]="matcher" [(ngModel)]="lastName" name="lastName"
+                    placeholder="Ex. Williams, Doe, Smith">
+                    <mat-error *ngIf="lastNameFormControl.hasError('text') && !lastNameFormControl.hasError('required')">
+                        Please enter a valid Last Name
+                    </mat-error>
+                    <mat-error *ngIf="lastNameFormControl.hasError('required')">
+                        Last Name is <strong>required</strong>
+                    </mat-error>
+            </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
-            <label for="validationDefault03">Email</label>
-            <input type="text" class="form-control" [(ngModel)]="email" name="email" id="validationDefault03" placeholder="Email" required>
+        <!-- Password -->
+        <div>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput [formControl]="passwordFormControl" [errorStateMatcher]="matcher" [(ngModel)]="password" name="password">
+                    <mat-error *ngIf="passwordFormControl.hasError('password') && !passwordFormControl.hasError('required')">
+                        Minimum eight characters, at least one letter, one number and one symbol
+                    </mat-error>
+                    <mat-error *ngIf="passwordFormControl.hasError('required')">
+                        Password must contain minimum eight characters, at least one letter, one number and one symbol 
+                    </mat-error>
+            </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
-            <label for="InputPassword1">Password</label>
-            <input type="password" class="form-control" [(ngModel)]="password" name="password" id="InputPassword1" placeholder="Password" required>
+        <!-- Email -->
+        <div>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" [(ngModel)]="email"
+                    placeholder="Ex. johndoe@example.com">
+                    <mat-error *ngIf="emailFormControl.hasError('text') && !emailFormControl.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+            </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
-            <label for="InputDate1">Date</label>
-            <input type="date" class="form-control" [(ngModel)]="birthDay" name="birthDay" id="InputDate1" placeholder="Date" required>
+        <!-- Birthday -->
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Birthday</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="birthDay" name="birthDay">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
-            <label for="validationDefault04">Gender</label>
-            <input type="text" class="form-control" [(ngModel)]="gender" name="gender" id="validationDefault04" placeholder="Gender">
+        <!-- Gender -->
+        <div>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Gender</mat-label>
+                <input type="text" matInput [(ngModel)]="gender" name="gender"
+                    placeholder="Ex. Male, Female, Others">
+            </mat-form-field>
         </div>
-        <div class="col-md-4 mb-3">
-            <label for="validationDefault05">Mobile Number</label>
-            <input type="text" class="form-control" [(ngModel)]="mobileNumber" name="mobileNumber" id="validationDefault05" placeholder="Mobile Number" required>
+        <!-- Mobile Number -->
+        <div>
+            <mat-form-field class="full-width" appearance="fill">
+                <mat-label>Mobile Number</mat-label>
+                <input type="text" matInput [formControl]="numberFormControl" [errorStateMatcher]="matcher" [(ngModel)]="mobileNumber" name="mobileNumber"
+                    placeholder="Ex. 09123456789">
+                    <mat-error *ngIf="numberFormControl.hasError('text') || !numberFormControl.hasError('required')">
+                        Please enter a Mobile Number
+                    </mat-error>
+                    <mat-error *ngIf="numberFormControl.hasError('required')">
+                        Email or Mobile Number is <strong>required</strong>
+                    </mat-error>
+            </mat-form-field>
         </div>
-        
     </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-            <label class="form-check-label" for="invalidCheck2">
-                Agree to terms and conditions
-            </label>
-        </div>
-    </div>
+    <!-- Submit Button -->
     <button class="btn btn-primary" type="submit">Submit form</button>
 </form>

@@ -1,10 +1,14 @@
 package com.company.pastebook.controllers;
 
+import com.company.pastebook.Constants;
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.ReactionService;
 import com.company.pastebook.services.UserService;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -70,7 +74,8 @@ public class UserController {
             if (isMatched) {
                 response.put("result", "successful");
                 response.put("email", newUser.getEmail());
-                return new ResponseEntity<>(response, HttpStatus.OK);
+                response.put("token", generateToken(newUser.getId(), newUser.getEmail()));
+                return new ResponseEntity<>(response , HttpStatus.OK);
             }else {
                 response.put("result", "incorrect_credentials");
                 return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -86,6 +91,22 @@ public class UserController {
     public ResponseEntity<Object> getUserProfile(@PathVariable long userId) {
         return userService.getUserProfile(userId);
     }
+
+    // Generate token
+    private String generateToken(Long id, String email) {
+        long timestamp = System.currentTimeMillis();
+        JwtBuilder builder = Jwts.builder().signWith(SignatureAlgorithm.HS256, Constants.API_SECRET_KEY);
+
+        builder = builder.setIssuedAt(new Date(timestamp));
+        builder = builder.setExpiration(new Date(timestamp + Constants.TOKEN_VALIDITY));
+
+        builder = builder.claim("id", id);
+        builder = builder.claim("email", email);
+
+        return builder.compact();
+    }
+
+
 
 
 }

@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 
   successfulLogin(response: Record<string, any>){
     this.sessionService.setEmail(response['email']);
+    this.sessionService.setUserId(response['id']);
     // this.sessionService.setIsAdmin(response['isAdmin']);
     // this.sessionService.setToken(response['token']);
     this.router.navigate(['']);

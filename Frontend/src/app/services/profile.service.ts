@@ -21,8 +21,8 @@ export class ProfileService {
   ) { }
 
   // Get Posts
-  getUserTimeline(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.baseUrl);
+  getUserTimeline(pageNo: number): Observable<Post[]> {
+    return this.http.get<Post[]>(this.baseUrl + '/' + pageNo);
   }
 
   // Get User Profile

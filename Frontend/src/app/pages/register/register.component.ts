@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { User } from '@models/user';
 import { UserService } from '@services/user.service';
 import * as moment from 'moment';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -9,6 +18,16 @@ import * as moment from 'moment';
 })
 export class RegisterComponent implements OnInit {
 
+  // Error Validations
+  firstNameFormControl = new FormControl('', Validators.required);
+  lastNameFormControl = new FormControl('', Validators.required);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]);
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  numberFormControl = new FormControl('', [Validators.required, Validators.pattern('^.{8,15}[0-9]*$')]);
+  birthdayFormControl = new FormControl('', Validators.required);
+  matcher = new MyErrorStateMatcher();
+
+  // Variable Declarations
   firstName: string = "";
   lastName: string = "";
   email: string = "";
@@ -18,13 +37,11 @@ export class RegisterComponent implements OnInit {
   mobileNumber: string = "";
   formattedBirthday?: Date;
 
-
   constructor(
     private userService: UserService
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onSubmit() {
     console.log(this.firstName);
@@ -53,5 +70,4 @@ export class RegisterComponent implements OnInit {
       console.log(response); 
     });
   }
-
 }
