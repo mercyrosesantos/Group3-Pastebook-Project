@@ -61,12 +61,25 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<Reaction> userReactions;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Photo> userPhoto;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Album> userAlbum;
+
+    @OneToOne
+    @JoinColumn (name = "photoId", nullable = true)
+    private Photo photo;
+
     // Constructors
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password, Date birthDay, String gender, String mobileNumber, String dateJoined) {
+    public User(String firstName, String lastName, String email, String password, Date birthDay, String gender, String mobileNumber, String dateJoined, boolean isActive) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -75,12 +88,16 @@ public class User {
         this.gender = gender;
         this.mobileNumber = mobileNumber;
         this.dateJoined = dateJoined;
+        this.isActive = isActive;
     }
-
-    // Getters and Setters
+// Getters and Setters
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -169,5 +186,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 }
