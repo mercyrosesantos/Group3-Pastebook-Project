@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Post } from '@models/post';
+import { PostService } from '@services/post.service';
 
 @Component({
   selector: 'app-newsfeed',
@@ -8,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewsfeedComponent implements OnInit {
 
-  constructor() { }
+  posts: Post[] = [];
+
+  constructor(
+    private postService: PostService
+  ) { }
 
   ngOnInit(): void {
   }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SessionService } from '@services/session.service';
 import { SearchService } from '@services/search.service';
 import { concat, Observable } from 'rxjs';
+import { User } from '@models/user';
 
 @Component({
   selector: 'app-navbar',
@@ -19,6 +20,7 @@ export class NavbarComponent implements OnInit {
   lastName: String = localStorage.getItem('lastName')!;
   fullName: Observable<String> = concat(this.firstName, " ", this.lastName);
   keyword: string = "";
+  result: any;
 
   constructor(
     private router: Router,
@@ -40,9 +42,9 @@ export class NavbarComponent implements OnInit {
   onSubmit(){
     console.log(this.keyword);
 
-    let result = this.searchService.searchAll(this.keyword);
+    this.result = this.searchService.searchAll(this.keyword);
 
-    console.log(result);
+    console.log(this.result);
   }
 
   logout(): void {
