@@ -10,15 +10,20 @@
                     <p class="col-sm-12">{{ post.content }}</p>
                 </div>
                 <div class="row">
-                    <div *ngIf="isCurrentUserLiked()" class = "col-sm-1 offset-md-1"> 
-                        <!-- <mat-icon  style="color: blue">thumb_up</mat-icon>  -->
-                        <i class="fa fa-thumbs-o-up" style="font-size:26px; color:blue"></i>
-                        {{likeInformation?.like}}
+                    <div *ngIf="isCurrentUserLiked" class = "col-sm-1 offset-md-1 row"> 
+                          <!-- <mat-icon  style="color: blue">thumb_up</mat-icon>  -->
+                        <i class="fa fa-thumbs-o-up col-md-1" style="font-size:26px; color:blue"></i>
+                        <div (click)="open(content)" class="col-md-1">
+                            {{likeInformation?.like}}
+                        </div>
+                        
                     </div>
-                    <div *ngIf="!isCurrentUserLiked()" class = "col-sm-1 offset-md-1" >
-                        <!-- <mat-icon (click)="createLikeReaction()" >thumb_up</mat-icon>  -->
-                        <i class="fa fa-thumbs-o-up" style="font-size:26px" (click)="createLikeReaction()"></i>
-                        {{likeInformation?.like}}
+                    <div *ngIf="!isCurrentUserLiked" class = "col-sm-1 offset-md-1 row" >
+                         <!-- <mat-icon (click)="createLikeReaction()" >thumb_up</mat-icon>  -->
+                        <i class="fa fa-thumbs-o-up col-md-1" style="font-size:26px" (click)="createLikeReaction()"></i>
+                        <div (click)="open(content)" class="col-md-1">
+                            {{likeInformation?.like}}
+                        </div>
                     </div>
                     <div class="col-md-2">
                         <!-- <mat-icon>comment</mat-icon> -->
@@ -43,5 +48,21 @@
                 </div>
             </div>
         </div>        
-    </div>
+    </div>  
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">People who reacted</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div *ngFor="let liker of likeInformation?.users">
+            {{liker.firstName}} {{liker.lastName}}
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+    </div>
+  </ng-template>
+  

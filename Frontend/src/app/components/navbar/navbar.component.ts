@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-
 import { SessionService } from '@services/session.service';
+import { concat, first, Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +16,12 @@ export class NavbarComponent implements OnInit {
   // uncomment once other specs are complete:
   hasToken: boolean = (localStorage.getItem('token') !== null);
   // hasToken: boolean = true;
+
   firstName: String = this.sessionService.getFirstName();
   lastName: String = this.sessionService.getLastName();
   keyword: string = "";
   userId: string = this.sessionService.getUserId();
+  fullNameString: string = this.firstName + " " + this.lastName;
 
   @ViewChild('myForm', { static: false })
   myForm!: NgForm;
@@ -39,6 +42,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userId = this.sessionService.getUserId();
   }
 
   onSubmit(){

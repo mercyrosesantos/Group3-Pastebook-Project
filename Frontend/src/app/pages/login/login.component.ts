@@ -22,6 +22,11 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('login: ' + this.sessionService.getUserId());
+    if (this.sessionService.getUserId() != null) {
+      this.router.navigate(['/']);
+    }
+
   }
 
   onSubmit(): void { 
