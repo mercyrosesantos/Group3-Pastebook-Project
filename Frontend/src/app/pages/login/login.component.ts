@@ -22,6 +22,11 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('login: ' + this.sessionService.getUserId());
+    if (this.sessionService.getUserId() != null) {
+      this.router.navigate(['/']);
+    }
+
   }
 
   onSubmit(): void { 
@@ -34,6 +39,9 @@ export class LoginComponent implements OnInit {
   successfulLogin(response: Record<string, any>){
     this.sessionService.setEmail(response['email']);
     this.sessionService.setUserId(response['id']);
+    this.sessionService.setFirstName(response['firstName']);
+    this.sessionService.setLastName(response['lastName']);
+    
     // this.sessionService.setIsAdmin(response['isAdmin']);
     this.sessionService.setToken(response['token']);
     this.router.navigate(['']);

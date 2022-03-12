@@ -35,7 +35,9 @@ export class PhotoComponent implements OnInit {
     getPhoto() {
       this.photoService.getPhoto().subscribe((response: Photo) => {
         this.photo = response;
-        this.photoSrc = "data:image/png;base64," + this.photo.image;
+        if (this.photo.image != undefined) {
+          this.photoSrc = "data:image/png;base64," + this.photo.image;
+        }
       })
     }
 
