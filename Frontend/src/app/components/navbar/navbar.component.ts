@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 import { SessionService } from '@services/session.service';
-import { concat, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +14,10 @@ export class NavbarComponent implements OnInit {
   // uncomment once other specs are complete:
   hasToken: boolean = (localStorage.getItem('token') !== null);
   // hasToken: boolean = true;
-  firstName: String = localStorage.getItem('firstName')!;
-  lastName: String = localStorage.getItem('lastName')!;
-  fullName: Observable<String> = concat(this.firstName, " ", this.lastName);
+  firstName: String = this.sessionService.getFirstName();
+  lastName: String = this.sessionService.getLastName();
   keyword: string = "";
+  userId: string = this.sessionService.getUserId();
 
   constructor(
     private router: Router,
@@ -30,6 +29,7 @@ export class NavbarComponent implements OnInit {
       this.hasToken = hasToken;
       this.firstName = this.sessionService.getFirstName();
       this.lastName = this.sessionService.getLastName();
+      this.userId = this.sessionService.getUserId();
     })
 
   }

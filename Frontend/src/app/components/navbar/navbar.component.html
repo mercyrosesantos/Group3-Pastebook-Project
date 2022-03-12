@@ -3,7 +3,7 @@
     <div class="container-fluid" id="navMain" *ngIf="hasToken; else noToken">
       <a class="navbar-brand" routerLink="/"><mat-icon>home</mat-icon></a>
       <div class="navbar-nav" id="navbarPeople">
-          <a class="nav-link" routerLink="/profile"><mat-icon>person_outline</mat-icon></a>
+          <a class="nav-link" routerLink="/profile/{{this.userId}}"><mat-icon>person_outline</mat-icon></a>
           <a class="nav-link" href="#"><mat-icon>people_outline</mat-icon></a>
       </div>
       <div class="container" id="form">
@@ -17,7 +17,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarActions">
         <div class="navbar-nav">
-          <a class="nav-item" href="userUrl">{{fullName}}</a>
+          <a class="nav-item" href="userUrl">{{this.firstName}} {{this.lastName}}</a>
           <a class="nav-link" href="#"><mat-icon>notifications</mat-icon></a>
           <a class="nav-link" href="#"><mat-icon>settings</mat-icon></a>
           <a class="nav-link" (click)="logout()"><mat-icon>exit_to_app</mat-icon></a>

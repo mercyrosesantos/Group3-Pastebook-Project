@@ -5,19 +5,20 @@ import { Observable } from 'rxjs';
 
 import { Post } from '@models/post';
 import { User } from '@models/user';
+import { SessionService } from './session.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
-  private baseUrl: string = environment.apiUrl + '/timeline/4';
-  private profileUrl: string = environment.apiUrl + '/profile/4';
+  private baseUrl: string = environment.apiUrl + '/timeline/' + this.sessionService.getUserId();
+  private profileUrl: string = environment.apiUrl + '/profile/' + this.sessionService.getUserId();
   private reactionUrl: string = environment.apiUrl + '/reactions';
 
   constructor(
     private http: HttpClient,
-    // private sessionService: SessionService
+    private sessionService: SessionService
   ) { }
 
   // Get Posts

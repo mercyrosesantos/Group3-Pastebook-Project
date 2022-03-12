@@ -38,7 +38,6 @@ public class Post {
     @JoinColumn (name = "timelineUserId", nullable = true)
     private User timelineUser;
 
-
     // Constructor
 
     public Post() {
@@ -89,4 +88,11 @@ public class Post {
         this.user = user;
     }
 
+    public User getTimelineUser() {
+        return timelineUser;
+    }
+
+    public void setTimelineUser(User timelineUser) {
+        this.timelineUser = timelineUser;
+    }
 }

@@ -15,15 +15,15 @@ export class ProfileComponent implements OnInit {
   user: User = new User();
   pageNo: number = 0;
   formattedBirthday?: string;
-    constructor(
-      private profileService: ProfileService
-    ) {
-      this.getPosts();
-      this.getUserProfile();
-    }
 
-  ngOnInit(): void {
+  constructor(
+    private profileService: ProfileService
+  ) {
+    this.getPosts();
+    this.getUserProfile();
   }
+
+  ngOnInit(): void { }
 
   // Get Posts
   getPosts() {
