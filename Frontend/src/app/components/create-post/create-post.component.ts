@@ -72,6 +72,7 @@ export class CreatePostComponent implements OnInit {
   addPost(post: Post){
     this.postService.add(post).subscribe((response: Object) => {
       console.log(response);
+      this.content = '';
       this.whenPost!();
     });
   }
