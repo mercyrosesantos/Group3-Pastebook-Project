@@ -64,7 +64,11 @@ export class ProfileComponent implements OnInit {
     this.profileService.getUserProfile(this.user.id!).subscribe((response: User) => {
       this.user = response;
       this.formattedBirthday = moment(this.user.birthDay).format('MMMM DD, YYYY');
-      this.photoSrc = "data:image/png;base64," + this.user.photo?.image;
+      if (this.user.photo?.image != undefined) {
+        this.photoSrc = "data:image/png;base64," + this.user.photo?.image;
+      }
+
+
     })
   }
 

@@ -7,6 +7,9 @@ import { Reaction } from '@models/reaction';
 import { LikeInformation } from '@models/like-information';
 import { User } from '@models/user';
 import * as moment from 'moment';
+import { SessionService } from '@services/session.service';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -18,19 +21,33 @@ export class PostComponent implements OnInit {
   comments?: Reaction[];
   currentComment?: string;
   formattedPostTimeStamp?: string;
-
+  isCurrentUserLiked: boolean = false;
   likeInformation?: LikeInformation = new LikeInformation();
 
   constructor(
     private profileService: ProfileService,
-    private reactionService: ReactionService
+    private reactionService: ReactionService,
+    private sessionService: SessionService,
+    private modalService: NgbModal
   ) { 
     
+  }
+  open(content?: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      
+    }, (reason) => {
+
+    });
   }
 
   ngOnInit(): void {
     this.getCommentsFromPost();
     this.getLikesFromPost();
+    // this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      
+    // }, (reason) => {
+
+    // });
   }
 
   //Create like Reaction
@@ -43,7 +60,7 @@ export class PostComponent implements OnInit {
           "id": this.post.id
       },
       "user":{
-          "id": 1
+          "id": this.sessionService.getUserId()
       } 
     }
     console.log("test")
@@ -62,7 +79,7 @@ export class PostComponent implements OnInit {
           "id": this.post.id
       },
       "user":{
-          "id": 1
+          "id": this.sessionService.getUserId()
       },
       "content": this.currentComment
     }
@@ -86,21 +103,21 @@ export class PostComponent implements OnInit {
       this.likeInformation = new LikeInformation();
       this.likeInformation.like = response.length;
       this.likeInformation.users = response;
-      this.likeInformation.likeIds = new Set<number>();
       for (let user of response) {
-        if (user?.id != undefined) {
-          this.likeInformation.likeIds.add(user?.id!);
-        }
+        this.likeInformation.likeIds.add(user.id!);
       }
+      this.isCurrentUserLiked = this.likeInformation.likeIds.has(parseInt(this.sessionService.getUserId()));
     });
   }
 
   //To check if the user liked the post
-  isCurrentUserLiked(): boolean {
-    let isCurrentlyLiked = false;
-    isCurrentlyLiked = this.likeInformation?.likeIds?.has(1)!;
-    return isCurrentlyLiked;
-  }
+  // isCurrentUserLiked(): boolean {
+  //   let isCurrentlyLiked = false;
+  //   isCurrentlyLiked = this.likeInformation?.likeIds?.has(this.sessionService.getUserId())!;
+  //   console.log('isCurrentlyLiked');
+
+  //   return isCurrentlyLiked;
+  // }
 
   
   //Show users who liked the post(not in use yet)

@@ -74,6 +74,8 @@ public class UserController {
             if (isMatched) {
                 response.put("result", "successful");
                 response.put("email", newUser.getEmail());
+                response.put("firstName", newUser.getFirstName());
+                response.put("lastName", newUser.getLastName());
                 response.put("token", generateToken(newUser.getId(), newUser.getEmail()));
                 response.put("id", newUser.getId().toString());
                 return new ResponseEntity<>(response , HttpStatus.OK);

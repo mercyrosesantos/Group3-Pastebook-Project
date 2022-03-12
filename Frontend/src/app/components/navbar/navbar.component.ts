@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
 import { SessionService } from '@services/session.service';
-import { concat, Observable } from 'rxjs';
+import { concat, first, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -18,8 +18,9 @@ export class NavbarComponent implements OnInit {
   firstName: String = localStorage.getItem('firstName')!;
   lastName: String = localStorage.getItem('lastName')!;
   fullName: Observable<String> = concat(this.firstName, " ", this.lastName);
+  fullNameString: string = this.firstName + " " + this.lastName;
   keyword: string = "";
-
+  userId?: number;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userId = this.sessionService.getUserId();
   }
 
   onSubmit(){
