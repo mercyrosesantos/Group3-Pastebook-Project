@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class PostServiceImp implements PostService{
 
@@ -23,6 +25,7 @@ public class PostServiceImp implements PostService{
 
     // Create Post
     public ResponseEntity createPost (Post post){
+        post.setPostTimestamp(new Date());
         postRepository.save(post);
         return new ResponseEntity("Post created.", HttpStatus.OK);
     }

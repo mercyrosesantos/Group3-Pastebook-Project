@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
+import { ProfileService } from '@services/profile.service';
 import { SearchService } from '@services/search.service';
 import { User } from '@models/user';
 
@@ -15,10 +16,12 @@ export class ResultComponent implements OnInit {
   user?: User[];
   result: any;
   keyword: string = "";
+  visit?: number;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private profileService: ProfileService,
     private searchService: SearchService
   ) {}
   
@@ -34,6 +37,13 @@ export class ResultComponent implements OnInit {
       console.log(this.keyword);
     });
 
+  }
+
+  redirect() {
+    this.route.params.subscribe(params => {
+      this.visit = Number(params['id']);
+      this.profileService.getUserProfile(this.visit);
+    })
   }
 
 }

@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
         <!-- Include route for post creation -->
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit()" name="myForm" #myForm="ngForm">
         <textarea type="text" class="form-control" [(ngModel)]="content" name="content" placeholder="What's on your mind?"></textarea>
         <br/>
         <!-- To do: Verify if content is properly captured when submitted -->

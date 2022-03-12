@@ -1,3 +1,5 @@
+import { Photo } from "./photo";
+
 export class User {
     constructor(
         public id?: number,
@@ -10,5 +12,8 @@ export class User {
         public gender?: string,
         public mobileNumber?: string,
         public isActive?: boolean,
+        public photoId?: number,
+        public photo?: Photo
+
     ) {}
 }

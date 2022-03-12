@@ -13,7 +13,7 @@ import { SessionService } from './session.service';
 export class ProfileService {
 
   private baseUrl: string = environment.apiUrl + '/timeline/' + this.sessionService.getUserId();
-  private profileUrl: string = environment.apiUrl + '/profile/' + this.sessionService.getUserId();
+  private profileUrl: string = environment.apiUrl + '/profile/';
   private reactionUrl: string = environment.apiUrl + '/reactions';
 
   constructor(
@@ -22,13 +22,13 @@ export class ProfileService {
   ) { }
 
   // Get Posts
-  getUserTimeline(pageNo: number): Observable<Post[]> {
-    return this.http.get<Post[]>(this.baseUrl + '/' + pageNo);
+  getUserTimeline(userId: number, pageNo: number): Observable<Post[]> {
+    return this.http.get<Post[]>(this.baseUrl + userId + '/' + pageNo);
   }
 
   // Get User Profile
-  getUserProfile(): Observable<User> {
-    return this.http.get<User>(this.profileUrl);
+  getUserProfile(userId: number): Observable<User> {
+    return this.http.get<User>(this.profileUrl +  userId );
   }
 
   // Create Reactions

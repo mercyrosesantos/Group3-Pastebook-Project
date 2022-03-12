@@ -7,7 +7,7 @@
           <a class="nav-link" href="#"><mat-icon>people_outline</mat-icon></a>
       </div>
       <div class="container" id="form">
-        <form class="d-flex px-5" (ngSubmit)="onSubmit()">
+        <form class="d-flex px-5" (ngSubmit)="onSubmit()" name="myForm" #myForm="ngForm">
           <input class="form-control me-2" type="search" placeholder="Search User" name="search" [(ngModel)]="keyword">
           <button class="btn btn-outline-success" type="submit"><mat-icon>search</mat-icon></button>
         </form>
@@ -17,7 +17,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarActions">
         <div class="navbar-nav">
-          <a class="nav-item" href="userUrl">{{this.firstName}} {{this.lastName}}</a>
+          <a class="nav-item" routerLink="/profile/{{this.userId}}">{{this.firstName}} {{this.lastName}}</a>
           <a class="nav-link" href="#"><mat-icon>notifications</mat-icon></a>
           <a class="nav-link" href="#"><mat-icon>settings</mat-icon></a>
           <a class="nav-link" (click)="logout()"><mat-icon>exit_to_app</mat-icon></a>

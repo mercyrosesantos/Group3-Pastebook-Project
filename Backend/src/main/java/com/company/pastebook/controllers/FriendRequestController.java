@@ -25,7 +25,7 @@ public class FriendRequestController {
     @Autowired
     FriendRequestRepository friendRequestRepo;
 
-    @RequestMapping(value = "/api/search-result/{requestorIdC}/{requesteeIdC}", method = RequestMethod.POST)
+        @RequestMapping(value = "/api/search-result/{requestorIdC}/{requesteeIdC}", method = RequestMethod.POST)
     public ResponseEntity<Object> createFriendRequest(FriendRequest friendRequest, @PathVariable Long requestorIdC, @PathVariable Long requesteeIdC) {
         HashMap<String, String> response = new HashMap<>();
         if(!user.existsById(requestorIdC) || !user.existsById(requesteeIdC)){

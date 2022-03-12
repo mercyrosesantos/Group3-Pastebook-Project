@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
@@ -18,6 +19,9 @@ export class NavbarComponent implements OnInit {
   lastName: String = this.sessionService.getLastName();
   keyword: string = "";
   userId: string = this.sessionService.getUserId();
+
+  @ViewChild('myForm', { static: false })
+  myForm!: NgForm;
 
   constructor(
     private router: Router,
@@ -45,6 +49,7 @@ export class NavbarComponent implements OnInit {
     let searchUrl = '/search/' + this.keyword;
 
     this.router.navigate([searchUrl]);
+    this.myForm.resetForm();
 
   }
 

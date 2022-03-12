@@ -1,14 +1,13 @@
 import { User } from "./user";
 
-export class Post {
+export class Photo {
     constructor(
         public id?: number,
-        public content?: string,
-        public postTimestamp?: Date,
+        public caption?: string,
+        public photoTimestamp?: Date,
         public isActive?: boolean,
         public userId?: number,
         public user?: User,
-        public timelineUserId?: number,
-        public timelineUser?: User
+        public image?: string
     ) {}
 }
