@@ -46,14 +46,6 @@ public class Post {
         this.postReactions = postReactions;
     }
 
-    public User getTimelineUser() {
-        return timelineUser;
-    }
-
-    public void setTimelineUser(User timelineUser) {
-        this.timelineUser = timelineUser;
-    }
-
     @ManyToOne
     @JoinColumn (name = "timelineUserId", nullable = true)
     private User timelineUser;
@@ -108,11 +100,12 @@ public class Post {
         this.user = user;
     }
 
-//    public User getTimelineUser() {
-//        return timelineUser;
-//    }
-//
-//    public void setTimelineUser(User timelineUser) {
-//        this.timelineUser = timelineUser;
-//    }
+    public User getTimelineUser() {
+        return timelineUser;
+    }
+
+    public void setTimelineUser(User timelineUser) {
+        this.timelineUser = timelineUser;
+    }
+
 }

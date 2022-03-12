@@ -28,4 +28,10 @@ public class PostController {
     ResponseEntity<Object> createPost (@RequestBody Post post) {
         return new ResponseEntity<>(postService.createPost(post), HttpStatus.CREATED);
     }
+
+    // Get posts for newsfeed
+    @RequestMapping(value="/api/feed/{userId}", method = RequestMethod.GET)
+    ResponseEntity<Object> getFeed (@PathVariable Long userId) {
+        return postService.getFeed(userId);
+    }
 }

@@ -13,6 +13,7 @@ export class PostService {
 
   private baseUrl: string = environment.apiUrl + '/posts';
   private createPostUrl: string = environment.apiUrl + '/posts/create'
+  private feedUrl: string = environment.apiUrl + '/feed/'
   private httpHeaders: HttpHeaders = new HttpHeaders({
     'Authorization': `${this.sessionService.getToken()}`
   })
@@ -24,6 +25,10 @@ export class PostService {
 
   add(post: Post): Observable<Object> {
     return this.http.post(this.createPostUrl, post);
+  }
+
+  getFeed(userId: number): Observable<Post[]>{
+    return this.http.get<Post[]>(`${this.feedUrl}${userId}`)
   }
 
 }
