@@ -3,6 +3,10 @@
     margin-left: auto;
 }
 
-li { background: rgb(144, 167, 168); }
+li { 
+    background: rgb(144, 167, 168); 
+}
 
-li:nth-child(odd) { background: rgb(143, 166, 231); }
+li:nth-child(odd) { 
+    background: rgb(143, 166, 231); 
+}

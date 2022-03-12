@@ -1,13 +1,17 @@
 <div class="sidebar">
     <div class="container" id="sidebarTitle">
-        <p>Online Friends</p>
+        <h4>Online Friends</h4>
     </div>
     <div class="container" id="online">
-        <!-- *ngFor list of active friends -->
-        <div class="card-body">
-            <!-- profile icon redirecting to friend profile -->
-            <h5 class="card-title">Friend name</h5>
-        </div>
-        
+        <ul>
+            <li *ngFor="let user of friends">
+                <div class="container" id="list">
+                    <i class="fa fa-user-circle-o" style="font-size:15px; color:rgb(75, 214, 70)"></i>
+                    <div class="card-body">
+                        <a class="card-title" routerLink="/profile/{{user.id}}" (click)="redirect()">{{user.firstName}} {{user.lastName}}</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
