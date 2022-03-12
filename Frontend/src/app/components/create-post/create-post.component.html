@@ -1,11 +1,11 @@
 <div class="card" id="writePost">
     <div class="card-header">
-        <mat-icon>create</mat-icon>
-        <p>Update Status</p>
+      <i class="fa fa-edit" style="font-size:36px; color:black"></i>
+      <p>Update Status</p>
     </div>
     <div class="card-body">
         <!-- Include route for post creation -->
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit()" name="myForm" #myForm="ngForm">
         <textarea type="text" class="form-control" [(ngModel)]="content" name="content" placeholder="What's on your mind?"></textarea>
         <br/>
         <!-- To do: Verify if content is properly captured when submitted -->

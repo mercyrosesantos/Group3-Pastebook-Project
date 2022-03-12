@@ -12,14 +12,21 @@ import { SessionService } from '@services/session.service';
 export class NewsfeedComponent implements OnInit {
 
   posts: Post[] = [];
-  loggedInUser?: number;
+  loggedInUser: number = this.sessionService.getUserId();
+
   constructor(
     private postService: PostService,
     private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
-    this.loggedInUser = this.sessionService.getUserId();
+    
+    this.postService.getFeed(this.loggedInUser).subscribe((response: Post[]) => {
+      this.posts = response;
+      this.posts.reverse();
+      console.log(this.posts);
+    });
+      
   }
 
 

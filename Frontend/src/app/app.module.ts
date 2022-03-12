@@ -14,6 +14,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 
 // Navbar icons imports
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    FontAwesomeModule,
     MatIconModule,
     MatDividerModule,
     MatListModule,

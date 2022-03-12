@@ -9,4 +9,6 @@ public interface PostService {
     Iterable<Post> findByTimelineUserIdOrderByPostTimestampDesc(Long timelineUserId,Long pageNo);
     // Create Post
     ResponseEntity createPost(Post post);
+    // Get user posts and friends posts
+    ResponseEntity getFeed(Long userId);
 }

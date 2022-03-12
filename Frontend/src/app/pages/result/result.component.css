@@ -1,0 +1,8 @@
+#search {
+    width: 85%;
+    margin-left: auto;
+}
+
+li { background: rgb(144, 167, 168); }
+
+li:nth-child(odd) { background: rgb(143, 166, 231); }
