@@ -1,7 +1,7 @@
 <div class="sidebar">
 <div class="container-fluid" id="newsfeed">
     <div>
-        <app-create-post timeline={{loggedInUser}}></app-create-post>
+        <app-create-post timeline={{loggedInUser}} [whenPost]="loadFeed.bind(this)"></app-create-post>
     </div>
     <div>
         <div class="card-body" id="indivPost">

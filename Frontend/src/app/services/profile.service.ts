@@ -12,7 +12,7 @@ import { SessionService } from './session.service';
 })
 export class ProfileService {
 
-  private baseUrl: string = environment.apiUrl + '/timeline/' + this.sessionService.getUserId();
+  private baseUrl: string = environment.apiUrl + '/timeline/';
   private profileUrl: string = environment.apiUrl + '/profile/';
   private reactionUrl: string = environment.apiUrl + '/reactions';
 

@@ -20,14 +20,15 @@ export class NewsfeedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+    this.loadFeed();
+  }
+  loadFeed() {
+
     this.postService.getFeed(this.loggedInUser).subscribe((response: Post[]) => {
       this.posts = response;
       this.posts.reverse();
       console.log(this.posts);
     });
-      
   }
-
 
 }
