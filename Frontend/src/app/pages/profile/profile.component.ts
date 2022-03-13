@@ -1,11 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+
 import { User } from '@models/user';
-import { Post } from 'src/app/models/post';
+import { Post } from '@models/post';
 import { ProfileService } from 'src/app/services/profile.service';
 import * as moment from 'moment';
 import { Photo } from '@models/photo';
 import {ActivatedRoute} from '@angular/router';
-
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -27,7 +28,8 @@ export class ProfileComponent implements OnInit {
   
   constructor(
     private profileService: ProfileService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: NgbModal
   ) {
   }
 
@@ -85,6 +87,12 @@ export class ProfileComponent implements OnInit {
       this.isLoading = true;
       this.getPosts();
     }
+  }
+
+  //Modal to upload profile picture
+  open(content?: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    }, (reason) => {});
   }
 
 }

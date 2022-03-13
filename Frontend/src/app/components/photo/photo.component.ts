@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { Photo } from '@models/photo';
 import { PhotoService } from '@services/photo.service';
 
@@ -11,7 +10,6 @@ import { PhotoService } from '@services/photo.service';
 export class PhotoComponent implements OnInit {
   
   photo: Photo = new Photo();
-  // uploadForm?: FormGroup;
   photoSrc? : string;
   constructor(
     private photoService: PhotoService
@@ -22,13 +20,6 @@ export class PhotoComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit() {
-    // const formData = new FormData();
-    // formData.append('file', this.uploadForm.get('profile').value);
-
-    // this.httpClient.post<any>(this.SERVER_URL, formData).subscribe(
-    //   (res) => console.log(res),
-    //   (err) => console.log(err)
-    // );
   }
 
     // Get Photo
