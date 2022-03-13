@@ -1,5 +1,7 @@
 package com.company.pastebook.services;
 
+import com.company.pastebook.models.Friendship;
+import com.company.pastebook.repositories.FriendshipRepository;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class UserServiceImp implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FriendshipRepository friendshipRepository;
 
     @Autowired(required=false)
     private User user;
@@ -92,6 +97,16 @@ public class UserServiceImp implements UserService {
         mailSenderImpl.send(message);
     }
 
-
-
+    // Get online friends
+    public ResponseEntity<Object> getOnlineFriends(Long userId){
+        ArrayList<User> friends = new ArrayList<>();
+        for (Friendship friend: friendshipRepository.findAll()){
+            if (friend.getUserId().equals(userId)){
+               if (friend.getFriend().isActive()) {
+                   friends.add(friend.getFriend());
+               }
+            }
+        }
+        return new ResponseEntity<>(friends, HttpStatus.OK);
+    }
 }

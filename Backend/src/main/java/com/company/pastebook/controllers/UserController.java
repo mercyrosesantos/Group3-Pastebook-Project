@@ -109,7 +109,10 @@ public class UserController {
         return builder.compact();
     }
 
-
-
-
+    // Get online friends
+    @RequestMapping ( value = "/api/online/{userId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getOnlineFriends(@PathVariable Long userId) {
+        return userService.getOnlineFriends(userId);
+    }
+    
 }

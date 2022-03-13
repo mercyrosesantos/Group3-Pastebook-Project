@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit {
   isLoading = false;
   pageSize = 10;
   
-  
   constructor(
     private profileService: ProfileService,
     private route: ActivatedRoute
@@ -33,8 +32,10 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.loadPage();
     this.getUserProfile();
+
   }
 
   //Refresh timeline
@@ -45,7 +46,6 @@ export class ProfileComponent implements OnInit {
     this.posts = [];
     this.pageNo = 0;
     this.getPosts();
-   
   }
 
   // Get Posts

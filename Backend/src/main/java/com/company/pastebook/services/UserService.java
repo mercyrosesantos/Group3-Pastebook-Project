@@ -16,6 +16,9 @@ public interface UserService {
 //    Login user
     Iterable<User> verifyUser(String email);
 
+    // Get online friends
+    ResponseEntity getOnlineFriends(Long userId);
+
 // Get User Profile
     ResponseEntity getUserProfile(Long id);
 
