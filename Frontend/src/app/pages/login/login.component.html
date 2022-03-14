@@ -11,9 +11,9 @@
                 <input type="password" class="form-control" [(ngModel)]="password" name="password" required>
             </div>
             <div class="d-grid gap-2 col-6">
-                <button type="submit" class="btn btn-success">Login</button>
-                <a class="btn btn-primary" href="/register" role="button">Register</a>
-            </div>    
+                <button type="submit" [disabled]="!email || !password"  class="btn btn-success" (click)="onSubmit()">Login</button>
+                <a class="btn btn-primary" routerLink="/register" role="button">Register</a>
+            </div>
         </form>
     </div>
 </div>
