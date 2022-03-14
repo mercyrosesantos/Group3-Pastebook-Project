@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { Router } from '@angular/router';
 import { User } from '@models/user';
+import { ProfileService } from '@services/profile.service';
 import { UserService } from '@services/user.service';
 import * as moment from 'moment';
 
@@ -12,12 +12,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
+
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class SettingsComponent implements OnInit {
 
   // Error Validations
   firstNameFormControl = new FormControl('', Validators.required);
@@ -38,12 +39,17 @@ export class RegisterComponent implements OnInit {
   mobileNumber: string = "";
   formattedBirthday?: Date;
 
+  // Show/Hide
+  showPass: boolean = true;
+  showInfo: boolean = false;
+
   constructor(
     private userService: UserService,
-    private router: Router
+    private profileService: ProfileService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   onSubmit() {
     console.log(this.firstName);
@@ -71,5 +77,21 @@ export class RegisterComponent implements OnInit {
     this.userService.register(user).subscribe((response: Object) => {
       console.log(response); 
     });
+  }
+
+  // Toggle Switch
+  togglePass() {
+    if (this.showPass == false) {
+      this.showPass = true;
+      this.showInfo = false;
+    }
+  }
+
+  // Toggle Switch
+  toggleInfo() {
+    if (this.showInfo == false) {
+      this.showPass = false;
+      this.showInfo = true;
+    }
   }
 }

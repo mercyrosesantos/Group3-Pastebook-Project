@@ -11,6 +11,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { AlbumsComponent } from './pages/albums/albums.component';
 
 
 // Navbar icons imports
@@ -43,7 +45,9 @@ const appRoutes: Routes = [
   { path: 'profile/:id', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'search/:keyword', component: ResultComponent }
+  { path: 'search/:keyword', component: ResultComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'albums', component: AlbumsComponent}
   // { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
@@ -59,7 +63,9 @@ const appRoutes: Routes = [
     LoginComponent,
     CreatePostComponent,
     PhotoComponent,
-    ResultComponent
+    ResultComponent,
+    SettingsComponent,
+    AlbumsComponent
   ],
   imports: [
     BrowserModule,
