@@ -3,8 +3,13 @@
         <div class="card mb-3 col-md-8 offset-md-2 rounded p-3" style="background-color: gray;">
             <div class="card-body container p-3 rounded" style=" background-color: lightgray;">
                  <div class="row rounded" >
-                    <h4 class = "col-sm-3">{{ post.user?.firstName }} {{ post.user?.lastName }}</h4>
+                     <div class = "col-sm-1">
+                        <img class="card-img-top"  src="data:image/png;base64,{{post.user?.photo?.image}}" class="rounded-circle"  width="80" height="80">
+                    </div>
+                    <div class = "col-sm-3">
+                        <h4>{{ post.user?.firstName }} {{ post.user?.lastName }}</h4>
                     {{formattedPostTimeStamp}}
+                    </div>
                  </div>
                  <div class="row rounded p-2" style=" background-color: gray; ">
                     <p class="col-sm-12">{{ post.content }}</p>
@@ -41,8 +46,10 @@
                     </div>
                 </div>
                 <div class = "col-sm-8 offset-md-1" *ngFor="let comment of comments" > 
-                    <div class = "rounded" style=" background-color: #95a199;"> 
-                        <b> {{comment.user?.firstName}} {{comment.user?.lastName}}</b> 
+                    <div class = "rounded col-sm-12" style=" background-color: #95a199;"> 
+                        <img class="card-img-top" src="data:image/png;base64,{{comment.user?.photo?.image}}" class="rounded-circle"  width="50" height="50">
+                        <b> {{comment.user?.firstName}} {{comment.user?.lastName}} </b> 
+                            {{comment.reactionTimeString}}
                         <p > {{comment.content}} </p>                      
                     </div>
                 </div>
@@ -58,6 +65,7 @@
     </div>
     <div class="modal-body">
         <div *ngFor="let liker of likeInformation?.users">
+            <img class="card-img-top" src="data:image/png;base64,{{liker?.photo?.image}}" class="rounded-circle"  width="50" height="50">
             {{liker.firstName}} {{liker.lastName}}
         </div>
     </div>

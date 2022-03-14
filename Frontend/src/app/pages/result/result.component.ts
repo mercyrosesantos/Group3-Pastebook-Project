@@ -17,6 +17,7 @@ export class ResultComponent implements OnInit {
   result: any;
   keyword: string = "";
   visit?: number;
+  photoSrc?: string;
 
   constructor(
     private router: Router,

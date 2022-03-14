@@ -13,7 +13,7 @@ export class Reaction {
         public postId?: number,
         public post?: Post,
         public reactionTypeId?: number,
-        public reactionType?: ReactionType
-
+        public reactionType?: ReactionType,
+        public reactionTimeString? : string
     ) {}
 }

@@ -30,4 +30,5 @@ export class ReactionService {
   getLikesByPost(postId?: number): Observable<User[]> {
     return this.http.get<User[]>(this.likesByPostUrl+postId);
   }
+  
 }
