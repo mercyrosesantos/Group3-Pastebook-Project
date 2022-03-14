@@ -24,7 +24,6 @@ export class PostComponent implements OnInit {
   comments?: Reaction[];
   currentComment?: string;
   formattedPostTimeStamp?: string;
-  formattedReactionTimeStamp?: string;
   isCurrentUserLiked: boolean = false;
   likeInformation?: LikeInformation = new LikeInformation();
 
@@ -84,6 +83,9 @@ export class PostComponent implements OnInit {
   getCommentsFromPost() {
     this.reactionService.getCommentsByPost(this.post.id).subscribe((response: Reaction[]) => {
       this.comments = response;
+      for (let comment of this.comments) {
+        comment.reactionTimeString = moment(comment?.reactionTimestamp).format('MMMM DD, YYYY HH:mm:ss');
+      }
       this.formattedPostTimeStamp = moment(this.post.postTimestamp).format('MMMM DD, YYYY HH:mm:ss');
     });
   }
