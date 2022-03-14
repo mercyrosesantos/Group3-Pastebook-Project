@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "posts")
-public class Post {
+public class Post implements Comparable<Post> {
 
     // Properties
 
@@ -106,6 +106,13 @@ public class Post {
 
     public void setTimelineUser(User timelineUser) {
         this.timelineUser = timelineUser;
+    }
+
+    // Compare method
+
+    @Override
+    public int compareTo (Post post){
+        return postTimestamp.compareTo(post.getPostTimestamp());
     }
 
 }

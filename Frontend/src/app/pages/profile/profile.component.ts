@@ -35,8 +35,14 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.loadPage();
-    this.getUserProfile();
+    this.route.params.subscribe(params => {
+      this.user.id = Number(params['id']);
+      this.loadPage();
+      this.getUserProfile();
+    })
+
+    // this.loadPage();
+    // this.getUserProfile();
 
   }
 

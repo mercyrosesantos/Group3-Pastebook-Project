@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 @Service
@@ -54,6 +55,7 @@ public class PostServiceImp implements PostService{
                 posts.add(ownPost);
             }
         }
+        Collections.sort(posts);
         return new ResponseEntity(posts, HttpStatus.OK);
     }
 }

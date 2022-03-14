@@ -14,6 +14,8 @@ export class NewsfeedComponent implements OnInit {
   posts: Post[] = [];
   loggedInUser: number = this.sessionService.getUserId();
 
+  dataRefresher?: any;
+
   constructor(
     private postService: PostService,
     private sessionService: SessionService
@@ -21,7 +23,9 @@ export class NewsfeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadFeed();
+    this.refreshData();
   }
+
   loadFeed() {
 
     this.postService.getFeed(this.loggedInUser).subscribe((response: Post[]) => {
@@ -29,6 +33,16 @@ export class NewsfeedComponent implements OnInit {
       this.posts.reverse();
       console.log(this.posts);
     });
+
+  }
+
+  refreshData() {
+
+    this.dataRefresher =
+    setInterval(() => {
+      this.loadFeed();
+    }, 60000); 
+
   }
 
 }

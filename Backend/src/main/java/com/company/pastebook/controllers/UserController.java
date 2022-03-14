@@ -114,5 +114,5 @@ public class UserController {
     public ResponseEntity<Object> getOnlineFriends(@PathVariable Long userId) {
         return userService.getOnlineFriends(userId);
     }
-    
+
 }
