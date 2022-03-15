@@ -25,39 +25,42 @@ public class FriendRequestController {
     @Autowired
     FriendRequestRepository friendRequestRepo;
 
-        @RequestMapping(value = "/api/search-result/{requestorIdC}/{requesteeIdC}", method = RequestMethod.POST)
-    public ResponseEntity<Object> createFriendRequest(FriendRequest friendRequest, @PathVariable Long requestorIdC, @PathVariable Long requesteeIdC) {
+    @RequestMapping(value = "/api/friendrequests/{requesteeIdC}", method = RequestMethod.POST)
+    public ResponseEntity<Object> createFriendRequest(FriendRequest friendRequest,  @PathVariable Long requesteeIdC) {
         HashMap<String, String> response = new HashMap<>();
-        if(!user.existsById(requestorIdC) || !user.existsById(requesteeIdC)){
-            response.put("result", "User/s does not exist");
-            return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
 
-        }else {
+        FriendRequest requesteeR = friendRequestRepo.findByRequesteeId(requesteeIdC);
+        User requestee = user.findById(requesteeIdC).get();
+        FriendRequest friendRequest1 = new FriendRequest();
+        friendRequest1.setRequestee(requestee);
+        LocalDate present = LocalDate.now();
+        String timeStampDate = present.toString();
+        friendRequest1.setRequestTimestamp(timeStampDate);
+        response.put("result", "Add friend successful.");
+        friendRequestRepo.save(friendRequest1);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
 
-            if (requestorIdC == requesteeIdC) {
-                response.put("result", "Can't connect same users");
-                return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
-            } else {
-                FriendRequest requestorR = friendRequestRepo.findByRequestorId(requestorIdC);
-                FriendRequest requesteeR = friendRequestRepo.findByRequesteeId(requesteeIdC);
-                if ((friendRequestRepo.findByRequestorId(requesteeIdC) != null && friendRequestRepo.findByRequesteeId(requestorIdC) != null) || (requestorR == requesteeR && (requestorR != null && requesteeR != null))) {
-                    response.put("result", "Request already exists.");
-                    return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
-                } else {
-                    User requestee = user.findById(requesteeIdC).get();
-                    FriendRequest friendRequest1 = new FriendRequest();
-                    friendRequest1.setRequestorId(requestorIdC);
-                    friendRequest1.setRequestee(requestee);
-                    LocalDate present = LocalDate.now();
-                    String timeStampDate = present.toString();
-                    friendRequest1.setRequestTimestamp(timeStampDate);
-                    response.put("result", "Add friend successful.");
-                    friendRequestRepo.save(friendRequest1);
-                    return new ResponseEntity<>(response, HttpStatus.CREATED);
-                }
-            }
-        }
 
+    }
+
+    // Accept friend request
+    @RequestMapping(value = "/api/friendrequestsA/{frid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> acceptFriendRequest(@PathVariable Long frid,@RequestHeader(value="Authorization") String stringToken){
+        return friendRequestService.acceptFriendRequest(frid, stringToken);
+
+    }
+
+    // Reject friend request
+    @RequestMapping(value = "/api/friendrequestsR/{frid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> rejectFriendRequest(@PathVariable Long frid,@RequestHeader(value="Authorization") String stringToken){
+        return friendRequestService.rejectFriendRequest(frid, stringToken);
+    }
+
+    // Get friend requests
+    @RequestMapping(value = "/api/friendrequests", method = RequestMethod.GET)
+    public ResponseEntity<Object> getFriendRequests(String status) {
+        String statusCheck = "pending";
+        return new ResponseEntity<>(friendRequestService.findByStatus(statusCheck), HttpStatus.OK);
     }
 
 }
