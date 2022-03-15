@@ -16,6 +16,18 @@ import { NgForm } from '@angular/forms';
 })
 export class AddFriendButtonComponent implements OnInit {
 
+  @Input()
+  public friendRequest?: Friendrequest;
+
+  @Input()
+  public friendId? : number;
+
+  @Input()
+  public friendshipStatus? : string = "strangers";
+
+  @Input()
+  public callBack? : Function;
+
   requestTimeStamp: Date = new Date();
   status: string = "pending";
   requestorId: number = Number(this.sessionService.getUserId);
@@ -36,33 +48,24 @@ export class AddFriendButtonComponent implements OnInit {
   ngOnInit(): void{
   }
 
-  onSubmit(){
-    console.log(this.requestTimeStamp);
-    console.log(this.status);
-    console.log(this.requestorId);
-    console.log(this.requesteeId);
-
-    let friendRequest = new Friendrequest();
-      friendRequest.requestTimeStamp = this.requestTimeStamp;
-      friendRequest.requestorId = this.requestorId;
-      friendRequest.status = this.status;
-      friendRequest.requesteeId = this.requesteeId;
-      
-      this.createFriendRequest(friendRequest);
-
-  
-
-    
-    
-    // this.router.navigate([this.currentUrl]);
-
-
-  }
-
-  createFriendRequest(friendRequest: Friendrequest){
-    this.friendRequestService.createFriendRequest(friendRequest).subscribe((response: Object)=>
-    {console.log(response);
+  onAdd(){
+    console.log('onAdd');
+    this.friendRequest = new Friendrequest();
+    this.friendRequest.requestor = new User();
+    this.friendRequest.requestor.id = this.sessionService.getUserId();
+    this.friendRequest.requestee = new User();
+    this.friendRequest.requestee.id = this.friendId;
+    this.friendRequest.status = 'pending';
+    this.friendRequestService.createFriendRequest(this.friendRequest).subscribe((response: any)=> {
+      this.callBack!();
     });
   }
+  onAccept(){
+    console.log('onAccept');
+  }
+  onReject(){
+  console.log('onReject');
+}
+
 
 }

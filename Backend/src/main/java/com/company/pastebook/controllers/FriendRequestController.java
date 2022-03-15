@@ -1,6 +1,8 @@
 package com.company.pastebook.controllers;
 
 import com.company.pastebook.models.FriendRequest;
+import com.company.pastebook.models.Friendship;
+import com.company.pastebook.models.Post;
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.FriendRequestRepository;
 import com.company.pastebook.repositories.UserRepository;
@@ -32,11 +34,11 @@ public class FriendRequestController {
     @RequestMapping(value = "/api/search-result/{requestorIdC}/{requesteeIdC}", method = RequestMethod.POST)
     public ResponseEntity<Object> createFriendRequest(FriendRequest friendRequest, @PathVariable Long requestorIdC, @PathVariable Long requesteeIdC) {
         HashMap<String, String> response = new HashMap<>();
-        if(!user.existsById(requestorIdC) || !user.existsById(requesteeIdC)){
+        if (!user.existsById(requestorIdC) || !user.existsById(requesteeIdC)) {
             response.put("result", "User/s does not exist");
             return new ResponseEntity<>(response, HttpStatus.NOT_ACCEPTABLE);
 
-        }else {
+        } else {
 
             if (requestorIdC == requesteeIdC) {
                 response.put("result", "Can't connect same users");
@@ -50,7 +52,7 @@ public class FriendRequestController {
                 } else {
                     User requestee = user.findById(requesteeIdC).get();
                     FriendRequest friendRequest1 = new FriendRequest();
-                    friendRequest1.setRequestorId(requestorIdC);
+                    friendRequest1.setRequestor(new User(requestorIdC));
                     friendRequest1.setRequestee(requestee);
                     LocalDate present = LocalDate.now();
                     String timeStampDate = present.toString();
@@ -62,6 +64,7 @@ public class FriendRequestController {
                 }
             }
         }
+    }
 
 
     // Accept friend request
@@ -84,4 +87,20 @@ public class FriendRequestController {
         return new ResponseEntity<>(friendRequestService.findByStatus(statusCheck), HttpStatus.OK);
     }
 
-}
+    @RequestMapping(value = "/api/friendship/{userId}/{friendId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getFriendship(@PathVariable Long userId,@PathVariable Long friendId) {
+        return new ResponseEntity<>(friendRequestService.getFriendship(userId, friendId), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/friendrequests/", method = RequestMethod.POST)
+    public ResponseEntity<Object> friendship(@RequestBody FriendRequest friendRequest){
+        return friendRequestService.createOrUpdateFriendRequest(friendRequest);
+    }
+
+    @RequestMapping(value = "/api/friendrequests/{userId}/{friendId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getFriendRequest(@PathVariable Long userId, @PathVariable Long friendId) {
+        return new ResponseEntity<>(friendRequestService.getFriendRequest(userId,friendId), HttpStatus.OK);
+    }
+
+
+    }

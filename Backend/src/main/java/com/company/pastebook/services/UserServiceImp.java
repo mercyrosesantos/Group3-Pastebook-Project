@@ -129,7 +129,7 @@ public class UserServiceImp implements UserService {
     public ResponseEntity<Object> getOnlineFriends(Long userId){
         ArrayList<User> friends = new ArrayList<>();
         for (Friendship friend: friendshipRepository.findAll()){
-            if (friend.getUserId().equals(userId)){
+            if (friend.getUser().getId().equals(userId)){
                if (friend.getFriend().isActive()) {
                    friends.add(friend.getFriend());
                }

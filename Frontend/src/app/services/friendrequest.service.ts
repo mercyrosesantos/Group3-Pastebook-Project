@@ -6,6 +6,7 @@ import { Friendrequest} from '@models/friendrequest';
 import { SessionService } from './session.service';
 import { Observable } from 'rxjs';
 import { User } from '@models/user';
+import { Friendship } from '@models/friendship';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class FriendRequestService {
 
   private baseUrl: string = environment.apiUrl + '/friendrequests';
   private friendRequestUrl: string = environment.apiUrl + '/friendrequests/'
+  private friendshipUrl: string = environment.apiUrl + '/friendship/'
   private httpHeaders: HttpHeaders = new HttpHeaders({
     'Authorization': `${this.sessionService.getToken()}`
   })
@@ -25,8 +27,15 @@ export class FriendRequestService {
 
   // Create friend request
   createFriendRequest( friendRequest: Friendrequest): Observable<Object> {
-      return this.http.post(this.friendRequestUrl,friendRequest);
-  } 
+    return this.http.post(this.friendRequestUrl,friendRequest,{responseType: 'text'});
+} 
+  // Create friend request
+  getFriendship( friendId: number): Observable<Object> {
+    return this.http.get<Friendship>(this.friendshipUrl + this.sessionService.getUserId() +'/'+ friendId);
+} 
+  getFriendRequest( friendId: number): Observable<Object> {
+  return this.http.get<Friendrequest>(this.friendRequestUrl + this.sessionService.getUserId() +'/'+ friendId);
+} 
 
  
 }
