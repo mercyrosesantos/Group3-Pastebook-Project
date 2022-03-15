@@ -24,4 +24,7 @@ public interface UserService {
 
 //    Send Verification Email
     void sendVerificationEmail(User user, String siteUrl) throws MessagingException, UnsupportedEncodingException;
+
+    // Get user by id
+    ResponseEntity getUser(Long id);
 }

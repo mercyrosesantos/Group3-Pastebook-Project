@@ -115,4 +115,10 @@ public class UserController {
         return userService.getOnlineFriends(userId);
     }
 
+    // Get user by id
+    @RequestMapping (value = "/api/users/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getUser(@PathVariable Long id) {
+        return userService.getUser(id);
+    }
+
 }
