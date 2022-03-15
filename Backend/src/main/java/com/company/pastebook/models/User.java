@@ -202,7 +202,10 @@ public class User {
         this.photo = photo;
     }
 
-    public String getAboutMe() {
+    public Set<Post> getUserPosts() {
+        return userPosts;
+    }
+     public String getAboutMe() {
         return aboutMe;
     }
 

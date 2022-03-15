@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Object> {
+public interface PostRepository extends JpaRepository<Post, Object>, CrudRepository<Post, Object> {
     List<Post> findByTimelineUserIdOrderByPostTimestampDesc(Long timelineUserId, Pageable pageable);
 
 }

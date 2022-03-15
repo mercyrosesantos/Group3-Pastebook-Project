@@ -1,9 +1,7 @@
 package com.company.pastebook.controllers;
 
 import com.company.pastebook.models.Post;
-import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.PostService;
-import org.hibernate.mapping.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,4 +32,5 @@ public class PostController {
     ResponseEntity<Object> getFeed (@PathVariable Long userId) {
         return postService.getFeed(userId);
     }
+
 }

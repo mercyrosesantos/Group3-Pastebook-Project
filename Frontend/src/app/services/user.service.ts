@@ -36,5 +36,10 @@ export class UserService {
   getOnlineFriends(userId: number): Observable<User[]> {
     return this.http.get<User[]>(`${this.onlineFriendsUrl}${userId}`);
   }
+
+  // Get user by id
+  getUser(userId: number): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/${userId}`);
+  }
   
 }

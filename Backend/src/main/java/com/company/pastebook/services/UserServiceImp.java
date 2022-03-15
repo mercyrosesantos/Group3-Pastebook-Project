@@ -111,7 +111,12 @@ public class UserServiceImp implements UserService {
         return new ResponseEntity<>(friends, HttpStatus.OK);
     }
 
-    //Update AboutMe
+    // Get user by id
+    public ResponseEntity<Object> getUser(Long id) {
+        User getUser = userRepository.findById(id).get();
+        return new ResponseEntity<>(getUser, HttpStatus.OK);
+}
+  //Update AboutMe
     public ResponseEntity updateAboutMe(String aboutMe, Long userID){
         User userAboutMe = userRepository.findById(userID).orElse(null);
         if (userAboutMe == null) {

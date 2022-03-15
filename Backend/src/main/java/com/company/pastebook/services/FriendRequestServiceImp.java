@@ -21,6 +21,8 @@ public class FriendRequestServiceImp implements FriendRequestService{
     private FriendRequestRepository friendRequestRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NotificationService notificationService;
 
     // Find by requestor Id
     public Optional<FriendRequest> findByRequestorId(Long requestorId) {
@@ -66,7 +68,16 @@ public class FriendRequestServiceImp implements FriendRequestService{
         }
     }
 
-    // Reject friend request
+        if (friendRequestToBeAccepted != null){
+            friendRequestToBeAccepted.setStatus("accepted");
+            friendRequestRepository.save(friendRequestToBeAccepted);
+            notificationService.createNotification("acceptedRequest", friendRequestToBeAccepted.getId());
+            return new ResponseEntity("Friend request accepted.", HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity("Friend request not found.", HttpStatus.NOT_ACCEPTABLE);
+        }
+     }
+     // Reject friend request
     public ResponseEntity rejectFriendRequest(Long frid, String stringToken) {
         FriendRequest friendRequestToBeRejected = friendRequestRepository.findById(frid).get();
         if(friendRequestToBeRejected.getStatus().equals("pending")) {

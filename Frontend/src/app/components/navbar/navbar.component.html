@@ -17,8 +17,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarActions">
         <div class="navbar-nav">
+         
           <a class="nav-item" routerLink="/profile/{{this.profileUrl}}">{{this.firstName}} {{this.lastName}}</a>
-          <a class="nav-link" href="#"><i class="fa fa-bell-o" style="font-size:25px; color:white"></i></a>
+ <div>
+          <app-notification></app-notification>
+          </div>
           <a class="nav-link" href="#"><i class="fa fa-gear" style="font-size:25px; color:white;"></i></a>
           <a class="nav-link" (click)="logout()"><i class="fa fa-power-off" style="font-size:25px; color:white;"></i></a>
         </div>
