@@ -25,13 +25,25 @@ public interface UserService {
 //    Get User Profile by URL
     ResponseEntity getUserProfileByUrl(String url);
 
-
-
 //    Send Verification Email
     void sendVerificationEmail(User user, String siteUrl) throws MessagingException, UnsupportedEncodingException;
+
+
+//    Update User Information
+    ResponseEntity updateUserInfo(Long id, User user);
+
+//    Update User Email
+    ResponseEntity updateUserEmail(Long id, User user);
+
+//    Update User Password
+    ResponseEntity updateUserPassword(Long id, User user);
 
     // Get user by id
     ResponseEntity getUser(Long id);
 //    Update AboutMe
     ResponseEntity updateAboutMe(String aboutMe, Long userId);
 }
+
+
+
+
