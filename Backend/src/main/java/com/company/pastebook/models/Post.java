@@ -108,8 +108,8 @@ public class Post implements Comparable<Post> {
         this.timelineUser = timelineUser;
     }
 
-    // Compare method
 
+    // Compare method
     @Override
     public int compareTo (Post post){
         return postTimestamp.compareTo(post.getPostTimestamp());

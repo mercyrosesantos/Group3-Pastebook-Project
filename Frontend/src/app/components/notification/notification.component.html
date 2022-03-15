@@ -1,0 +1,17 @@
+<div ngbDropdown>
+    <a ngbDropdownToggle class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (onClick)="setNotifAsRead()">
+        <i class="fa fa-bell" style="font-size:25px; color:white;" id="bell"></i>
+        <span class="icon-button__badge">{{ this.unreadNotif }}</span>
+    </a>
+    <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li ngbDropdownItem class="dropdown-item" *ngFor="let item of notifList">
+            <div class="notify_item">
+				<div class="notify_info">
+					<p>{{ item.friend.firstName }} {{ item.friend.lastName }} {{ item.notificationType }}</p>
+					<span class="notify_time">{{ item.notificationTimestamp }}</span>
+				</div>
+			</div>
+            <hr/>
+        </li>
+    </ul>
+</div>

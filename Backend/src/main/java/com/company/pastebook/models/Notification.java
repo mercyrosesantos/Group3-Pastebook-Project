@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="notifications")
-public class Notification {
+public class Notification implements Comparable<Notification> {
 
     // Properties
     @Id
@@ -29,6 +29,10 @@ public class Notification {
     @ManyToOne
     @JoinColumn (name = "friendId", nullable = true)
     private User friend;
+
+    @ManyToOne
+    @JoinColumn (name = "postId", nullable = true)
+    private Post post;
 
     // Constructor
 
@@ -81,4 +85,17 @@ public class Notification {
         this.friend = friend;
     }
 
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    // Compare method
+    @Override
+    public int compareTo (Notification notification) {
+        return notificationTimestamp.compareTo(notification.getNotificationTimestamp());
+    }
 }

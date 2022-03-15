@@ -195,4 +195,8 @@ public class User {
     public void setPhoto(Photo photo) {
         this.photo = photo;
     }
+
+    public Set<Post> getUserPosts() {
+        return userPosts;
+    }
 }

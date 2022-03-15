@@ -4,6 +4,7 @@ import com.company.pastebook.models.Friendship;
 import com.company.pastebook.models.Post;
 import com.company.pastebook.repositories.FriendshipRepository;
 import com.company.pastebook.repositories.PostRepository;
+import com.company.pastebook.repositories.ReactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -58,4 +59,5 @@ public class PostServiceImp implements PostService{
         Collections.sort(posts);
         return new ResponseEntity(posts, HttpStatus.OK);
     }
+
 }

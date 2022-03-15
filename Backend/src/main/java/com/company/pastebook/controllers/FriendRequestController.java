@@ -5,6 +5,7 @@ import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.FriendRequestRepository;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.FriendRequestService;
+import com.company.pastebook.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,9 @@ public class FriendRequestController {
 
     @Autowired
     FriendRequestRepository friendRequestRepo;
+
+    @Autowired
+    NotificationService notificationService;
 
         @RequestMapping(value = "/api/search-result/{requestorIdC}/{requesteeIdC}", method = RequestMethod.POST)
     public ResponseEntity<Object> createFriendRequest(FriendRequest friendRequest, @PathVariable Long requestorIdC, @PathVariable Long requesteeIdC) {
@@ -53,6 +57,7 @@ public class FriendRequestController {
                     friendRequest1.setRequestTimestamp(timeStampDate);
                     response.put("result", "Add friend successful.");
                     friendRequestRepo.save(friendRequest1);
+                    notificationService.createNotification("friendRequest", friendRequest1.getId());
                     return new ResponseEntity<>(response, HttpStatus.CREATED);
                 }
             }

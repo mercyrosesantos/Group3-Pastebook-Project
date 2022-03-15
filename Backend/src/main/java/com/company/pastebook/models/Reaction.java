@@ -32,18 +32,15 @@ public class Reaction {
 
     @ManyToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-
     @JoinColumn (name = "postId", nullable = true)
     private Post post;
 
     @OneToOne
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-
     @JoinColumn (name= "reactionTypeId", nullable = true)
     private ReactionType reactionType;
 
     // Constructor
-
 
     public Reaction() {
     }
@@ -55,7 +52,6 @@ public class Reaction {
     }
 
     //Getter and Setter
-
 
     public long getId() {
         return id;
@@ -112,4 +108,5 @@ public class Reaction {
     public void setReactionType(ReactionType reactionType) {
         this.reactionType = reactionType;
     }
+
 }

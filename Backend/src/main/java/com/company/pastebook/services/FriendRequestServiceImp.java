@@ -19,6 +19,8 @@ public class FriendRequestServiceImp implements FriendRequestService{
     private FriendRequestRepository friendRequestRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NotificationService notificationService;
 
 
     // Find by requestor Id
@@ -47,6 +49,7 @@ public class FriendRequestServiceImp implements FriendRequestService{
         if (friendRequestToBeAccepted != null){
             friendRequestToBeAccepted.setStatus("accepted");
             friendRequestRepository.save(friendRequestToBeAccepted);
+            notificationService.createNotification("acceptedRequest", friendRequestToBeAccepted.getId());
             return new ResponseEntity("Friend request accepted.", HttpStatus.ACCEPTED);
         } else {
             return new ResponseEntity("Friend request not found.", HttpStatus.NOT_ACCEPTABLE);

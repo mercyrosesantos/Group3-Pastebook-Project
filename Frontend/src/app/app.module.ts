@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -36,6 +37,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PhotoComponent } from './components/photo/photo.component';
 import { ResultComponent } from './pages/result/result.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 const appRoutes: Routes = [
@@ -59,11 +61,13 @@ const appRoutes: Routes = [
     LoginComponent,
     CreatePostComponent,
     PhotoComponent,
-    ResultComponent
+    ResultComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
+    NgxBootstrapIconsModule.pick(allIcons),
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
