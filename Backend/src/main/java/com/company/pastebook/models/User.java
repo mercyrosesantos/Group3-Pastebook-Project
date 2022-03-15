@@ -83,9 +83,100 @@ public class User {
     @JoinColumn (name = "photoId", nullable = true)
     private Photo photo;
 
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Friendship> userFriends;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Friendship> friendsUser;
+
+
+//    @OneToMany(mappedBy = "friendRequested")
+//    @JsonIgnore
+//    private Set<FriendRequest> friendRequested;
+//
+//
+//    @OneToMany(mappedBy = "friendRequests")
+//    @JsonIgnore
+//    private Set<FriendRequest> friendRequests;
+
+    public void setUserPosts(Set<Post> userPosts) {
+        this.userPosts = userPosts;
+    }
+
+    public Set<Post> getUserTimeline() {
+        return userTimeline;
+    }
+
+    public void setUserTimeline(Set<Post> userTimeline) {
+        this.userTimeline = userTimeline;
+    }
+
+    public Set<Reaction> getUserReactions() {
+        return userReactions;
+    }
+
+    public void setUserReactions(Set<Reaction> userReactions) {
+        this.userReactions = userReactions;
+    }
+
+    public Set<Photo> getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(Set<Photo> userPhoto) {
+        this.userPhoto = userPhoto;
+    }
+
+    public Set<Album> getUserAlbum() {
+        return userAlbum;
+    }
+
+    public void setUserAlbum(Set<Album> userAlbum) {
+        this.userAlbum = userAlbum;
+    }
+
+    public Set<Friendship> getUserFriends() {
+        return userFriends;
+    }
+
+    public void setUserFriends(Set<Friendship> userFriends) {
+        this.userFriends = userFriends;
+    }
+
+    public Set<Friendship> getFriendsUser() {
+        return friendsUser;
+    }
+
+    public void setFriendsUser(Set<Friendship> friendsUser) {
+        this.friendsUser = friendsUser;
+    }
+//
+//    public Set<FriendRequest> getFriendRequested() {
+//        return friendRequested;
+//    }
+//
+//    public void setFriendRequested(Set<FriendRequest> friendRequested) {
+//        this.friendRequested = friendRequested;
+//    }
+//
+//    public Set<FriendRequest> getFriendRequests() {
+//        return friendRequests;
+//    }
+//
+//    public void setFriendRequests(Set<FriendRequest> friendRequests) {
+//        this.friendRequests = friendRequests;
+//    }
+
+
     // Constructors
 
     public User() {
+    }
+    public User(Long id) {
+        this.id = id;
     }
 
     public User(String firstName, String lastName, String email, String password, LocalDate birthDay, String gender, String mobileNumber, String dateJoined, boolean isActive) {

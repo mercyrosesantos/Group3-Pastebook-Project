@@ -8,6 +8,9 @@ import { Photo } from '@models/photo';
 import {ActivatedRoute} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { SessionService } from '@services/session.service';
+import { FriendRequestService } from '@services/friendrequest.service';
+import { Friendship } from '@models/friendship';
+import { Friendrequest } from '@models/friendrequest';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -27,11 +30,14 @@ export class ProfileComponent implements OnInit {
   isLoading = false;
   pageSize = 10;
   isOwnProfile: boolean = false;
+  friendshipStatus?: string;
+  friendRequest?: Friendrequest;
   constructor(
     private profileService: ProfileService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private friendRequestService : FriendRequestService
   ) {
   }
 
@@ -65,7 +71,10 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
-
+  addFriendCallBack() {
+    console.log('addFriendCallBack');
+    this.getFriendship();
+  }
   // Get User Profile
   getUserProfile() {
     this.profileService.getUserProfileByUrl(this.user.url!).subscribe((response: User) => {
@@ -75,12 +84,27 @@ export class ProfileComponent implements OnInit {
         this.photoSrc = "data:image/png;base64," + this.user.photo?.image;
       }
       this.isOwnProfile = this.user.id == this.sessionService.getUserId();
+      if (this.isOwnProfile) {
+        this.friendshipStatus = 'own';
+      } else {
+        this.getFriendship();
+      }
       this.loadPage();
 
 
     })
   }
-
+  getFriendship() {
+    this.friendRequestService.getFriendship(this.user.id!).subscribe((response: Friendship) => {
+      this.friendshipStatus = response.status;
+      console.log('status: ' + this.friendshipStatus);
+      if (this.friendshipStatus == 'pending') {
+        this.friendRequestService.getFriendRequest(this.user.id!).subscribe((response: Friendrequest) => {
+          this.friendRequest = response;
+        });
+      }
+    })
+  }
 
   @HostListener('window:scroll', ['$event']) // for window scroll events
   onScroll(event:any) {

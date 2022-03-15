@@ -19,13 +19,40 @@ public class Friendship {
     @Column
     private boolean isActive = true;
 
-    // User Id
-    @Column
-    private Long userId;
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = true)
+    private User user;
+
+
+
+
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     // Friend Id
     @ManyToOne
-    @JoinColumn(name = "friendId", nullable = false)
+    @JoinColumn(name = "friendId", nullable = true)
     private User friend;
 
     // Constructor
@@ -53,14 +80,6 @@ public class Friendship {
 
     public void setActive(boolean active) {
         isActive = active;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public User getFriend() {
