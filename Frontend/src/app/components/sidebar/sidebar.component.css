@@ -1,18 +1,45 @@
 .sidebar {
-    height: 100%;
-    width: 15%;
-    position: fixed;
-    z-index: 1;
-    /* top: 0; */
-    left: 0;
-    /* background-color: lightgray; */
-    overflow-x: hidden;
-    padding-top: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-bottom: 10px;
-    border-style: groove;
-    border-radius: 5px;
-    border-color: black;
-    overflow-y: scroll;
-  }
+  height: 100%;
+  width: 15%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  border-style: groove;
+  border-radius: 5px;
+  border-color: black;
+  overflow-y: scroll;
+}
+
+ul {
+  margin: 3px;
+  padding: 2px;
+  list-style: none;
+}
+
+#list {
+  display: flex;
+  align-content: stretch;
+  align-items: baseline;
+}
+
+li { 
+  background: rgb(68, 70, 70);
+  margin: 5px;
+}
+
+li:nth-child(odd) { 
+  background: rgb(101, 102, 105); 
+}
+
+a {
+  color: aqua;
+}
+
+a:hover {
+  color: blue;
+}

@@ -14,6 +14,8 @@ public class ReactionServiceImp implements ReactionService {
 
     @Autowired
     ReactionRepository reactionRepository;
+    @Autowired
+    NotificationService notificationService;
 
     //Create Reaction
     public ResponseEntity createReaction(Reaction reaction) {
@@ -22,6 +24,11 @@ public class ReactionServiceImp implements ReactionService {
         System.out.println("post: " + reaction.getPost());
         System.out.println("user: " + reaction.getUser());
         reactionRepository.save(reaction);
+        if (reaction.getReactionType().getId()==1){
+            notificationService.createNotification("likedPost", reaction.getId());
+        } else {
+            notificationService.createNotification("commentedPost", reaction.getId());
+        }
         return new ResponseEntity<>("Reaction Recorded",HttpStatus.CREATED);
     }
 

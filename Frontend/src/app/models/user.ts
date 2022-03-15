@@ -13,7 +13,8 @@ export class User {
         public mobileNumber?: string,
         public isActive?: boolean,
         public photoId?: number,
-        public photo?: Photo
-
+        public photo?: Photo,
+        public aboutMe?: string,
+        public url?: string
     ) {}
 }

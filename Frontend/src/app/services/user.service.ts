@@ -13,6 +13,8 @@ export class UserService {
 
   private baseUrl: string = environment.apiUrl + '/users';
   private registerUrl: string = environment.apiUrl + '/users/register';
+  private onlineFriendsUrl: string = environment.apiUrl + '/online/';
+
   constructor(
     private http: HttpClient
   ) { }
@@ -30,5 +32,14 @@ export class UserService {
     return this.http.get<User[]>(this.baseUrl);
   }
 
+  // Get online friends
+  getOnlineFriends(userId: number): Observable<User[]> {
+    return this.http.get<User[]>(`${this.onlineFriendsUrl}${userId}`);
+  }
+
   // Get user by id
+  getUser(userId: number): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/${userId}`);
+  }
+  
 }

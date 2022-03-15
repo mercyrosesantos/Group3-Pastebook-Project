@@ -6,9 +6,9 @@ export class Post {
         public content?: string,
         public postTimestamp?: Date,
         public isActive?: boolean,
-        public userId?: number,
+        // public userId?: number,
         public user?: User,
-        public timelineUserId?: number,
+        // public timelineUserId?: number,
         public timelineUser?: User
     ) {}
 }

@@ -55,14 +55,15 @@ export class CreatePostComponent implements OnInit {
 
     let user : User = new User();
     user.id = this.userId;
-
     post.user = user;
+
     post.postTimestamp = this.postTime;
-    post.timelineUserId = parseInt(this.timeline);
+    // post.timelineUserId = parseInt(this.timeline);
     
     let timeline: User = new User();
     timeline.id = parseInt(this.timeline);
     post.timelineUser = timeline;
+  
     
     this.addPost(post);
     this.myForm.resetForm();

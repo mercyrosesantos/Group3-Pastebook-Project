@@ -1,14 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
+import * as moment from 'moment';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
+import { LikeInformation } from '@models/like-information';
 import { Post } from '@models/post';
 import { ProfileService } from '@services/profile.service';
 import { ReactionService } from '@services/reaction.service';
 import { Reaction } from '@models/reaction';
-import { LikeInformation } from '@models/like-information';
-import { User } from '@models/user';
-import * as moment from 'moment';
 import { SessionService } from '@services/session.service';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { User } from '@models/user';
+
+
+
 
 @Component({
   selector: 'app-post',
@@ -32,22 +35,10 @@ export class PostComponent implements OnInit {
   ) { 
     
   }
-  open(content?: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      
-    }, (reason) => {
-
-    });
-  }
 
   ngOnInit(): void {
     this.getCommentsFromPost();
     this.getLikesFromPost();
-    // this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      
-    // }, (reason) => {
-
-    // });
   }
 
   //Create like Reaction
@@ -63,7 +54,6 @@ export class PostComponent implements OnInit {
           "id": this.sessionService.getUserId()
       } 
     }
-    console.log("test")
     this.profileService.createReaction(likeReaction).subscribe((response: Object) => {
       this.getLikesFromPost();
     });
@@ -93,6 +83,9 @@ export class PostComponent implements OnInit {
   getCommentsFromPost() {
     this.reactionService.getCommentsByPost(this.post.id).subscribe((response: Reaction[]) => {
       this.comments = response;
+      for (let comment of this.comments) {
+        comment.reactionTimeString = moment(comment?.reactionTimestamp).format('MMMM DD, YYYY HH:mm:ss');
+      }
       this.formattedPostTimeStamp = moment(this.post.postTimestamp).format('MMMM DD, YYYY HH:mm:ss');
     });
   }
@@ -109,19 +102,15 @@ export class PostComponent implements OnInit {
       this.isCurrentUserLiked = this.likeInformation.likeIds.has(parseInt(this.sessionService.getUserId()));
     });
   }
-
-  //To check if the user liked the post
-  // isCurrentUserLiked(): boolean {
-  //   let isCurrentlyLiked = false;
-  //   isCurrentlyLiked = this.likeInformation?.likeIds?.has(this.sessionService.getUserId())!;
-  //   console.log('isCurrentlyLiked');
-
-  //   return isCurrentlyLiked;
-  // }
-
   
-  //Show users who liked the post(not in use yet)
+  //Show users who liked the post
   formatLikers() {
     return JSON.stringify(this.likeInformation?.users);
+  }
+
+   //Modal - to show who reacted on the post
+   open(content?: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    }, (reason) => {});
   }
 }

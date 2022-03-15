@@ -1,13 +1,9 @@
 .navbar {
     position: sticky;
     width: 100%;
+    top: 0;
+    z-index: 100;
 }
-
-/* #navContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-} */
 
 #navMain {
     display: flex;
@@ -27,4 +23,3 @@
     margin-left: auto;
     color: white;
 }
-

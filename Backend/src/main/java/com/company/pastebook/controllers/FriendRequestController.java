@@ -5,6 +5,7 @@ import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.FriendRequestRepository;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.FriendRequestService;
+import com.company.pastebook.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,10 @@ public class FriendRequestController {
     @Autowired
     FriendRequestRepository friendRequestRepo;
 
-        @RequestMapping(value = "/api/search-result/{requestorIdC}/{requesteeIdC}", method = RequestMethod.POST)
+    @Autowired
+    NotificationService notificationService;
+
+    @RequestMapping(value = "/api/search-result/{requestorIdC}/{requesteeIdC}", method = RequestMethod.POST)
     public ResponseEntity<Object> createFriendRequest(FriendRequest friendRequest, @PathVariable Long requestorIdC, @PathVariable Long requesteeIdC) {
         HashMap<String, String> response = new HashMap<>();
         if(!user.existsById(requestorIdC) || !user.existsById(requesteeIdC)){
@@ -53,11 +57,31 @@ public class FriendRequestController {
                     friendRequest1.setRequestTimestamp(timeStampDate);
                     response.put("result", "Add friend successful.");
                     friendRequestRepo.save(friendRequest1);
+                    notificationService.createNotification("friendRequest", friendRequest1.getId());
                     return new ResponseEntity<>(response, HttpStatus.CREATED);
                 }
             }
         }
 
+
+    // Accept friend request
+    @RequestMapping(value = "/api/friendrequestsA/{frid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> acceptFriendRequest(@PathVariable Long frid,@RequestHeader(value="Authorization") String stringToken){
+        return friendRequestService.acceptFriendRequest(frid, stringToken);
+
+    }
+
+    // Reject friend request
+    @RequestMapping(value = "/api/friendrequestsR/{frid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> rejectFriendRequest(@PathVariable Long frid,@RequestHeader(value="Authorization") String stringToken){
+        return friendRequestService.rejectFriendRequest(frid, stringToken);
+    }
+
+    // Get friend requests
+    @RequestMapping(value = "/api/friendrequests", method = RequestMethod.GET)
+    public ResponseEntity<Object> getFriendRequests(String status) {
+        String statusCheck = "pending";
+        return new ResponseEntity<>(friendRequestService.findByStatus(statusCheck), HttpStatus.OK);
     }
 
 }

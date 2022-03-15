@@ -1,15 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid" id="navContainer">
     <div class="container-fluid" id="navMain" *ngIf="hasToken; else noToken">
-      <a class="navbar-brand" routerLink="/"><i class="fa fa-home" style="font-size:40px; color:antiquewhite"></i></a>
+      <a class="navbar-brand" routerLink="/"><i class="fa fa-home" style="font-size:38px; color:white"></i></a>
       <div class="navbar-nav" id="navbarPeople">
-          <a class="nav-link" [routerLink]="['/profile', userId]"><i class="fa fa-user-circle-o" style="font-size:28px; color:antiquewhite"></i></a>
-          <a class="nav-link" href="#"><i class="fa fa-users" style="font-size:28px; color:antiquewhite;"></i></a>
+          <a class="nav-link" routerLink="/profile/{{this.profileUrl}}"><i class="fa fa-user-circle-o" style="font-size:25px; color:white"></i></a>
+          <a class="nav-link" href="#"><i class="fa fa-users" style="font-size:25px; color:white;"></i></a>
       </div>
       <div class="container" id="form">
         <form class="d-flex px-5" (ngSubmit)="onSubmit()" name="myForm" #myForm="ngForm">
           <input class="form-control me-2" type="search" placeholder="Search User" name="search" [(ngModel)]="keyword">
-          <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" style="font-size:32px"></i></button>
+          <button class="btn btn-outline-success" type="submit"><i class="fa fa-search" style="font-size:28px"></i></button>
         </form>
       </div>  
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarActions" aria-controls="navbarActions" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,10 +17,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarActions">
         <div class="navbar-nav">
-           <a class="nav-item" href="userUrl">{{fullNameString}}</a>
-          <a class="nav-link" href="#"><i class="fa fa-bell-o" style="font-size:28px; color:antiquewhite"></i></a>
-          <a class="nav-link" href="#"><i class="fa fa-gear" style="font-size:28px; color:antiquewhite;"></i></a>
-          <a class="nav-link" (click)="logout()"><i class="fa fa-power-off" style="font-size:28px; color:antiquewhite;"></i></a>
+         
+          <a class="nav-item" routerLink="/profile/{{this.profileUrl}}">{{this.firstName}} {{this.lastName}}</a>
+ <div>
+          <app-notification></app-notification>
+          </div>
+          <a class="nav-link" href="#"><i class="fa fa-gear" style="font-size:25px; color:white;"></i></a>
+          <a class="nav-link" (click)="logout()"><i class="fa fa-power-off" style="font-size:25px; color:white;"></i></a>
         </div>
       </div>
     </div>

@@ -65,6 +65,15 @@ export class SessionService {
     localStorage.setItem('keyword', value);
   }
 
+  getUrl(): string {
+    return localStorage.getItem('url')!;
+  }
+
+  setUrl(value: string): void {
+    localStorage.setItem('url', value);
+
+  }
+
   clear(): void {
     localStorage.clear();
     this.hasToken.emit(false);
