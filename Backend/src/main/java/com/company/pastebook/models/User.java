@@ -47,6 +47,9 @@ public class User {
     @Column(length = 2000)
     private String aboutMe;
 
+    @Column
+    private String url;
+
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
@@ -205,5 +208,13 @@ public class User {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

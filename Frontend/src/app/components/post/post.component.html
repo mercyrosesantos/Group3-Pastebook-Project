@@ -7,12 +7,14 @@
                         <img class="card-img-top"  src="data:image/png;base64,{{post.user?.photo?.image}}" class="rounded-circle"  width="80" height="80">
                     </div>
                     <div class = "col-sm-4">
-                        <h4>{{ post.user?.firstName }} {{ post.user?.lastName }}</h4>
+                        <h4><a style='text-decoration: none;' routerLink="/profile/{{post.user?.url}}">{{ post.user?.firstName }} {{ post.user?.lastName }}</a></h4>
                     {{formattedPostTimeStamp}}
                     </div>
                     <h3 class="col-md-1" *ngIf="post?.timelineUser?.id != post?.user?.id">></h3>
                     <div class = "col-sm-3" *ngIf="post?.timelineUser?.id != post?.user?.id">
-                        <h4>{{ post.timelineUser?.firstName }} {{ post.timelineUser?.lastName }}</h4>
+                        <h4><a style='text-decoration: none;' routerLink="/profile/{{post.timelineUser?.url}}">
+                            {{ post.timelineUser?.firstName }} {{ post.timelineUser?.lastName }}
+                        </a></h4>
 
                     </div>
                     
@@ -55,7 +57,9 @@
                 <div class = "col-sm-8 offset-md-1" *ngFor="let comment of comments" > 
                     <div class = "rounded col-sm-12" style=" background-color: #95a199;"> 
                         <img class="card-img-top" src="data:image/png;base64,{{comment.user?.photo?.image}}" class="rounded-circle"  width="50" height="50">
-                        <b> {{comment.user?.firstName}} {{comment.user?.lastName}} </b> 
+                        <b> <a style='text-decoration: none;' routerLink="/profile/{{comment.user?.url}}">
+                            {{comment.user?.firstName}} {{comment.user?.lastName}} 
+                        </a></b> 
                             {{comment.reactionTimeString}}
                         <p > {{comment.content}} </p>                      
                     </div>
@@ -73,7 +77,9 @@
     <div class="modal-body">
         <div *ngFor="let liker of likeInformation?.users">
             <img class="card-img-top" src="data:image/png;base64,{{liker?.photo?.image}}" class="rounded-circle"  width="50" height="50">
-            {{liker.firstName}} {{liker.lastName}}
+            <a style='text-decoration: none;' routerLink="/profile/{{liker?.url}}">
+                {{liker.firstName}} {{liker.lastName}}
+            </a>
         </div>
     </div>
     <div class="modal-footer">

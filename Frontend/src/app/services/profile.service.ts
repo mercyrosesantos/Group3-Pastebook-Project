@@ -31,6 +31,10 @@ export class ProfileService {
   getUserProfile(userId: number): Observable<User> {
     return this.http.get<User>(this.profileUrl +  userId );
   }
+  getUserProfileByUrl(url: string): Observable<User> {
+    return this.http.get<User>(environment.apiUrl + '/' +  url );
+  }
+
 
   // Create Reactions
   createReaction(reaction: any): Observable<Object> {

@@ -59,6 +59,12 @@ public class UserServiceImp implements UserService {
         return new ResponseEntity(userProfile, HttpStatus.OK);
     }
 
+// Get User Profile by Url
+    public ResponseEntity getUserProfileByUrl(String url){
+        User userProfileByUrl = userRepository.findByUrl(url);
+        return new ResponseEntity(userProfileByUrl, HttpStatus.OK);
+    }
+
 //    User Verification
     public boolean isEnabled() {
         return user.isEnabled();

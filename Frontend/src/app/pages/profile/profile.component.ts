@@ -38,9 +38,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      this.user.id = Number(params['id']);
-      this.isOwnProfile = this.user.id == this.sessionService.getUserId();
-      this.loadPage();
+      this.user.url = params['id'];
       this.getUserProfile();
     })
 
@@ -50,7 +48,7 @@ export class ProfileComponent implements OnInit {
   //Refresh timeline
   public loadPage() {
     if (this.route) {
-      this.user.id = this.route.snapshot.params['id'];
+      this.user.url = this.route.snapshot.params['id'];
     }
     this.posts = [];
     this.pageNo = 0;
@@ -70,12 +68,14 @@ export class ProfileComponent implements OnInit {
 
   // Get User Profile
   getUserProfile() {
-    this.profileService.getUserProfile(this.user.id!).subscribe((response: User) => {
+    this.profileService.getUserProfileByUrl(this.user.url!).subscribe((response: User) => {
       this.user = response;
       this.formattedBirthday = moment(this.user.birthDay).format('MMMM DD, YYYY');
       if (this.user.photo?.image != undefined) {
         this.photoSrc = "data:image/png;base64," + this.user.photo?.image;
       }
+      this.isOwnProfile = this.user.id == this.sessionService.getUserId();
+      this.loadPage();
 
 
     })

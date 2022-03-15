@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
   keyword: string = "";
   userId: string = this.sessionService.getUserId();
   fullNameString: string = this.firstName + " " + this.lastName;
+  profileUrl: string = this.sessionService.getUrl();
 
   @ViewChild('myForm', { static: false })
   myForm!: NgForm;
@@ -35,6 +36,7 @@ export class NavbarComponent implements OnInit {
       this.firstName = this.sessionService.getFirstName();
       this.lastName = this.sessionService.getLastName();
       this.userId = this.sessionService.getUserId();
+      this.profileUrl = this.sessionService.getUrl();
     })
 
   }

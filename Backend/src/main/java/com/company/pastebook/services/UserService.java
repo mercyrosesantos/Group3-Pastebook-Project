@@ -22,6 +22,11 @@ public interface UserService {
 //    Get User Profile
     ResponseEntity getUserProfile(Long id);
 
+//    Get User Profile by URL
+    ResponseEntity getUserProfileByUrl(String url);
+
+
+
 //    Send Verification Email
     void sendVerificationEmail(User user, String siteUrl) throws MessagingException, UnsupportedEncodingException;
 
