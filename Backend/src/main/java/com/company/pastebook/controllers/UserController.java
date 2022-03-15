@@ -109,6 +109,26 @@ public class UserController {
         return builder.compact();
     }
 
+//        Update User Info
+    @RequestMapping(value = "/api/settings/information/{userid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateUserInfo(@PathVariable Long userid, @RequestBody User newUser) {
+        return userService.updateUserInfo(userid, newUser);
+    }
+
+//    Update User Email
+    @RequestMapping(value = "/api/settings/email/{userid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateUserEmail(@PathVariable Long userid, @RequestBody User newUser) {
+        return userService.updateUserEmail(userid, newUser);
+    }
+
+//        Update User Password
+    @RequestMapping(value = "/api/settings/password/{userid}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateUserPassword(@PathVariable Long userid, @RequestBody User newUser) {
+        return userService.updateUserPassword(userid, newUser);
+    }
+
+
+
 
 
 

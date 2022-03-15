@@ -1,8 +1,10 @@
 package com.company.pastebook.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -30,7 +32,8 @@ public class User {
     private String password;
 
     @Column
-    private Date birthDay;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate birthDay;
 
     @Column
     private String gender;
@@ -79,7 +82,7 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String password, Date birthDay, String gender, String mobileNumber, String dateJoined, boolean isActive) {
+    public User(String firstName, String lastName, String email, String password, LocalDate birthDay, String gender, String mobileNumber, String dateJoined, boolean isActive) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -132,11 +135,11 @@ public class User {
         this.password = password;
     }
 
-    public Date getBirthDay() {
+    public LocalDate getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
 

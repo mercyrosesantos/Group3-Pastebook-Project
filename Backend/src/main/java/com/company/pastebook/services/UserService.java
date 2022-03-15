@@ -21,4 +21,17 @@ public interface UserService {
 
 //    Send Verification Email
     void sendVerificationEmail(User user, String siteUrl) throws MessagingException, UnsupportedEncodingException;
+
+//    Update User Information
+    ResponseEntity updateUserInfo(Long id, User user);
+
+//    Update User Email
+    ResponseEntity updateUserEmail(Long id, User user);
+
+//    Update User Password
+    ResponseEntity updateUserPassword(Long id, User user);
 }
+
+
+
+
