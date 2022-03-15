@@ -38,6 +38,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PhotoComponent } from './components/photo/photo.component';
 import { ResultComponent } from './pages/result/result.component';
+import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
 
 
 const appRoutes: Routes = [
@@ -64,6 +65,7 @@ const appRoutes: Routes = [
     CreatePostComponent,
     PhotoComponent,
     ResultComponent,
+    AddFriendButtonComponent,
     SettingsComponent,
     AlbumsComponent
   ],
