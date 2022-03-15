@@ -14,11 +14,15 @@
                     <div class="col-sm-8">
                         <div class="card-body">
                             <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5><br>
-                            <div class="row">
-                                <mat-icon class="col-md-6">edit</mat-icon>
+                            <div class="row" *ngIf="isOwnProfile">
+                                <mat-icon class="col-md-6" (click)="open(aboutMe)">edit</mat-icon>
+                                <h6 class="Card-text col-md-6" (click)="open(aboutMe)">About Me</h6> 
+                            </div>
+                            <div class="row" *ngIf="!isOwnProfile">
                                 <h6 class="Card-text col-md-6">About Me</h6> 
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
+                            <p *ngIf="isOwnProfile" (click)="open(aboutMe)">{{user.aboutMe}}</p>
+                            <p *ngIf="!isOwnProfile">{{user.aboutMe}}</p>
                         </div>
                     </div> 
                 </div>
@@ -72,5 +76,22 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Upload</button>
+    </div>
+</ng-template>
+
+<ng-template #aboutMe let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update your About Me</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="AboutMe">About Me</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="user.aboutMe"></textarea>
+          </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+        <button type="button" class="btn btn-outline-dark" (click)="saveAboutMe()">Save</button>
     </div>
 </ng-template>

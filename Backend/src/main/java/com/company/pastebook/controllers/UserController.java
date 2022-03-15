@@ -1,6 +1,7 @@
 package com.company.pastebook.controllers;
 
 import com.company.pastebook.Constants;
+import com.company.pastebook.models.Post;
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.ReactionService;
@@ -113,6 +114,13 @@ public class UserController {
     @RequestMapping ( value = "/api/online/{userId}", method = RequestMethod.GET)
     public ResponseEntity<Object> getOnlineFriends(@PathVariable Long userId) {
         return userService.getOnlineFriends(userId);
+    }
+
+    //Update About Me
+    @RequestMapping(value = "api/profile/aboutme", method = RequestMethod.PUT)
+    ResponseEntity<Object> updateAboutME (@RequestBody User user) {
+        return (userService.updateAboutMe(user.getAboutMe(),user.getId()));
+
     }
 
 }

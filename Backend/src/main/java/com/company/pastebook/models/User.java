@@ -44,6 +44,9 @@ public class User {
     @Column
     private boolean isActive = true;
 
+    @Column(length = 2000)
+    private String aboutMe;
+
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
@@ -194,5 +197,13 @@ public class User {
 
     public void setPhoto(Photo photo) {
         this.photo = photo;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
     }
 }
