@@ -7,20 +7,15 @@ import com.company.pastebook.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Properties;
 
 @Service
 public class UserServiceImp implements UserService {
@@ -62,6 +57,12 @@ public class UserServiceImp implements UserService {
     public ResponseEntity getUserProfile(Long id){
         User userProfile = userRepository.findById(id).get();
         return new ResponseEntity(userProfile, HttpStatus.OK);
+    }
+
+// Get User Profile by Url
+    public ResponseEntity getUserProfileByUrl(String url){
+        User userProfileByUrl = userRepository.findByUrl(url);
+        return new ResponseEntity(userProfileByUrl, HttpStatus.OK);
     }
 
 //    User Verification
@@ -114,5 +115,15 @@ public class UserServiceImp implements UserService {
     public ResponseEntity<Object> getUser(Long id) {
         User getUser = userRepository.findById(id).get();
         return new ResponseEntity<>(getUser, HttpStatus.OK);
+}
+  //Update AboutMe
+    public ResponseEntity updateAboutMe(String aboutMe, Long userID){
+        User userAboutMe = userRepository.findById(userID).orElse(null);
+        if (userAboutMe == null) {
+            return new ResponseEntity("No User Found.", HttpStatus.CONFLICT);
+        }
+        userAboutMe.setAboutMe(aboutMe);
+        userRepository.save(userAboutMe);
+        return new ResponseEntity("About Me created.", HttpStatus.OK);
     }
 }

@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface FriendRequestRepository extends CrudRepository<FriendRequest, Object> {
     FriendRequest findByRequestorId(Long requestorId);
     FriendRequest findByRequesteeId(Long requesteeId);
-//    FriendRequest findByRequestee(User requesteeF);
+    FriendRequest findByStatus(String status);
 }
