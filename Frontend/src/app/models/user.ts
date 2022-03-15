@@ -14,6 +14,7 @@ export class User {
         public isActive?: boolean,
         public photoId?: number,
         public photo?: Photo,
-        public aboutMe?: string
+        public aboutMe?: string,
+        public url?: string
     ) {}
 }
