@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
     this.sessionService.setUserId(response['id']);
     this.sessionService.setFirstName(response['firstName']);
     this.sessionService.setLastName(response['lastName']);
+    this.sessionService.setUrl(response['url']);
     // this.sessionService.setIsAdmin(response['isAdmin']);
     this.sessionService.setToken(response['token']);
     this.router.navigate(['']);

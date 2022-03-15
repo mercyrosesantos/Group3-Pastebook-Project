@@ -12,6 +12,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { AlbumsComponent } from './pages/albums/albums.component';
 
 
 // Navbar icons imports
@@ -38,6 +40,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { PhotoComponent } from './components/photo/photo.component';
 import { ResultComponent } from './pages/result/result.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
 
 
 const appRoutes: Routes = [
@@ -45,7 +48,9 @@ const appRoutes: Routes = [
   { path: 'profile/:id', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'search/:keyword', component: ResultComponent }
+  { path: 'search/:keyword', component: ResultComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'albums', component: AlbumsComponent}
   // { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
@@ -62,7 +67,10 @@ const appRoutes: Routes = [
     CreatePostComponent,
     PhotoComponent,
     ResultComponent,
-    NotificationComponent
+    NotificationComponent,
+    AddFriendButtonComponent,
+    SettingsComponent,
+    AlbumsComponent
   ],
   imports: [
     BrowserModule,

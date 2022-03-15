@@ -1,6 +1,7 @@
 package com.company.pastebook.controllers;
 
 import com.company.pastebook.Constants;
+import com.company.pastebook.models.Post;
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.ReactionService;
@@ -49,7 +50,10 @@ public class UserController {
         newUser.setVerificationCode(randomCode);
 
         if (!userService.findByEmail(email).isPresent()) {
-            user.save(newUser);
+            User savedUser = user.save(newUser);
+
+            savedUser.setUrl(newUser.getFirstName().toLowerCase()+newUser.getLastName().toLowerCase() + "-" + savedUser.getId());
+            user.save(savedUser);
             String siteUrl = "http://localhost:8080";
             userService.sendVerificationEmail(newUser, siteUrl);
 
@@ -78,6 +82,7 @@ public class UserController {
                 response.put("lastName", newUser.getLastName());
                 response.put("id", newUser.getId().toString());
                 response.put("token", generateToken(newUser.getId(), newUser.getEmail()));
+                response.put("url",newUser.getUrl());
                 return new ResponseEntity<>(response , HttpStatus.OK);
             }else {
                 response.put("result", "incorrect_credentials");
@@ -93,6 +98,12 @@ public class UserController {
     @RequestMapping(value = "/api/profile/{userId}", method=RequestMethod.GET)
     public ResponseEntity<Object> getUserProfile(@PathVariable long userId) {
         return userService.getUserProfile(userId);
+    }
+
+    // Get User Profile by Url
+    @RequestMapping(value = "/api/{url}", method=RequestMethod.GET)
+    public ResponseEntity<Object> getUserProfileByUrl(@PathVariable String url) {
+        return userService.getUserProfileByUrl(url);
     }
 
     // Generate token
@@ -119,6 +130,12 @@ public class UserController {
     @RequestMapping (value = "/api/users/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getUser(@PathVariable Long id) {
         return userService.getUser(id);
+    }
+
+    //Update About Me
+    @RequestMapping(value = "api/profile/aboutme", method = RequestMethod.PUT)
+    ResponseEntity<Object> updateAboutME (@RequestBody User user) {
+        return (userService.updateAboutMe(user.getAboutMe(),user.getId()));
     }
 
 }

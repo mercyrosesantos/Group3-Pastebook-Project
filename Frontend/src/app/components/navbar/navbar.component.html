@@ -3,7 +3,7 @@
     <div class="container-fluid" id="navMain" *ngIf="hasToken; else noToken">
       <a class="navbar-brand" routerLink="/"><i class="fa fa-home" style="font-size:38px; color:white"></i></a>
       <div class="navbar-nav" id="navbarPeople">
-          <a class="nav-link" routerLink="/profile/{{this.userId}}"><i class="fa fa-user-circle-o" style="font-size:25px; color:white"></i></a>
+          <a class="nav-link" routerLink="/profile/{{this.profileUrl}}"><i class="fa fa-user-circle-o" style="font-size:25px; color:white"></i></a>
           <a class="nav-link" href="#"><i class="fa fa-users" style="font-size:25px; color:white;"></i></a>
       </div>
       <div class="container" id="form">

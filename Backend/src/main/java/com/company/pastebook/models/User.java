@@ -44,6 +44,12 @@ public class User {
     @Column
     private boolean isActive = true;
 
+    @Column(length = 2000)
+    private String aboutMe;
+
+    @Column
+    private String url;
+
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
 
@@ -197,6 +203,20 @@ public class User {
     }
 
     public Set<Post> getUserPosts() {
-        return userPosts;
+        return userPosts;}
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public void setAboutMe(String aboutMe) {
+        this.aboutMe = aboutMe;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -16,15 +16,25 @@ public interface UserService {
 //    Login user
     Iterable<User> verifyUser(String email);
 
-    // Get online friends
+//    Get online friends
     ResponseEntity getOnlineFriends(Long userId);
 
-// Get User Profile
+//    Get User Profile
     ResponseEntity getUserProfile(Long id);
+
+//    Get User Profile by URL
+    ResponseEntity getUserProfileByUrl(String url);
+
+
 
 //    Send Verification Email
     void sendVerificationEmail(User user, String siteUrl) throws MessagingException, UnsupportedEncodingException;
 
+<<<<<<< HEAD
     // Get user by id
     ResponseEntity getUser(Long id);
+=======
+//    Update AboutMe
+    ResponseEntity updateAboutMe(String aboutMe, Long userId);
+>>>>>>> 73a038d45f898843890ce5e2697f669a4096e322
 }
