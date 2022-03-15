@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { Photo } from '@models/photo';
 import {ActivatedRoute} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { SessionService } from '@services/session.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -25,11 +26,12 @@ export class ProfileComponent implements OnInit {
   isMaxed = false;
   isLoading = false;
   pageSize = 10;
-  
+  isOwnProfile: boolean = false;
   constructor(
     private profileService: ProfileService,
     private route: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private sessionService: SessionService
   ) {
   }
 
@@ -37,12 +39,11 @@ export class ProfileComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.user.id = Number(params['id']);
+      this.isOwnProfile = this.user.id == this.sessionService.getUserId();
       this.loadPage();
       this.getUserProfile();
     })
 
-    // this.loadPage();
-    // this.getUserProfile();
 
   }
 
@@ -101,4 +102,10 @@ export class ProfileComponent implements OnInit {
     }, (reason) => {});
   }
 
+  //Save About Me
+  saveAboutMe(){
+    this.profileService.updateAboutMe(this.user).subscribe((response: Object) => {
+      this.modalService.dismissAll()
+    })
+  }
 }
