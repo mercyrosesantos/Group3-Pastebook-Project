@@ -4,7 +4,7 @@
       <a class="navbar-brand" routerLink="/"><i-bs name="house-door" height="30" width="30"></i-bs></a>
       <div class="navbar-nav" id="navbarPeople">
           <a class="nav-link" routerLink="/profile/{{this.profileUrl}}"><i-bs name="person-circle" height="25" width="25"></i-bs></a>
-          <a class="nav-link" href="#"><i-bs name="people-fill" height="25" width="25"></i-bs></a>
+          <a class="nav-link" routerLink="/friendslist/{{this.userId}}"><i-bs name="people-fill" height="25" width="25"></i-bs></a>
       </div>
       <div class="container" id="form">
         <form class="d-flex px-5" (ngSubmit)="onSubmit()" name="myForm" #myForm="ngForm">

@@ -16,6 +16,8 @@ import * as CryptoJs from 'crypto-js';
 })
 export class RegisterComponent implements OnInit {
 
+  
+
   // Variable Declarations
   firstName: string = "";
   lastName: string = "";
@@ -68,7 +70,7 @@ export class RegisterComponent implements OnInit {
   register(user: User) {
     this.userService.register(user).subscribe((response: Object) => {
       console.log(response); 
-      this.router.navigate(['/login']);
+      this.router.navigate(['']);
     });
   }
 
@@ -77,6 +79,7 @@ export class RegisterComponent implements OnInit {
     this.sessionService.setUserId(response['id']);
     this.sessionService.setFirstName(response['firstName']);
     this.sessionService.setLastName(response['lastName']);
+    this.sessionService.setUrl(response['url']);
     this.sessionService.setToken(response['token']);
     this.router.navigate(['']);
     console.log(this.sessionService.getUserId());

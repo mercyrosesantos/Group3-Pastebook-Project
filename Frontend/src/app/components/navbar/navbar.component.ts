@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { SessionService } from '@services/session.service';
+import { User } from '@models/user';
+import { FriendRequestService } from '@services/friendrequest.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +23,9 @@ export class NavbarComponent implements OnInit {
   userId: string = this.sessionService.getUserId();
   fullNameString: string = this.firstName + " " + this.lastName;
   profileUrl: string = this.sessionService.getUrl();
+  friend?: User;
+  finder?: number;
+  userN: number = Number(this.sessionService.getUserId);
 
   @ViewChild('myForm', { static: false })
   myForm!: NgForm;
@@ -28,7 +33,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private friendRequestService: FriendRequestService
   ) {
 
     sessionService.hasToken.subscribe(hasToken => {
@@ -61,5 +67,14 @@ export class NavbarComponent implements OnInit {
     this.sessionService.clear();
     this.router.navigate(['/login']);
   }
+
+  friendslist(){
+    this.route.params.subscribe(params => {
+    this.userId = params['userId'];
+    this.friendRequestService.getFriends(this.userN).subscribe((response: User) => {
+      this.friend = response;
+    });
+    console.log(this.friend);
+  })}
 
 }

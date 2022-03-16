@@ -105,5 +105,11 @@ public class FriendRequestController {
         return new ResponseEntity<>(friendRequestService.getFriendRequest(userId,friendId), HttpStatus.OK);
     }
 
+    // FriendsList
+    @RequestMapping(value = "/api/friendslist/{userId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> getFriends(User friend, Long userId){
+        return new ResponseEntity<>(friendRequestService.getFriends(friend,userId), HttpStatus.OK);
+    }
+
 
     }
