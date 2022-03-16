@@ -3,8 +3,8 @@ position: relative;
 display: flex;
 align-items: center;
 justify-content: center;
-width: 35px;
-height: 35px;
+width: 30px;
+height: 30px;
 color: #333333;
 background: #dddddd;
 border: none;
@@ -35,7 +35,7 @@ border-radius: 50%;
 }
 
 .dropdown-menu {
-    margin-left: -200px;
+    margin-left: -150px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     overflow-y: auto;
     overflow-x: hidden;

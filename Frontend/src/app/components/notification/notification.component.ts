@@ -5,6 +5,8 @@ import { Notification } from '@models/notification';
 import { NotificationService } from '@services/notification.service';
 import { SessionService } from '@services/session.service';
 import { User } from '@models/user';
+import { isNgTemplate } from '@angular/compiler';
+import { importExpr } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-notification',
@@ -67,7 +69,7 @@ export class NotificationComponent implements OnInit {
     this.dataRefresher =
     setInterval(() => {
       this.loadNotif();
-    }, 1000); 
+    }, 10000); 
 
   }
 

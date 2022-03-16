@@ -1,6 +1,6 @@
 <div ngbDropdown>
     <a ngbDropdownToggle class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="setNotifAsRead();">
-        <i class="fa fa-bell" style="font-size:25px; color:rgb(77, 74, 74);" id="bell"></i>
+        <i-bs name="bell-fill" id="bell" width="23" height="23"></i-bs>
         <span class="icon-button__badge">{{ this.unreadNotif?.valueOf() }}</span>
     </a>
     <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">

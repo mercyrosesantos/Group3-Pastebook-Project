@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
+import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons'; // Icons import
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -16,9 +16,6 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { AlbumsComponent } from './pages/albums/albums.component';
 
 
-// Navbar icons imports
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
-import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { PostComponent } from './components/post/post.component';
@@ -79,8 +76,6 @@ const appRoutes: Routes = [
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    FontAwesomeModule,
-    MatIconModule,
     MatDividerModule,
     MatListModule,
     HttpClientModule,

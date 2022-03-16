@@ -153,6 +153,9 @@ public class FriendRequestServiceImp implements FriendRequestService{
 
             friendshipRepository.save(newFriendship1);
             friendshipRepository.save(newFriendship2);
+            notificationService.createNotification("acceptedRequest", friendRequest.getId());
+        } else {
+            notificationService.createNotification("friendRequest", friendRequest.getId());
         }
         return new ResponseEntity("Friend request saved.", HttpStatus.OK);
     }

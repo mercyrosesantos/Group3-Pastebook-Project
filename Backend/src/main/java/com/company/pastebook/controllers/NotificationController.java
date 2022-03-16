@@ -26,7 +26,7 @@ public class NotificationController {
     }
 
     // Set as notifications as read
-    @RequestMapping(value = "/api/notifications/read/{userId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/notifications/read/{userId}", method = RequestMethod.GET)
     ResponseEntity<Object> setAsRead(@PathVariable Long userId) {
         return notificationService.setAsRead(userId);
     }

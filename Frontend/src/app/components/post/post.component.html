@@ -25,23 +25,21 @@
                 </div>
                 <div class="row">
                     <div *ngIf="isCurrentUserLiked" class = "col-sm-2 offset-md-1 row"> 
-                          <!-- <mat-icon  style="color: blue">thumb_up</mat-icon>  -->
-                        <i class="fa fa-thumbs-o-up col-sm-4" style="font-size:26px; color:blue"></i>
+                        <!-- change color to blue after checking documentations -->
+                        <i-bs name="hand-thumbs-up-fill" height="22" width="22"></i-bs>
                         <div (click)="open(content)" class="col-sm-6">
                             {{likeInformation?.like}}
                         </div>
                         
                     </div>
                     <div *ngIf="!isCurrentUserLiked" class = "col-sm-2 offset-md-1 row" >
-                         <!-- <mat-icon (click)="createLikeReaction()" >thumb_up</mat-icon>  -->
-                        <i class="fa fa-thumbs-o-up col-sm-4" style="font-size:26px" (click)="createLikeReaction()"></i>
+                        <i-bs name="hand-thumbs-up" height="22" width="22" (click)="createLikeReaction()"></i-bs>
                         <div (click)="open(content)" class="col-sm-1">
                             {{likeInformation?.like}}
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <!-- <mat-icon>comment</mat-icon> -->
-                        <i class="fa fa-comments-o" style="font-size:28px"></i>
+                        <i-bs name="chat-left-text" height="22" width="22"></i-bs>
                         {{comments?.length}}
                     </div>
                 </div>

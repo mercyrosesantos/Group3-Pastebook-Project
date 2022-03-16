@@ -89,11 +89,15 @@ public class NotificationServiceImp implements NotificationService {
         for (Notification notif: notificationRepository.findAll()){
             if (notif.getUser()!=null){
                 if (notif.getUser().getId().equals(userId)){
-                    userNotif.add(notif);
+                    if (!notif.isRead()){
+                        userNotif.add(notif);
+                    }
                 }
             } else if (notif.getPost()!=null) {
                 if (notif.getPost().getUser().equals(user)) {
-                    userNotif.add(notif);
+                    if (!notif.isRead()) {
+                        userNotif.add(notif);
+                    }
                 }
             }
         }
