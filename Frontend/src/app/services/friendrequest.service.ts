@@ -40,8 +40,8 @@ export class FriendRequestService {
 } 
 
   //Get all friends
-  getFriends(userId:Number): Observable<Object>{
-    return this.http.get<Friendship>(this.friendslistUrl + this.sessionService.getUserId());
+  getFriends(userId:Number): Observable<User[]>{
+    return this.http.get<User[] >(this.friendslistUrl + this.sessionService.getUserId());
   }
 
  

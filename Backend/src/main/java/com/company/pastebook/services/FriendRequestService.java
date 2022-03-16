@@ -41,5 +41,5 @@ public interface FriendRequestService {
     FriendRequest getFriendRequest(@PathVariable Long userId, @PathVariable Long friendId);
 
     // Friendslist
-    ResponseEntity getFriends(User friend, Long userId);
+    ResponseEntity getFriends(Long userId);
 }

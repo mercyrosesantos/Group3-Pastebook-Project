@@ -7,16 +7,15 @@
             <a class="card-title"><h5>Friends</h5></a>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let friend">
+            <li class="list-group-item" *ngFor="let friend of friends">
               <div class="card" style="width: 40rem;">
-                  <!-- <img src="profilePic" class="card-img-top" alt="..."> -->
-                  <img class="card-img-top" src="data:image/png;base64,{{friend?.photo?.image}}" class="rounded-circle"  width="100" height="110">
+                <img class="card-img-top" [src]="friend?.photo?.image != null ? 'data:image/png;base64,' + friend?.photo?.image : './assets/DefaultProfilePicture.jpg'" class="rounded-circle"  width="100" height="110">
                   <div class="card-body">
-                    <h5 class="card-title" routerLink="/profile/{{friend.url}}" (click)="linkToProfile()">{{friend.firstName}} {{friend.lastName}}</h5>
-                    <!-- <a routerLink="/profile/{{user.url}}" class="btn btn-primary" (click)="linkToProfile()">Visit Profile</a> -->
+                    <h5 class="card-title" routerLink="/profile/{{friend.url}}" >{{friend.firstName}} {{friend.lastName}}</h5>
+                    <a routerLink="/profile/{{friend.url}}" class="btn btn-primary" >Visit Profile</a>
                   </div>
                 </div>
-            </li>
+              </li>
           </ul>
       </div>
   </div>
