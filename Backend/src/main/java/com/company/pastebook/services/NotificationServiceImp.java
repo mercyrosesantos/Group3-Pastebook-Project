@@ -102,7 +102,7 @@ public class NotificationServiceImp implements NotificationService {
     }
 
     // Get unread notifications count
-    public ResponseEntity<Object> getUnreadCount(Long userId) {
+    public int getUnreadCount(Long userId) {
         ArrayList<Notification> userNotif = getUserNotif(userId);
         int count = 0;
         for (Notification notification: userNotif) {
@@ -110,7 +110,7 @@ public class NotificationServiceImp implements NotificationService {
                 count++;
             }
         }
-        return new ResponseEntity<>(count, HttpStatus.OK);
+        return count;
     }
 
     // Set notifications as read
@@ -120,7 +120,7 @@ public class NotificationServiceImp implements NotificationService {
             notification.setRead(true);
             notificationRepository.save(notification);
         }
-        return getUnreadCount(userId);
+        return new ResponseEntity<>(getUnreadCount(userId), HttpStatus.OK);
     }
 
 }

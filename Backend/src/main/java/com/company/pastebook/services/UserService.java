@@ -30,11 +30,10 @@ public interface UserService {
 //    Send Verification Email
     void sendVerificationEmail(User user, String siteUrl) throws MessagingException, UnsupportedEncodingException;
 
-<<<<<<< HEAD
     // Get user by id
     ResponseEntity getUser(Long id);
-=======
+
 //    Update AboutMe
     ResponseEntity updateAboutMe(String aboutMe, Long userId);
->>>>>>> 73a038d45f898843890ce5e2697f669a4096e322
+
 }
