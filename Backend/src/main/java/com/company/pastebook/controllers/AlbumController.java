@@ -25,27 +25,40 @@ public class AlbumController {
 
     //Create an album
     @RequestMapping(value = "api/user/albums", method = RequestMethod.POST)
-    public ResponseEntity<Object> createAlbum(@RequestBody Album album){
+    ResponseEntity<Object> createAlbum(@RequestBody Album album){
+        System.out.println("album user: " + album.getUser().getId());
+
         return albumService.createAlbum(album);
     }
 
     // Add photos to album
     @RequestMapping(value = "api/album/photos", method = RequestMethod.POST)
-    ResponseEntity<Object> uploadPhoto (@RequestParam("files") MultipartFile[] file,@RequestParam Long albumId,@RequestParam Long userId)
+    ResponseEntity<Object> uploadPhoto (@RequestParam("files[]") MultipartFile[] files,@RequestParam Long albumId,@RequestParam Long userId)
             throws IOException {
-        return albumService.addPhotos(file,albumId,userId);
+        return albumService.addPhotos(files,userId,albumId);
     }
 
     //Delete an album
     @RequestMapping(value = "api/user/deleteAlbum", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteAlbum(@RequestBody Album album){
+    ResponseEntity<Object> deleteAlbum(@RequestBody Album album){
         return albumService.deleteAlbum(album);
     }
 
     //Update an album
     @RequestMapping(value = "api/user/updateAlbum", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateAlbum(@RequestBody Album album){
+    ResponseEntity<Object> updateAlbum(@RequestBody Album album){
         return albumService.updateAlbum(album);
     }
 
+    //Get Album
+    @RequestMapping(value = "api/album/{userId}", method = RequestMethod.GET)
+    ResponseEntity<Object> getAlbum(@PathVariable Long userId) {
+        return albumService.getAlbum(userId);
+    }
+
+    //Get Album
+    @RequestMapping(value = "api/albums-view/{albumId}", method = RequestMethod.GET)
+    ResponseEntity<Object> getAlbumById(@PathVariable Long albumId) {
+        return albumService.getAlbumById(albumId);
+    }
 }

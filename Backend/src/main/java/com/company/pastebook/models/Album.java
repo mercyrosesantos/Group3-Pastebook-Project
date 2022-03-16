@@ -1,6 +1,7 @@
 package com.company.pastebook.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,11 +28,11 @@ public class Album {
     private boolean isActive = true;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn (name = "userId", nullable = true)
     private User user;
 
     @OneToMany(mappedBy = "album")
-    @JsonIgnore
     private Set<Photo> albumPhotos;
 
     //Constructors
@@ -77,10 +78,11 @@ public class Album {
         isActive = active;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public void setUser(User user) {
         this.user = user;
     }

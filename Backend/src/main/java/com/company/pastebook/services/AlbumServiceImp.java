@@ -1,9 +1,6 @@
 package com.company.pastebook.services;
 
-import com.company.pastebook.models.Album;
-import com.company.pastebook.models.Photo;
-import com.company.pastebook.models.Post;
-import com.company.pastebook.models.User;
+import com.company.pastebook.models.*;
 import com.company.pastebook.repositories.AlbumRepository;
 import com.company.pastebook.repositories.PhotoRepository;
 import com.company.pastebook.repositories.UserRepository;
@@ -12,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -32,15 +30,17 @@ public class AlbumServiceImp implements AlbumService  {
 
     //Create an album
     public ResponseEntity createAlbum (Album album){
-        albumRepository.save(album);
-        return new ResponseEntity("Album created.", HttpStatus.OK);
+        Album createdAlbum = albumRepository.save(album);
+
+        return new ResponseEntity(createdAlbum.getId(), HttpStatus.OK);
     }
 
     //Add Photos to album
     public ResponseEntity addPhotos(MultipartFile[] files, Long userId, Long albumId) throws IOException {
 
         ArrayList<Photo> photos = new ArrayList<>();
-
+        System.out.println("albumid : " + albumId);
+        System.out.println("userId : " + userId);
         for(MultipartFile file : files) {
 
             Photo photo = new Photo();
@@ -74,7 +74,25 @@ public class AlbumServiceImp implements AlbumService  {
 
     //Update Album
     public ResponseEntity updateAlbum (Album album) {
-        albumRepository.save(album);
+
+        Album updateAlbum = albumRepository.findById(album.getId()).orElse(null);
+
+        System.out.println("album: " + album.getId());
+        System.out.println("changeName: " + updateAlbum.getAlbumName());
+        updateAlbum.setAlbumName(album.getAlbumName());
+        albumRepository.save(updateAlbum);
         return new ResponseEntity("Album Updated.", HttpStatus.OK);
     }
+
+    //Get album per User
+    public ResponseEntity getAlbum(Long userId) {
+        return new ResponseEntity(albumRepository.findByUserId(userId),HttpStatus.OK);
+    }
+
+    //Get Album
+    public ResponseEntity getAlbumById(Long albumId){
+        return new ResponseEntity(albumRepository.findById(albumId),HttpStatus.OK);
+    }
+
+
 }

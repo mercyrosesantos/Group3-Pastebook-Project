@@ -16,7 +16,7 @@ export class PhotoService {
     private http: HttpClient
   ) { }
 
-  //Upload a Photo
+ 
 
 
   //Get Photo
@@ -25,7 +25,7 @@ export class PhotoService {
   }
 
   
-
+ //Upload a Photo
   uploadPhoto(formData: FormData) : Observable<Object>{
     let headers = new HttpHeaders();
 //this is the important step. You need to set content type as null
@@ -34,7 +34,6 @@ export class PhotoService {
 
 
     return this.http.post(this.uploadPhotoUrl, formData, { headers });
-
   }
   
 }

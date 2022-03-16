@@ -62,5 +62,4 @@ public class FriendRequestController {
         return new ResponseEntity<>(friendRequestService.getFriends(userId), HttpStatus.OK);
     }
 
-
-    }
+}

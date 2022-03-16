@@ -19,7 +19,14 @@ public interface AlbumService {
     ResponseEntity deleteAlbum (Album album);
 
     //Update Album
-    public ResponseEntity updateAlbum (Album album);
+    ResponseEntity updateAlbum (Album album);
+
+    //Get album per User
+    ResponseEntity getAlbum(Long userId);
+
+    //Get Album
+    ResponseEntity getAlbumById(Long albumId);
+
 
 
 }
