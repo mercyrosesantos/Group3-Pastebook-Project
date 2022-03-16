@@ -67,14 +67,4 @@ export class NavbarComponent implements OnInit {
     this.sessionService.clear();
     this.router.navigate(['/login']);
   }
-
-  friendslist(){
-    this.route.params.subscribe(params => {
-    this.userId = params['userId'];
-    this.friendRequestService.getFriends(this.userN).subscribe((response: User) => {
-      this.friend = response;
-    });
-    console.log(this.friend);
-  })}
-
 }

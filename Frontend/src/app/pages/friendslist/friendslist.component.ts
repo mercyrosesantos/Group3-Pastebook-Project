@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-import { Friendship } from '@models/friendship';
 import { FriendRequestService } from '@services/friendrequest.service';
 import { ProfileService } from '@services/profile.service';
 import { SessionService } from '@services/session.service';
@@ -18,8 +17,7 @@ import { UserService } from '@services/user.service';
 })
 export class FriendslistComponent implements OnInit {
 
-  user?: User[];
-  friend: any;
+  friends: User[] = [];
   userId: number = this.sessionService.getUserId();
   finder?: number;
 
@@ -38,19 +36,10 @@ export class FriendslistComponent implements OnInit {
 
   ngOnInit(): void{
     this.activatedRoute.params.subscribe(params => {
-      this.userId = params['userId'];
-      this.friendRequestService.getFriends(this.userId).subscribe((response: User) => {
-        this.friend = response;
+      this.friendRequestService.getFriends(this.sessionService.getUserId()).subscribe((response: any) => {
+        console.log(response);
+        this.friends = response['body'];
       });
-      console.log(this.friend);
     })
   }
-
-  linkToProfile(){
-    this.activatedRoute.params.subscribe(params => {
-      this.finder = Number(params['id']);
-      this.profileService.getUserProfile(this.finder);
-    })
-  }
-
 }

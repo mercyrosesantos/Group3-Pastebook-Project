@@ -58,8 +58,8 @@ public class FriendRequestController {
 
     // FriendsList
     @RequestMapping(value = "/api/friendslist/{userId}", method = RequestMethod.GET)
-    public ResponseEntity<Object> getFriends(User friend, Long userId){
-        return new ResponseEntity<>(friendRequestService.getFriends(friend,userId), HttpStatus.OK);
+    public ResponseEntity<Object> getFriends(@PathVariable  Long userId){
+        return new ResponseEntity<>(friendRequestService.getFriends(userId), HttpStatus.OK);
     }
 
 

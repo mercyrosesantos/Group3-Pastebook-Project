@@ -39,7 +39,6 @@ import { ResultComponent } from './pages/result/result.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
 import { PostsComponent } from './pages/posts/posts.component';
-import { FriendrequestsComponent } from './pages/friendrequests/friendrequests.component';
 import { FriendslistComponent } from './pages/friendslist/friendslist.component';
 
 const appRoutes: Routes = [
@@ -50,8 +49,8 @@ const appRoutes: Routes = [
   { path: 'search/:keyword', component: ResultComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'albums', component: AlbumsComponent},
-  { path: 'posts/:postId', component: PostsComponent }
-  { path: 'friendslist/:id', component: FriendslistComponent }
+  { path: 'posts/:postId', component: PostsComponent },
+  { path: 'friends', component: FriendslistComponent }
   // { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
@@ -73,7 +72,6 @@ const appRoutes: Routes = [
     SettingsComponent,
     AlbumsComponent,
     PostsComponent,
-    FriendrequestsComponent
     FriendslistComponent,
   ],
   imports: [
