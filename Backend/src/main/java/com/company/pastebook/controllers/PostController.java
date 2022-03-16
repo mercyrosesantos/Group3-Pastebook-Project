@@ -33,4 +33,9 @@ public class PostController {
         return postService.getFeed(userId);
     }
 
+    // Get post by id
+    @RequestMapping(value = "/api/posts/{postId}", method = RequestMethod.GET)
+    ResponseEntity<Object> getPost (@PathVariable Long postId) {
+        return postService.getPost(postId);
+    }
 }

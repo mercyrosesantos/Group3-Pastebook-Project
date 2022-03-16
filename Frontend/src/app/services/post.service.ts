@@ -31,4 +31,7 @@ export class PostService {
     return this.http.get<Post[]>(`${this.feedUrl}${userId}`)
   }
 
+  getPost(postId: number): Observable<Post[]>{
+    return this.http.get<Post[]>(`${this.baseUrl}/${postId}`);
+  }
 }

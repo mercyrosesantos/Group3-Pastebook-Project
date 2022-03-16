@@ -38,6 +38,7 @@ import { PhotoComponent } from './components/photo/photo.component';
 import { ResultComponent } from './pages/result/result.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
+import { PostsComponent } from './pages/posts/posts.component';
 
 
 const appRoutes: Routes = [
@@ -47,7 +48,8 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'search/:keyword', component: ResultComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'albums', component: AlbumsComponent}
+  { path: 'albums', component: AlbumsComponent},
+  { path: 'posts/:postId', component: PostsComponent }
   // { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
@@ -67,7 +69,8 @@ const appRoutes: Routes = [
     NotificationComponent,
     AddFriendButtonComponent,
     SettingsComponent,
-    AlbumsComponent
+    AlbumsComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,

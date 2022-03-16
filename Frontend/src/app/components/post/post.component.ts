@@ -113,4 +113,5 @@ export class PostComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     }, (reason) => {});
   }
+
 }
