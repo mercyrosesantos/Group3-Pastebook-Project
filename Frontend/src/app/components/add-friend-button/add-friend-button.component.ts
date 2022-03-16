@@ -62,9 +62,17 @@ export class AddFriendButtonComponent implements OnInit {
   }
   onAccept(){
     console.log('onAccept');
+    this.friendRequest!.status! = "accepted";
+    this.friendRequestService.createFriendRequest(this.friendRequest!).subscribe((response: any)=> {
+      this.callBack!();
+    });
   }
   onReject(){
   console.log('onReject');
+  this.friendRequest!.status! = "rejected";
+  this.friendRequestService.createFriendRequest(this.friendRequest!).subscribe((response: any)=> {
+    this.callBack!();
+  });
 }
 
 
