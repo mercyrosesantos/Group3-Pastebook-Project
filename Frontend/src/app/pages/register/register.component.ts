@@ -7,6 +7,7 @@ import { SessionService } from '@services/session.service';
 import { UserService } from '@services/user.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import * as CryptoJs from 'crypto-js';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +21,7 @@ export class RegisterComponent implements OnInit {
   lastName: string = "";
   email: string = "";
   password: string = "";
+  encryptedPassword: string = "";
   birthDay: string = "";
   gender: string = "";
   mobileNumber: string = "";
@@ -33,20 +35,28 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  encrypt(){
+    this.encryptedPassword = CryptoJs.AES.encrypt(this.password,this.email).toString();
+  }
+
   onSubmit() {
     console.log(this.firstName);
     console.log(this.lastName);
     console.log(this.email);
-    console.log(this.password);
+    console.log(this.encryptedPassword);
     console.log(this.birthDay);
     console.log(this.gender);
     console.log(this.mobileNumber);
+
+    
+
 
     let user = new User();
         user.firstName = this.firstName;
         user.lastName = this.lastName;
         user.email = this.email;
         user.password = this.password;
+
         this.formattedBirthday = moment(this.birthDay, 'yyyy-MM-dd').toDate();
         user.gender = this.gender;
         user.mobileNumber = this.mobileNumber;
@@ -58,7 +68,7 @@ export class RegisterComponent implements OnInit {
   register(user: User) {
     this.userService.register(user).subscribe((response: Object) => {
       console.log(response); 
-      this.router.navigate(['']);
+      this.router.navigate(['/login']);
     });
   }
 
