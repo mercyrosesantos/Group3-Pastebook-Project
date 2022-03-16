@@ -1,8 +1,10 @@
 package com.company.pastebook.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -30,7 +32,8 @@ public class User {
     private String password;
 
     @Column
-    private Date birthDay;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate birthDay;
 
     @Column
     private String gender;
@@ -80,12 +83,103 @@ public class User {
     @JoinColumn (name = "photoId", nullable = true)
     private Photo photo;
 
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Friendship> userFriends;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Friendship> friendsUser;
+
+
+//    @OneToMany(mappedBy = "friendRequested")
+//    @JsonIgnore
+//    private Set<FriendRequest> friendRequested;
+//
+//
+//    @OneToMany(mappedBy = "friendRequests")
+//    @JsonIgnore
+//    private Set<FriendRequest> friendRequests;
+
+    public void setUserPosts(Set<Post> userPosts) {
+        this.userPosts = userPosts;
+    }
+
+    public Set<Post> getUserTimeline() {
+        return userTimeline;
+    }
+
+    public void setUserTimeline(Set<Post> userTimeline) {
+        this.userTimeline = userTimeline;
+    }
+
+    public Set<Reaction> getUserReactions() {
+        return userReactions;
+    }
+
+    public void setUserReactions(Set<Reaction> userReactions) {
+        this.userReactions = userReactions;
+    }
+
+    public Set<Photo> getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(Set<Photo> userPhoto) {
+        this.userPhoto = userPhoto;
+    }
+
+    public Set<Album> getUserAlbum() {
+        return userAlbum;
+    }
+
+    public void setUserAlbum(Set<Album> userAlbum) {
+        this.userAlbum = userAlbum;
+    }
+
+    public Set<Friendship> getUserFriends() {
+        return userFriends;
+    }
+
+    public void setUserFriends(Set<Friendship> userFriends) {
+        this.userFriends = userFriends;
+    }
+
+    public Set<Friendship> getFriendsUser() {
+        return friendsUser;
+    }
+
+    public void setFriendsUser(Set<Friendship> friendsUser) {
+        this.friendsUser = friendsUser;
+    }
+//
+//    public Set<FriendRequest> getFriendRequested() {
+//        return friendRequested;
+//    }
+//
+//    public void setFriendRequested(Set<FriendRequest> friendRequested) {
+//        this.friendRequested = friendRequested;
+//    }
+//
+//    public Set<FriendRequest> getFriendRequests() {
+//        return friendRequests;
+//    }
+//
+//    public void setFriendRequests(Set<FriendRequest> friendRequests) {
+//        this.friendRequests = friendRequests;
+//    }
+
+
     // Constructors
 
     public User() {
     }
+    public User(Long id) {
+        this.id = id;
+    }
 
-    public User(String firstName, String lastName, String email, String password, Date birthDay, String gender, String mobileNumber, String dateJoined, boolean isActive) {
+    public User(String firstName, String lastName, String email, String password, LocalDate birthDay, String gender, String mobileNumber, String dateJoined, boolean isActive) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -138,11 +232,11 @@ public class User {
         this.password = password;
     }
 
-    public Date getBirthDay() {
+    public LocalDate getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
 
@@ -204,7 +298,8 @@ public class User {
 
     public Set<Post> getUserPosts() {
         return userPosts;}
-    public String getAboutMe() {
+
+     public String getAboutMe() {
         return aboutMe;
     }
 

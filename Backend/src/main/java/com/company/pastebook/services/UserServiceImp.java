@@ -98,11 +98,38 @@ public class UserServiceImp implements UserService {
         mailSenderImpl.send(message);
     }
 
+//    Update User Information
+    public ResponseEntity updateUserInfo(Long id, User user) {
+        User userForUpdating = userRepository.findById(id).get();
+        userForUpdating.setFirstName(user.getFirstName());
+        userForUpdating.setLastName(user.getLastName());
+        userForUpdating.setBirthDay(user.getBirthDay());
+        userForUpdating.setGender(user.getGender());
+        userRepository.save(userForUpdating);
+        return new ResponseEntity("User Updated Successfully", HttpStatus.OK);
+    }
+
+//    Update User Email
+    public ResponseEntity updateUserEmail(Long id, User user) {
+        User userForUpdating = userRepository.findById(id).get();
+        userForUpdating.setEmail(user.getEmail());
+        userRepository.save(userForUpdating);
+        return new ResponseEntity("Email Updated Successfully", HttpStatus.OK);
+    }
+
+//        Update User Password
+    public ResponseEntity updateUserPassword(Long id, User user) {
+        User userForUpdating = userRepository.findById(id).get();
+        userForUpdating.setPassword(user.getPassword());
+        userRepository.save(userForUpdating);
+        return new ResponseEntity("Password Updated Successfully", HttpStatus.OK);
+    }
+
     // Get online friends
     public ResponseEntity<Object> getOnlineFriends(Long userId){
         ArrayList<User> friends = new ArrayList<>();
         for (Friendship friend: friendshipRepository.findAll()){
-            if (friend.getUserId().equals(userId)){
+            if (friend.getUser().getId().equals(userId)){
                if (friend.getFriend().isActive()) {
                    friends.add(friend.getFriend());
                }
@@ -110,6 +137,7 @@ public class UserServiceImp implements UserService {
         }
         return new ResponseEntity<>(friends, HttpStatus.OK);
     }
+
 
     // Get user by id
     public ResponseEntity<Object> getUser(Long id) {

@@ -19,14 +19,29 @@ public class FriendRequest {
     @Column
     private String status = "pending";
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getRequestor() {
+        return requestor;
+    }
+
+    public void setRequestor(User requestor) {
+        this.requestor = requestor;
+    }
+
     // Requestor Id
-    @Column
-        private Long requestorId;
+    @ManyToOne
+    @JoinColumn (name = "requestorId", nullable = true)
+    private User requestor;
+
 
     // Requestee Id
     @ManyToOne
     @JoinColumn (name = "requesteeId", nullable = true)
     private User requestee;
+
 
     // Constructor
 
@@ -55,13 +70,6 @@ public class FriendRequest {
         this.status = status;
     }
 
-    public Long getRequestorId() {
-        return requestorId;
-    }
-
-    public void setRequestorId(Long requestorId) {
-        this.requestorId = requestorId;
-    }
 
     public User getRequestee() {
         return requestee;

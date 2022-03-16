@@ -9,7 +9,7 @@
             <li class="list-group-item" *ngFor="let user of result">
               <div class="card" style="width: 18rem;">
                   <!-- <img src="profilePic" class="card-img-top" alt="..."> -->
-                  <img class="card-img-top" src={{user.photo}} class="rounded-circle"  width="100" height="110">
+                  <img class="card-img-top" src="data:image/png;base64,{{user?.photo?.image}}" class="rounded-circle"  width="100" height="110">
                   <div class="card-body">
                     <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
                     <a routerLink="/profile/{{user.url}}" class="btn btn-primary" (click)="redirect()">Visit Profile</a>

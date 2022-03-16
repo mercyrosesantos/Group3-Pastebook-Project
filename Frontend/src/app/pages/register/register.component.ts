@@ -3,30 +3,17 @@ import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { User } from '@models/user';
+import { SessionService } from '@services/session.service';
 import { UserService } from '@services/user.service';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  // Error Validations
-  firstNameFormControl = new FormControl('', Validators.required);
-  lastNameFormControl = new FormControl('', Validators.required);
-  passwordFormControl = new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')]);
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  numberFormControl = new FormControl('', [Validators.required, Validators.pattern('^.{8,15}[0-9]*$')]);
-  birthdayFormControl = new FormControl('', Validators.required);
-  matcher = new MyErrorStateMatcher();
 
   // Variable Declarations
   firstName: string = "";
@@ -40,7 +27,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void { }
@@ -59,7 +47,7 @@ export class RegisterComponent implements OnInit {
         user.lastName = this.lastName;
         user.email = this.email;
         user.password = this.password;
-        this.formattedBirthday = moment(this.birthDay, 'YYYY-MM-DD').toDate();
+        this.formattedBirthday = moment(this.birthDay, 'yyyy-MM-dd').toDate();
         user.gender = this.gender;
         user.mobileNumber = this.mobileNumber;
 
@@ -70,6 +58,18 @@ export class RegisterComponent implements OnInit {
   register(user: User) {
     this.userService.register(user).subscribe((response: Object) => {
       console.log(response); 
+      this.router.navigate(['']);
     });
   }
+
+  successfulLogin(response: Record<string, any>){
+    this.sessionService.setEmail(response['email']);
+    this.sessionService.setUserId(response['id']);
+    this.sessionService.setFirstName(response['firstName']);
+    this.sessionService.setLastName(response['lastName']);
+    this.sessionService.setToken(response['token']);
+    this.router.navigate(['']);
+    console.log(this.sessionService.getUserId());
+  }
+
 }

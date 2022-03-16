@@ -2,14 +2,15 @@
     <app-sidebar></app-sidebar> 
     <div class="mainpage">
         <div class="card-group">
-            <app-add-friend-button></app-add-friend-button>
 
             <div class="card text-black bg-secondary border-0">
                 <div class="row">
                     <div class="col-sm-3">
                         <img class="card-img-top" src={{photoSrc}} class="rounded-circle"  width="100" height="110">          
                         <!-- <button mat-button class="mat-icon-button">  -->
-                            ​<mat-icon (click)="open(content)">photo_camera</mat-icon>​
+                            ​<mat-icon (click)="open(content)">photo_camera</mat-icon>
+                            <app-add-friend-button [friendshipStatus]="friendshipStatus" [friendId] = "user?.id" [callBack] ="addFriendCallBack.bind(this)" ></app-add-friend-button>
+                            ​
                         <!-- </button>         -->
                     </div>
                     <div class="col-sm-8">
@@ -88,7 +89,7 @@
     <div class="modal-body">
         <div class="form-group">
             <label for="AboutMe">About Me</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="user.aboutMe"></textarea>
+            <textarea class="form-control" id="aboutMe" rows="3" [(ngModel)]="user.aboutMe"></textarea>
           </div>
     </div>
     <div class="modal-footer">

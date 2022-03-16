@@ -35,14 +35,14 @@ public class NotificationServiceImp implements NotificationService {
             case "friendRequest": {
                 newNotif.setNotificationType("sent you a friend request.");
                 newNotif.setUser(friendRequestRepository.findById(eventId).get().getRequestee());
-                newNotif.setFriend(userRepository.findById(friendRequestRepository.findById(eventId).get().getRequestorId()).get());
+                newNotif.setFriend(userRepository.findById(friendRequestRepository.findById(eventId).get().getRequestor().getId()).get());
                 newNotif.setNotificationTimestamp(LocalDateTime.now());
                 notificationRepository.save(newNotif);
                 break;
             }
             case "acceptedRequest": {
                 newNotif.setNotificationType("accepted your friend request.");
-                newNotif.setUser(userRepository.findById(friendRequestRepository.findById(eventId).get().getRequestorId()).get());
+                newNotif.setUser(userRepository.findById(friendRequestRepository.findById(eventId).get().getRequestor().getId()).get());
                 newNotif.setFriend(friendRequestRepository.findById(eventId).get().getRequestee());
                 newNotif.setNotificationTimestamp(LocalDateTime.now());
                 notificationRepository.save(newNotif);

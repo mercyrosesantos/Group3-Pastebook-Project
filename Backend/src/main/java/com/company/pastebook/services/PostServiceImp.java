@@ -42,7 +42,7 @@ public class PostServiceImp implements PostService{
         ArrayList<Post> posts = new ArrayList<>();
         Long friendId;
         for(Friendship friend: friendshipRepository.findAll()){
-            if (friend.getUserId().equals(userId)){
+            if (friend.getUser().getId().equals(userId)){
                 friendId = friend.getFriend().getId();
                 for(Post post: postRepository.findAll()) {
                     if (post.getUser().getId().equals(friendId)){
