@@ -25,14 +25,15 @@ export class FriendRequestService {
     private sessionService: SessionService
   ) { }
 
-  // Create friend request
+  // Create/update friend request
   createFriendRequest( friendRequest: Friendrequest): Observable<Object> {
     return this.http.post(this.friendRequestUrl,friendRequest,{responseType: 'text'});
 } 
-  // Create friend request
+  // Get friendship and if there's friend request sent
   getFriendship( friendId: number): Observable<Object> {
     return this.http.get<Friendship>(this.friendshipUrl + this.sessionService.getUserId() +'/'+ friendId);
 } 
+  //Get friend request status
   getFriendRequest( friendId: number): Observable<Object> {
   return this.http.get<Friendrequest>(this.friendRequestUrl + this.sessionService.getUserId() +'/'+ friendId);
 } 

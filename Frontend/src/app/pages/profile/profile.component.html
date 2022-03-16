@@ -9,7 +9,7 @@
                         <img class="card-img-top" src={{photoSrc}} class="rounded-circle"  width="100" height="110">          
                         <!-- <button mat-button class="mat-icon-button">  -->
                             ​<mat-icon (click)="open(content)">photo_camera</mat-icon>
-                            <app-add-friend-button [friendshipStatus]="friendshipStatus" [friendId] = "user?.id" [callBack] ="addFriendCallBack.bind(this)" ></app-add-friend-button>
+                            <app-add-friend-button [friendshipStatus]="friendshipStatus"[friendRequest]="friendRequest" [friendId] = "user?.id" [callBack] ="addFriendCallBack.bind(this)" ></app-add-friend-button>
                             ​
                         <!-- </button>         -->
                     </div>
@@ -52,7 +52,7 @@
             </div>
             
         </div>
-        <div style=" background-color: lightgray;">
+        <div style=" background-color: lightgray;" *ngIf = "friendshipStatus == 'friends' || friendshipStatus == 'own'" >
             <div class="row rounded">
                 <app-create-post timeline={{user.id}} class="col-sm-9 offset-md-2"[whenPost]="loadPage.bind(this)"></app-create-post>
             </div>

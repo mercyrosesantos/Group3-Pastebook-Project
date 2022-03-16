@@ -48,54 +48,54 @@ public class FriendRequestServiceImp implements FriendRequestService{
 
 
     //    Create friend request
-    public void createFriendRequest(FriendRequest friendRequest, Long requesteeIdC) {
-    }
+//    public void createFriendRequest(FriendRequest friendRequest, Long requesteeIdC) {
+//    }
 
     //    Accept friend request
-    public ResponseEntity acceptFriendRequest(Long frid, String stringToken) {
-        FriendRequest friendRequestToBeAccepted = friendRequestRepository.findById(frid).get();
-        if(friendRequestToBeAccepted.getStatus().equals("pending")) {
-            if (friendRequestToBeAccepted != null) {
-                friendRequestToBeAccepted.setStatus("accepted");
-                LocalDate present = LocalDate.now();
-                String timeStampDate = present.toString();
-                friendRequestToBeAccepted.setRequestTimestamp(timeStampDate);
-                friendRequestRepository.save(friendRequestToBeAccepted);
-
-                notificationService.createNotification("acceptedRequest", friendRequestToBeAccepted.getId());
-                return new ResponseEntity("Friend request accepted.", HttpStatus.ACCEPTED);
-            } else {
-                return new ResponseEntity("Friend request not found.", HttpStatus.NOT_ACCEPTABLE);
-            }
-
-        } else if(friendRequestToBeAccepted.getStatus().equals("rejected")){
-            return new ResponseEntity("Rejected friend request.", HttpStatus.BAD_REQUEST);
-        } else{
-            return new ResponseEntity("Friend request already accepted.", HttpStatus.BAD_REQUEST);
-        }
+//    public ResponseEntity acceptFriendRequest(Long frid, String stringToken) {
+//        FriendRequest friendRequestToBeAccepted = friendRequestRepository.findById(frid).get();
+//        if(friendRequestToBeAccepted.getStatus().equals("pending")) {
+//            if (friendRequestToBeAccepted != null) {
+//                friendRequestToBeAccepted.setStatus("accepted");
+//                LocalDate present = LocalDate.now();
+//                String timeStampDate = present.toString();
+//                friendRequestToBeAccepted.setRequestTimestamp(timeStampDate);
+//                friendRequestRepository.save(friendRequestToBeAccepted);
+//
+//                notificationService.createNotification("acceptedRequest", friendRequestToBeAccepted.getId());
+//                return new ResponseEntity("Friend request accepted.", HttpStatus.ACCEPTED);
+//            } else {
+//                return new ResponseEntity("Friend request not found.", HttpStatus.NOT_ACCEPTABLE);
+//            }
+//
+//        } else if(friendRequestToBeAccepted.getStatus().equals("rejected")){
+//            return new ResponseEntity("Rejected friend request.", HttpStatus.BAD_REQUEST);
+//        } else{
+//            return new ResponseEntity("Friend request already accepted.", HttpStatus.BAD_REQUEST);
+//        }
 //        if (friendRequestToBeAccepted != null){
 //            friendRequestToBeAccepted.setStatus("accepted");
-     }
+ //    }
      // Reject friend request
-    public ResponseEntity rejectFriendRequest(Long frid, String stringToken) {
-        FriendRequest friendRequestToBeRejected = friendRequestRepository.findById(frid).get();
-        if(friendRequestToBeRejected.getStatus().equals("pending")) {
-            if (friendRequestToBeRejected != null) {
-                friendRequestToBeRejected.setStatus("rejected");
-                LocalDate present = LocalDate.now();
-                String timeStampDate = present.toString();
-                friendRequestToBeRejected.setRequestTimestamp(timeStampDate);
-                friendRequestRepository.save(friendRequestToBeRejected);
-                return new ResponseEntity("Friend request rejected.", HttpStatus.ACCEPTED);
-            } else {
-                return new ResponseEntity("Friend request not found.", HttpStatus.NOT_ACCEPTABLE);
-            }
-        } else if(friendRequestToBeRejected.getStatus().equals("accepted")){
-            return new ResponseEntity("Friend request already accepted.", HttpStatus.BAD_REQUEST);
-        } else{
-            return new ResponseEntity("Friend request already rejected.", HttpStatus.BAD_REQUEST);
-        }
-    }
+//    public ResponseEntity rejectFriendRequest(Long frid, String stringToken) {
+//        FriendRequest friendRequestToBeRejected = friendRequestRepository.findById(frid).get();
+//        if(friendRequestToBeRejected.getStatus().equals("pending")) {
+//            if (friendRequestToBeRejected != null) {
+//                friendRequestToBeRejected.setStatus("rejected");
+//                LocalDate present = LocalDate.now();
+//                String timeStampDate = present.toString();
+//                friendRequestToBeRejected.setRequestTimestamp(timeStampDate);
+//                friendRequestRepository.save(friendRequestToBeRejected);
+//                return new ResponseEntity("Friend request rejected.", HttpStatus.ACCEPTED);
+//            } else {
+//                return new ResponseEntity("Friend request not found.", HttpStatus.NOT_ACCEPTABLE);
+//            }
+//        } else if(friendRequestToBeRejected.getStatus().equals("accepted")){
+//            return new ResponseEntity("Friend request already accepted.", HttpStatus.BAD_REQUEST);
+//        } else{
+//            return new ResponseEntity("Friend request already rejected.", HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     // Get friend requests
     public Iterable<FriendRequest> getFriendRequests(String status){
@@ -104,6 +104,7 @@ public class FriendRequestServiceImp implements FriendRequestService{
         return friendRequestArrayList;
     }
 
+    // Get friendship and if there's friend request sent
     public Friendship getFriendship(Long requestorId, Long requesteeId) {
         Friendship friendship = friendshipRepository.findByUserIdAndFriendId(requestorId, requesteeId);
         if (friendship == null) {
@@ -136,9 +137,15 @@ public class FriendRequestServiceImp implements FriendRequestService{
         }
         return friendship;
     }
+
+    //Create/Update FriendRequest
     public ResponseEntity createOrUpdateFriendRequest(FriendRequest friendRequest) {
         System.out.println("friendRequest: " + friendRequest.getRequestee());
-        friendRequestRepository.save(friendRequest);
+        Boolean isNew = friendRequest.getId() == null;
+        FriendRequest savedFriendRequest = friendRequestRepository.save(friendRequest);
+        if (isNew) {
+            notificationService.createNotification("friendRequest", savedFriendRequest.getId());
+        }
         if (friendRequest.getStatus().equalsIgnoreCase("accepted")) {
             Friendship newFriendship1 = new Friendship();
             Friendship newFriendship2 = new Friendship();
@@ -151,6 +158,7 @@ public class FriendRequestServiceImp implements FriendRequestService{
             newFriendship2.setFriend(new User(friendRequest.getRequestor().getId()));
             newFriendship2.setFriendshipTimestamp(new Date().toString());
             newFriendship1.setActive(true);
+            notificationService.createNotification("acceptedRequest", friendRequest.getId());
 
 
             friendshipRepository.save(newFriendship1);
@@ -161,6 +169,7 @@ public class FriendRequestServiceImp implements FriendRequestService{
 
 
 
+    //Get Friend Request status
     public FriendRequest getFriendRequest(@PathVariable Long userId, @PathVariable Long friendId) {
         FriendRequest friendRequest = friendRequestRepository.findByRequestorIdAndRequesteeId(userId,friendId);
         if (friendRequest == null ) {

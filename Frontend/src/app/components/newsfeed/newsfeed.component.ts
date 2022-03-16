@@ -22,7 +22,7 @@ export class NewsfeedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadFeed();
+     this.loadFeed();
     this.refreshData();
   }
 
@@ -34,7 +34,7 @@ export class NewsfeedComponent implements OnInit {
       console.log(this.posts);
     });
 
-  }
+ }
 
   refreshData() {
 
