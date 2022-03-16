@@ -60,4 +60,12 @@ public class PostServiceImp implements PostService{
         return new ResponseEntity(posts, HttpStatus.OK);
     }
 
+    // Get post by id
+    public ResponseEntity<Object> getPost (Long postId) {
+        ArrayList<Post> posts = new ArrayList<>();
+        Post post = postRepository.findById(postId).get();
+        posts.add(post);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
 }

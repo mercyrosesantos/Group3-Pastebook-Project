@@ -11,5 +11,7 @@ public interface PostService {
     ResponseEntity createPost(Post post);
     // Get user posts and friends posts
     ResponseEntity getFeed(Long userId);
+    // Get post by id
+    ResponseEntity getPost(Long postId);
 
 }

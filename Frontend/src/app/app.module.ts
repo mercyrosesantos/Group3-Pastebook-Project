@@ -38,9 +38,9 @@ import { PhotoComponent } from './components/photo/photo.component';
 import { ResultComponent } from './pages/result/result.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
+import { PostsComponent } from './pages/posts/posts.component';
+import { FriendrequestsComponent } from './pages/friendrequests/friendrequests.component';
 import { FriendslistComponent } from './pages/friendslist/friendslist.component';
-
-
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }, // http://localhost:4200/
@@ -50,6 +50,7 @@ const appRoutes: Routes = [
   { path: 'search/:keyword', component: ResultComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'albums', component: AlbumsComponent},
+  { path: 'posts/:postId', component: PostsComponent }
   { path: 'friendslist/:id', component: FriendslistComponent }
   // { path: '**', component: NotFoundComponent }
 ];
@@ -71,8 +72,9 @@ const appRoutes: Routes = [
     AddFriendButtonComponent,
     SettingsComponent,
     AlbumsComponent,
+    PostsComponent,
+    FriendrequestsComponent
     FriendslistComponent,
-    
   ],
   imports: [
     BrowserModule,

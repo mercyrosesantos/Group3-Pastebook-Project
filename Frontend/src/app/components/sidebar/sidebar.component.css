@@ -28,16 +28,13 @@ ul {
 }
 
 li { 
-  background: rgb(68, 70, 70);
+  background: rgb(120, 121, 122);
   margin: 5px;
-}
-
-li:nth-child(odd) { 
-  background: rgb(101, 102, 105); 
+  border-radius: 3%;
 }
 
 a {
-  color: aqua;
+  color: rgb(77, 212, 212);
 }
 
 a:hover {

@@ -22,13 +22,12 @@
                     
 
                  </div>
-                 <div class="row rounded p-2" style=" background-color: gray; ">
+                 <div class="row rounded p-2" style=" background-color: gray; " routerLink="/posts/{{post.id}}">
                     <p class="col-sm-12">{{ post.content }}</p>
                 </div>
                 <div class="row">
                     <div *ngIf="isCurrentUserLiked" class = "col-sm-2 offset-md-1 row"> 
-                        <!-- change color to blue after checking documentations -->
-                        <i-bs name="hand-thumbs-up-fill" height="22" width="22"></i-bs>
+                        <i-bs name="hand-thumbs-up" height="22" width="22" style="color: blue;"></i-bs>
                         <div (click)="open(content)" class="col-sm-6">
                             {{likeInformation?.like}}
                         </div>
