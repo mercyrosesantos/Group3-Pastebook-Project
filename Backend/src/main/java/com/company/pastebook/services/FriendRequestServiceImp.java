@@ -2,6 +2,7 @@ package com.company.pastebook.services;
 
 import com.company.pastebook.models.FriendRequest;
 import com.company.pastebook.models.Friendship;
+import com.company.pastebook.models.Post;
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.FriendRequestRepository;
 import com.company.pastebook.repositories.FriendshipRepository;
@@ -132,7 +133,22 @@ public class FriendRequestServiceImp implements FriendRequestService{
         return friendRequest;
     }
 
+    //Friends List
+    public ResponseEntity getFriends(User friend, Long userId) {
+        ArrayList<User> friends = new ArrayList<>();
+        if (friendshipRepository.findAll() != null) {
+            for (Friendship friendships : friendshipRepository.findAll()) {
+                if (friendships.getUser().getId().equals(userId)) {
+                    friends.add(friendships.getFriend());
+                }
+            }
+            return new ResponseEntity(friends, HttpStatus.OK);
+        } else{
+            return new ResponseEntity("No friends yet.", HttpStatus.BAD_REQUEST);
+        }
 
+
+    }
 }
 
 

@@ -16,6 +16,7 @@ export class FriendRequestService {
   private baseUrl: string = environment.apiUrl + '/friendrequests';
   private friendRequestUrl: string = environment.apiUrl + '/friendrequests/'
   private friendshipUrl: string = environment.apiUrl + '/friendship/'
+  private friendslistUrl: string = environment.apiUrl + '/friendslist/'
   private httpHeaders: HttpHeaders = new HttpHeaders({
     'Authorization': `${this.sessionService.getToken()}`
   })
@@ -37,6 +38,11 @@ export class FriendRequestService {
   getFriendRequest( friendId: number): Observable<Object> {
   return this.http.get<Friendrequest>(this.friendRequestUrl + this.sessionService.getUserId() +'/'+ friendId);
 } 
+
+  //Get all friends
+  getFriends(userId:Number): Observable<Object>{
+    return this.http.get<Friendship>(this.friendslistUrl + this.sessionService.getUserId());
+  }
 
  
 }

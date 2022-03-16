@@ -40,7 +40,7 @@ import { NotificationComponent } from './components/notification/notification.co
 import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
 import { PostsComponent } from './pages/posts/posts.component';
 import { FriendrequestsComponent } from './pages/friendrequests/friendrequests.component';
-
+import { FriendslistComponent } from './pages/friendslist/friendslist.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }, // http://localhost:4200/
@@ -51,6 +51,7 @@ const appRoutes: Routes = [
   { path: 'settings', component: SettingsComponent },
   { path: 'albums', component: AlbumsComponent},
   { path: 'posts/:postId', component: PostsComponent }
+  { path: 'friendslist/:id', component: FriendslistComponent }
   // { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
@@ -73,6 +74,7 @@ const appRoutes: Routes = [
     AlbumsComponent,
     PostsComponent,
     FriendrequestsComponent
+    FriendslistComponent,
   ],
   imports: [
     BrowserModule,

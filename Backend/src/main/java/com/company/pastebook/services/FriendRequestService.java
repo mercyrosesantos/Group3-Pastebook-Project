@@ -39,4 +39,7 @@ public interface FriendRequestService {
 
     //Get Friend Request status
     FriendRequest getFriendRequest(@PathVariable Long userId, @PathVariable Long friendId);
+
+    // Friendslist
+    ResponseEntity getFriends(User friend, Long userId);
 }
