@@ -36,10 +36,7 @@ export class NotificationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadNotif();
     this.refreshData();
-    console.log(this.unreadNotif);
-    console.log(this.notifList);
   }
 
   getUserNotif(){
@@ -56,7 +53,7 @@ export class NotificationComponent implements OnInit {
   }
 
   setNotifAsRead(){
-    this.notificationService.setAsRead(this.userId).subscribe((response: any) => {})
+    this.notificationService.setAsRead(this.userId).subscribe((response: any) => {});
   }
 
   loadNotif(){

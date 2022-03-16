@@ -4,9 +4,23 @@
 }
 
 li { 
-    background: rgb(144, 167, 168); 
+    background: rgb(144, 167, 168);
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5%;
 }
 
 li:nth-child(odd) { 
     background: rgb(143, 166, 231); 
+}
+
+#mainContainer {
+    align-items: center;
+    margin: 5px;
+    width: fit-content;
+}
+
+#details {
+    display: inline-flex;
+    align-items: baseline;
 }
