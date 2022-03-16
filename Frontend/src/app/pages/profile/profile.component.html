@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <img class="card-img-top" src={{photoSrc}} class="rounded-circle"  width="100" height="110">          
-                            <i-bs name="camera-fill" height="25" width="25" (click)="open(content)"></i-bs>
+                            <i-bs name="camera-fill" height="25" width="25" (click)="open(content)" *ngIf="isOwnProfile"></i-bs>
                             <app-add-friend-button [friendshipStatus]="friendshipStatus"[friendRequest]="friendRequest" [friendId] = "user?.id" [callBack] ="addFriendCallBack.bind(this)" ></app-add-friend-button>
                     </div>
                     <div class="col-sm-8">
@@ -70,11 +70,11 @@
     </div>
     <div class="modal-body">
         <img class="card-img-top" src={{photoSrc}} class="rounded-circle"  width="100" height="110">
-        <app-photo></app-photo>
+        <input type="file" class="form-control" id="customFile" accept="image/*" (change)="changeProfilePic($event)"/>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Upload</button>
+        <button type="button" class="btn btn-outline-dark" (click)="uploadImage()">Upload</button>
     </div>
 </ng-template>
 

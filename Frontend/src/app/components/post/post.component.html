@@ -4,7 +4,9 @@
             <div class="card-body container p-3 rounded" style=" background-color: lightgray;">
                  <div class="row rounded" >
                      <div class = "col-sm-2">
-                        <img class="card-img-top"  src="data:image/png;base64,{{post.user?.photo?.image}}" class="rounded-circle"  width="80" height="80">
+                        
+                        <img class="card-img-top"  
+                        [src]="post.user?.photo?.image != null ? 'data:image/png;base64,' + post.user?.photo?.image : './assets/DefaultProfilePicture.jpg' " class="rounded-circle"  width="80" height="80" />
                     </div>
                     <div class = "col-sm-4">
                         <h4><a style='text-decoration: none;' routerLink="/profile/{{post.user?.url}}">{{ post.user?.firstName }} {{ post.user?.lastName }}</a></h4>
@@ -54,7 +56,7 @@
                 </div>
                 <div class = "col-sm-8 offset-md-1" *ngFor="let comment of comments" > 
                     <div class = "rounded col-sm-12" style=" background-color: #95a199;"> 
-                        <img class="card-img-top" src="data:image/png;base64,{{comment.user?.photo?.image}}" class="rounded-circle"  width="50" height="50">
+                        <img class="card-img-top" [src]="comment.user?.photo?.image != null ? 'data:image/png;base64,' + comment.user?.photo?.image : './assets/DefaultProfilePicture.jpg'" class="rounded-circle"  width="50" height="50">
                         <b> <a style='text-decoration: none;' routerLink="/profile/{{comment.user?.url}}">
                             {{comment.user?.firstName}} {{comment.user?.lastName}} 
                         </a></b> 
@@ -74,7 +76,7 @@
     </div>
     <div class="modal-body">
         <div *ngFor="let liker of likeInformation?.users">
-            <img class="card-img-top" src="data:image/png;base64,{{liker?.photo?.image}}" class="rounded-circle"  width="50" height="50">
+            <img class="card-img-top" [src]="liker?.photo?.image != null ? 'data:image/png;base64,' + liker?.photo?.image : './assets/DefaultProfilePicture.jpg'" class="rounded-circle"  width="50" height="50">
             <a style='text-decoration: none;' routerLink="/profile/{{liker?.url}}">
                 {{liker.firstName}} {{liker.lastName}}
             </a>
