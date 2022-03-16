@@ -7,5 +7,7 @@ public interface PhotoService {
 
     //upload a photo
     ResponseEntity uploadPhoto (Photo photo);
+
+    //Get a photo
     ResponseEntity getPhoto(Long photoId);
 }

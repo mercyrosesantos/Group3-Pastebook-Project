@@ -22,7 +22,7 @@ public class PhotoServiceImp implements PhotoService{
     public ResponseEntity uploadPhoto (Photo photo){
         Photo newPhoto = photoRepository.save(photo);
         User user = userRepository.findById(photo.getUser().getId()).orElse(null);
-        user.setPhoto(newPhoto  );
+        user.setPhoto(newPhoto);
         userRepository.save(user);
         return new ResponseEntity("Photo uploaded.", HttpStatus.OK);
     }
