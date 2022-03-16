@@ -5,6 +5,8 @@ import { Notification } from '@models/notification';
 import { NotificationService } from '@services/notification.service';
 import { SessionService } from '@services/session.service';
 import { User } from '@models/user';
+import { isNgTemplate } from '@angular/compiler';
+import { importExpr } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-notification',
@@ -47,13 +49,14 @@ export class NotificationComponent implements OnInit {
   }
 
   getUnreadNotif(){
-    this.notificationService.getUnread(this.userId).subscribe((reponse: any) => {
-      this.unreadNotif = Number(reponse);
+    this.notificationService.getUnread(this.userId).subscribe((response: any) => {
+      this.unreadNotif = response;
     })
+    return this.unreadNotif;
   }
 
   setNotifAsRead(){
-    this.notificationService.setAsRead(this.userId);
+    this.notificationService.setAsRead(this.userId).subscribe((response: any) => {})
   }
 
   loadNotif(){
@@ -66,7 +69,7 @@ export class NotificationComponent implements OnInit {
     this.dataRefresher =
     setInterval(() => {
       this.loadNotif();
-    }, 30000); 
+    }, 10000); 
 
   }
 

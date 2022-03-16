@@ -12,7 +12,9 @@ export class NotificationService {
 
   private baseUrl: string = environment.apiUrl + '/notifications';
   private unreadUrl: string = this.baseUrl + '/unread';
-  private readUrl: string = this.baseUrl + '/read'
+  private readUrl: string = this.baseUrl + '/read';
+
+  notif?: any;
 
   constructor(
     private http: HttpClient
@@ -25,7 +27,7 @@ export class NotificationService {
 
   // Get unread notifications count
   getUnread(userId: number): Observable<Object> {
-    return this.http.get(`${this.getUnread}/${userId}`);
+    return this.http.get(`${this.unreadUrl}/${userId}`);
   }
 
   // Set notifications as read

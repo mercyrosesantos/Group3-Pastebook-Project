@@ -150,7 +150,7 @@ public class UserController {
     public ResponseEntity<Object> getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
-  
+
     //Update About Me
     @RequestMapping(value = "api/profile/aboutme", method = RequestMethod.PUT)
     ResponseEntity<Object> updateAboutME (@RequestBody User user) {

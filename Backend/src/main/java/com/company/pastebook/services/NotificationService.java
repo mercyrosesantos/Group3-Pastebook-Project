@@ -14,7 +14,7 @@ public interface NotificationService {
     ArrayList<Notification> getUserNotif(Long userId);
 
     // Get unread notifications count
-    ResponseEntity getUnreadCount(Long userId);
+    int getUnreadCount(Long userId);
 
     // Set as read
     ResponseEntity setAsRead(Long userId);

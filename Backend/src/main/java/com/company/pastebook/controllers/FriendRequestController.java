@@ -82,7 +82,7 @@ public class FriendRequestController {
 
     // Get friend requests
     @RequestMapping(value = "/api/friendrequests", method = RequestMethod.GET)
-    public ResponseEntity<Object> getFriendRequests(String status) {
+    public ResponseEntity<Object> getFriendRequests(String status){
         String statusCheck = "pending";
         return new ResponseEntity<>(friendRequestService.findByStatus(statusCheck), HttpStatus.OK);
     }

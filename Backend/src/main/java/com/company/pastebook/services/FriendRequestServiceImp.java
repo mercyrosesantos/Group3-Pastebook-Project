@@ -76,6 +76,7 @@ public class FriendRequestServiceImp implements FriendRequestService{
 //        if (friendRequestToBeAccepted != null){
 //            friendRequestToBeAccepted.setStatus("accepted");
  //    }
+
      // Reject friend request
 //    public ResponseEntity rejectFriendRequest(Long frid, String stringToken) {
 //        FriendRequest friendRequestToBeRejected = friendRequestRepository.findById(frid).get();
@@ -163,6 +164,9 @@ public class FriendRequestServiceImp implements FriendRequestService{
 
             friendshipRepository.save(newFriendship1);
             friendshipRepository.save(newFriendship2);
+            notificationService.createNotification("acceptedRequest", friendRequest.getId());
+        } else {
+            notificationService.createNotification("friendRequest", friendRequest.getId());
         }
         return new ResponseEntity("Friend request saved.", HttpStatus.OK);
     }

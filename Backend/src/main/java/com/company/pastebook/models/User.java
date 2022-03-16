@@ -297,8 +297,8 @@ public class User {
     }
 
     public Set<Post> getUserPosts() {
-        return userPosts;
-    }
+        return userPosts;}
+
      public String getAboutMe() {
         return aboutMe;
     }

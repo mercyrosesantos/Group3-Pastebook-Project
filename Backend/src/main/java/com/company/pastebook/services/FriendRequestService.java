@@ -19,14 +19,11 @@ public interface FriendRequestService {
     // Find by requestor id
     Optional<FriendRequest> findByRequestorId(Long requestorId);
 
-
-
     // Find by requestee id
     Optional<FriendRequest> findByRequesteeId(Long requesteeId);
 
     // Find by status
     Optional<FriendRequest> findByStatus(String status);
-
 
     // Reject friend request
 //    ResponseEntity rejectFriendRequest(Long frid, String stringToken);

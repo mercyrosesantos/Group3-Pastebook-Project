@@ -21,7 +21,7 @@ public class NotificationController {
 
     // Get unread notifications count
     @RequestMapping(value = "/api/notifications/unread/{userId}", method = RequestMethod.GET)
-    ResponseEntity<Object> getUnreadCount(@PathVariable Long userId) {
+    Integer getUnreadCount(@PathVariable Long userId) {
         return notificationService.getUnreadCount(userId);
     }
 
