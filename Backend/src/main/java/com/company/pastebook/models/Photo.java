@@ -36,6 +36,7 @@ public class Photo {
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn (name = "albumId", nullable = true)
     private Album album;
 

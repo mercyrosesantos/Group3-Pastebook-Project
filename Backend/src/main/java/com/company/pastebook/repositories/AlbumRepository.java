@@ -1,9 +1,11 @@
 package com.company.pastebook.repositories;
 
 import com.company.pastebook.models.Album;
+import com.company.pastebook.models.Friendship;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AlbumRepository extends CrudRepository<Album, Object> {
+    Iterable<Album> findByUserId(Long userId);
 }

@@ -40,6 +40,7 @@ import { NotificationComponent } from './components/notification/notification.co
 import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
 import { PostsComponent } from './pages/posts/posts.component';
 import { FriendslistComponent } from './pages/friendslist/friendslist.component';
+import { AlbumViewComponent } from './pages/album-view/album-view.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }, // http://localhost:4200/
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'search/:keyword', component: ResultComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'albums', component: AlbumsComponent},
+  { path: 'albums/:id', component: AlbumsComponent},
+  { path: 'albums-view/:id', component: AlbumViewComponent},
   { path: 'posts/:postId', component: PostsComponent },
   { path: 'friends', component: FriendslistComponent }
   // { path: '**', component: NotFoundComponent }
@@ -73,6 +75,7 @@ const appRoutes: Routes = [
     AlbumsComponent,
     PostsComponent,
     FriendslistComponent,
+    AlbumViewComponent,
   ],
   imports: [
     BrowserModule,
