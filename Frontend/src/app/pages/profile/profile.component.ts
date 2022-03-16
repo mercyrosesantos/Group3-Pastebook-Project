@@ -11,6 +11,7 @@ import { SessionService } from '@services/session.service';
 import { FriendRequestService } from '@services/friendrequest.service';
 import { Friendship } from '@models/friendship';
 import { Friendrequest } from '@models/friendrequest';
+import { PhotoService } from '@services/photo.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -32,12 +33,15 @@ export class ProfileComponent implements OnInit {
   isOwnProfile: boolean = false;
   friendshipStatus?: string;
   friendRequest?: Friendrequest;
+  newImageFile? : FileList;
+  uploadedNewImage: boolean = false;
   constructor(
     private profileService: ProfileService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private sessionService: SessionService,
-    private friendRequestService : FriendRequestService
+    private friendRequestService : FriendRequestService,
+    private photoService: PhotoService
   ) {
   }
 
@@ -82,7 +86,10 @@ export class ProfileComponent implements OnInit {
       this.formattedBirthday = moment(this.user.birthDay).format('MMMM DD, YYYY');
       if (this.user.photo?.image != undefined) {
         this.photoSrc = "data:image/png;base64," + this.user.photo?.image;
+      } else {
+        this.photoSrc="./assets/DefaultProfilePicture.jpg";
       }
+      console.log('photoSrc: ' + this.photoSrc);
       this.isOwnProfile = this.user.id == this.sessionService.getUserId();
       if (this.isOwnProfile) {
         this.friendshipStatus = 'own';
@@ -131,5 +138,38 @@ export class ProfileComponent implements OnInit {
     this.profileService.updateAboutMe(this.user).subscribe((response: Object) => {
       this.modalService.dismissAll()
     })
+  }
+  changeProfilePic(event: any) {
+    const element = event.currentTarget as HTMLInputElement;
+    this.newImageFile = element.files!;
+    if (this.newImageFile) {
+      let fileReader = new FileReader();
+      let self = this;
+        fileReader.onload = function () {
+          self.photoSrc = fileReader.result?.toString();
+        }
+        fileReader.readAsDataURL(this.newImageFile[0]);
+      console.log("FileUpload -> files", this.newImageFile);
+      this.uploadedNewImage = true;
+    }
+
+  }
+  uploadImage() {
+    if (this.uploadedNewImage) {
+      var data = new FormData();
+      // data.append('file',this.photoSrc!);
+      data.append('file', this.newImageFile![0], this.newImageFile![0].name);
+
+      data.append('userId', this.sessionService.getUserId());
+      this.photoService.uploadPhoto(data)
+      .subscribe((response: Object) => {
+        console.log('success uploading');
+        this.getUserProfile();
+        this.uploadedNewImage = false;
+        this.modalService.dismissAll();
+      })
+    }
+    
+
   }
 }

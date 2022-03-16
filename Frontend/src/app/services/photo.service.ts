@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Photo } from '@models/photo';
 import { Observable } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class PhotoService {
 
-  private uploadPhotoUrl: string = environment.apiUrl + '/user/photos';
+  private uploadPhotoUrl: string = environment.apiUrl + '/user/photos/';
   private getPhotoUrl: string = environment.apiUrl + '/photo/3';
 
   constructor(
@@ -22,6 +22,19 @@ export class PhotoService {
   //Get Photo
   getPhoto(): Observable<Photo> {
   return this.http.get<Photo>(this.getPhotoUrl);
+  }
+
+  
+
+  uploadPhoto(formData: FormData) : Observable<Object>{
+    let headers = new HttpHeaders();
+//this is the important step. You need to set content type as null
+  // headers.set('Content-Type', null);
+  headers.set('Accept', "multipart/form-data");
+
+
+    return this.http.post(this.uploadPhotoUrl, formData, { headers });
+
   }
   
 }

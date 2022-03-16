@@ -3,6 +3,7 @@ package com.company.pastebook.controllers;
 import com.company.pastebook.models.Album;
 import com.company.pastebook.models.Photo;
 import com.company.pastebook.models.User;
+import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.io.FileUtils;
@@ -22,6 +23,9 @@ public class PhotoController {
     @Autowired
     PhotoService photoService;
 
+    @Autowired
+    UserRepository userRepository;
+
     // Upload a Photo
     @RequestMapping(value = "api/user/photos/", method = RequestMethod.POST)
     ResponseEntity<Object> uploadPhoto (@RequestParam("file") MultipartFile file,@RequestParam(required=false) String caption ,
@@ -33,8 +37,7 @@ public class PhotoController {
         byte[] bytes = FileUtils.readFileToByteArray(convFile);
 
         if (userId != null) {
-            User newUser = new User();
-            newUser.setId(userId);
+            User newUser = userRepository.findById(userId).orElse(null);
             photo.setUser(newUser);
         }
         if (albumId != null) {

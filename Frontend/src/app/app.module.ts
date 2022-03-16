@@ -39,6 +39,7 @@ import { ResultComponent } from './pages/result/result.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
 import { PostsComponent } from './pages/posts/posts.component';
+import { FriendrequestsComponent } from './pages/friendrequests/friendrequests.component';
 
 
 const appRoutes: Routes = [
@@ -70,7 +71,8 @@ const appRoutes: Routes = [
     AddFriendButtonComponent,
     SettingsComponent,
     AlbumsComponent,
-    PostsComponent
+    PostsComponent,
+    FriendrequestsComponent
   ],
   imports: [
     BrowserModule,
