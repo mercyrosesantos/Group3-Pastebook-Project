@@ -31,6 +31,7 @@ public class Photo {
     private byte[] image;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn (name = "userId", nullable = true)
     private User user;
 
