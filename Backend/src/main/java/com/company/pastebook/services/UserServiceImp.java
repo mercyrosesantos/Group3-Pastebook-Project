@@ -110,29 +110,31 @@ public class UserServiceImp implements UserService {
         userForUpdating.setMobileNumber(user.getMobileNumber());
         userForUpdating.setUrl(user.getFirstName().toLowerCase()+user.getLastName().toLowerCase()+"-"+user.getId());
         userRepository.save(userForUpdating);
-        return new ResponseEntity("User Updated Successfully", HttpStatus.OK);
+        return new ResponseEntity("User updated successfully.", HttpStatus.OK);
     }
 
 //    Update User Email
     public ResponseEntity updateUserEmail(Long id, User user) {
         User userForUpdating = userRepository.findById(id).get();
         userForUpdating.setEmail(user.getEmail());
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-        if (!userForUpdating.getPassword().equals(encodedPassword)) {
+        // String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        boolean isMatched = new BCryptPasswordEncoder().matches(user.getPassword(), userForUpdating.getPassword());
+        if (!isMatched) {
             return new ResponseEntity("Incorrect password.", HttpStatus.BAD_REQUEST);
         }
         userRepository.save(userForUpdating);
-        return new ResponseEntity("Email Updated Successfully", HttpStatus.OK);
+        return new ResponseEntity("Email updated successfully.", HttpStatus.OK);
     }
 
 //        Update User Password
     public ResponseEntity updateUserPassword(Long id, Map<String, String> body) {
         User userForUpdating = userRepository.findById(id).get();
-        String oldPassword = new BCryptPasswordEncoder().encode(body.get("oldPassword"));
+        // String oldPassword = new BCryptPasswordEncoder().encode(body.get("oldPassword"));
         String encodedPassword = new BCryptPasswordEncoder().encode(body.get("newPassword"));
+        boolean isMatched = new BCryptPasswordEncoder().matches(body.get("oldPassword"), userForUpdating.getPassword());
         String newPassword = body.get("newPassword");
         String retypePassword = body.get("retypePassword");
-        if (!oldPassword.equals(userForUpdating.getPassword())) {
+        if (!isMatched) {
             return new ResponseEntity("Old password provided is incorrect.", HttpStatus.BAD_REQUEST);
         }
         if (!newPassword.equals(retypePassword)) {
@@ -140,7 +142,7 @@ public class UserServiceImp implements UserService {
         }
         userForUpdating.setPassword(encodedPassword);
         userRepository.save(userForUpdating);
-        return new ResponseEntity("Password Updated Successfully", HttpStatus.OK);
+        return new ResponseEntity("Password updated successfully.", HttpStatus.OK);
     }
 
     // Get online friends
