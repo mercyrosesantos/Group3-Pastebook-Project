@@ -34,10 +34,7 @@ export class ResultComponent implements OnInit {
       this.searchService.searchAll(this.keyword).subscribe((response: User) => {
         this.result = response;
       });
-      console.log(this.result);
-      console.log(this.keyword);
     });
-
   }
 
   redirect() {

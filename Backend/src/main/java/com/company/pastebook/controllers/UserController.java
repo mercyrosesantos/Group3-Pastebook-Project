@@ -1,7 +1,6 @@
 package com.company.pastebook.controllers;
 
 import com.company.pastebook.Constants;
-import com.company.pastebook.models.Post;
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.ReactionService;

@@ -4,7 +4,6 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Post } from '@models/post';
 import { Reaction } from '@models/reaction';
 import { User } from '@models/user';
 

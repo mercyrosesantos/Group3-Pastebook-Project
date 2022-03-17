@@ -1,7 +1,6 @@
 package com.company.pastebook.services;
 
 import com.company.pastebook.models.Album;
-import com.company.pastebook.models.Photo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +23,7 @@ public interface AlbumService {
     //Get album per User
     ResponseEntity getAlbum(Long userId);
 
-    //Get Album
+    //Get Album by AlbumID
     ResponseEntity getAlbumById(Long albumId);
 
 

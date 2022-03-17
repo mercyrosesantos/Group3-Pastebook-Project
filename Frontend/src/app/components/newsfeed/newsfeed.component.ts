@@ -22,27 +22,21 @@ export class NewsfeedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-     this.loadFeed();
+    this.loadFeed();
     this.refreshData();
   }
 
   loadFeed() {
-
     this.postService.getFeed(this.loggedInUser).subscribe((response: Post[]) => {
       this.posts = response;
       this.posts.reverse();
-      console.log(this.posts);
     });
-
  }
 
   refreshData() {
-
     this.dataRefresher =
     setInterval(() => {
       this.loadFeed();
     }, 60000); 
-
   }
-
 }

@@ -39,6 +39,12 @@ public class Notification implements Comparable<Notification> {
     public Notification() {
     }
 
+    public Notification(String notificationType, boolean isRead, LocalDateTime notificationTimestamp) {
+        this.notificationType = notificationType;
+        this.isRead = isRead;
+        this.notificationTimestamp = notificationTimestamp;
+    }
+
     // Getter and Setter
 
     public Long getId() {

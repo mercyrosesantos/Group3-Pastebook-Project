@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -31,7 +30,6 @@ public class AlbumServiceImp implements AlbumService  {
     //Create an album
     public ResponseEntity createAlbum (Album album){
         Album createdAlbum = albumRepository.save(album);
-
         return new ResponseEntity(createdAlbum.getId(), HttpStatus.OK);
     }
 
@@ -76,9 +74,6 @@ public class AlbumServiceImp implements AlbumService  {
     public ResponseEntity updateAlbum (Album album) {
 
         Album updateAlbum = albumRepository.findById(album.getId()).orElse(null);
-
-        System.out.println("album: " + album.getId());
-        System.out.println("changeName: " + updateAlbum.getAlbumName());
         updateAlbum.setAlbumName(album.getAlbumName());
         albumRepository.save(updateAlbum);
         return new ResponseEntity("Album Updated.", HttpStatus.OK);
@@ -89,12 +84,10 @@ public class AlbumServiceImp implements AlbumService  {
         return new ResponseEntity(albumRepository.findByUserId(userId),HttpStatus.OK);
     }
 
-    //Get Album
+    //Get Album by AlbumID
     public ResponseEntity getAlbumById(Long albumId){
         Album album = albumRepository.findById(albumId).orElse(null);
         album.setUserIdJson(album.getUser().getId());
         return new ResponseEntity(album,HttpStatus.OK);
     }
-
-
 }

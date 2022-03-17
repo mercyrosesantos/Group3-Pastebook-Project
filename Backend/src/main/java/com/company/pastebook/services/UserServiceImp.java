@@ -34,45 +34,45 @@ public class UserServiceImp implements UserService {
     @Autowired
     private JavaMailSenderImpl mailSenderImpl;
 
-//    Register User
+    //    Register User
     public void createUser(User user, String siteUrl) {
     }
 
-//    Get all Users
+    //    Get all Users
     public Iterable<User> getUsers() {
         return userRepository.findAll();
     }
 
-//    Find by email
+    //    Find by email
     public Optional<User> findByEmail(String email) {
         return Optional.ofNullable(userRepository.findByEmail(email));
     }
 
-//    Login
+    //    Login
     public Iterable<User> verifyUser(String email){
         ArrayList<User> key = new ArrayList<>();
         key.add(userRepository.findByEmail(email));
         return key;
     }
 
-// Get User Profile
+    // Get User Profile
     public ResponseEntity getUserProfile(Long id){
         User userProfile = userRepository.findById(id).get();
         return new ResponseEntity(userProfile, HttpStatus.OK);
     }
 
-// Get User Profile by Url
+    // Get User Profile by Url
     public ResponseEntity getUserProfileByUrl(String url){
         User userProfileByUrl = userRepository.findByUrl(url);
         return new ResponseEntity(userProfileByUrl, HttpStatus.OK);
     }
 
-//    User Verification
+    //    User Verification
     public boolean isEnabled() {
         return user.isEnabled();
     }
 
-//    Sending Verification Email
+    //    Sending Verification Email
     public void sendVerificationEmail(User user, String siteUrl) throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
         String fromAddress = "pastebook.group3@gmail.com";
@@ -100,7 +100,7 @@ public class UserServiceImp implements UserService {
         mailSenderImpl.send(message);
     }
 
-//    Update User Information
+    //    Update User Information
     public ResponseEntity updateUserInfo(Long id, User user) {
         User userForUpdating = userRepository.findById(id).get();
         userForUpdating.setFirstName(user.getFirstName());
@@ -113,7 +113,7 @@ public class UserServiceImp implements UserService {
         return new ResponseEntity("User updated successfully.", HttpStatus.OK);
     }
 
-//    Update User Email
+    //    Update User Email
     public ResponseEntity updateUserEmail(Long id, User user) {
         User userForUpdating = userRepository.findById(id).get();
         userForUpdating.setEmail(user.getEmail());
@@ -126,7 +126,7 @@ public class UserServiceImp implements UserService {
         return new ResponseEntity("Email updated successfully.", HttpStatus.OK);
     }
 
-//        Update User Password
+    //        Update User Password
     public ResponseEntity updateUserPassword(Long id, Map<String, String> body) {
         User userForUpdating = userRepository.findById(id).get();
         // String oldPassword = new BCryptPasswordEncoder().encode(body.get("oldPassword"));

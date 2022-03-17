@@ -13,10 +13,8 @@ export class AppComponent {
     public router : Router
   ) {}
   ngOnInit() {
-    console.log('app: ' + this.sessionService.getUserId());
     if (this.sessionService.getUserId() == null) {
       this.router.navigate(['login']);
-
     }
   }
 }

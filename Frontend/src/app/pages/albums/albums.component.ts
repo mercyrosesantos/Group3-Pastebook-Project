@@ -33,22 +33,25 @@ export class AlbumsComponent implements OnInit {
     })
 
   }
+
   getAlbums() {    
     this.albumService.getAlbumByUserId(this.userId!).subscribe((response: Album[]) => { 
       this.albums = response;
     });
-
   }
+
   update(album: any) {
     this.albumService.updateAlbum(album.albumName,album.id).subscribe((response: Object) => { 
       this.getAlbums();
     });
   }
+
   delete(album:any) {
     this.albumService.deleteAlbum(album.id).subscribe((response: Object) =>{
       this.getAlbums();
     })
   }
+
   changeUploadedPhotos(event: any) {
     const element = event.currentTarget as HTMLInputElement;
     this.uploadedPhotos = element.files!;
@@ -60,8 +63,8 @@ export class AlbumsComponent implements OnInit {
         }
         fileReader.readAsDataURL(this.uploadedPhotos[0]);
     }
-
   }
+
   createAlbum() {
     if (this.uploadedPhotos == null) {
       return;
@@ -77,7 +80,6 @@ export class AlbumsComponent implements OnInit {
       for (var i=0;i<this.uploadedPhotos.length;i ++) {
         data.append('files[]', this.uploadedPhotos[i]);
       }
-
       data.append('userId', this.sessionService.getUserId());
       data.append('albumId', albumId.toString());
       this.albumService.uploadPhotos(data).subscribe((response: any) => {
