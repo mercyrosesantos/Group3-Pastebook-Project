@@ -2,6 +2,8 @@ package com.company.pastebook.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,9 +34,18 @@ public class Album {
     @JoinColumn (name = "userId", nullable = true)
     private User user;
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Photo> albumPhotos;
 
+    public Long getUserIdJson() {
+        return userIdJson;
+    }
+
+    public void setUserIdJson(Long userIdJson) {
+        this.userIdJson = userIdJson;
+    }
+
+    private Long userIdJson;
     //Constructors
 
     public Album() {

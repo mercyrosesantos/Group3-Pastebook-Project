@@ -37,7 +37,6 @@ export class FriendslistComponent implements OnInit {
   ngOnInit(): void{
     this.activatedRoute.params.subscribe(params => {
       this.friendRequestService.getFriends(this.sessionService.getUserId()).subscribe((response: any) => {
-        console.log(response);
         this.friends = response['body'];
       });
     })

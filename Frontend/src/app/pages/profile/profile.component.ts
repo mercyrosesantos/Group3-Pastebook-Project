@@ -12,6 +12,8 @@ import { FriendRequestService } from '@services/friendrequest.service';
 import { Friendship } from '@models/friendship';
 import { Friendrequest } from '@models/friendrequest';
 import { PhotoService } from '@services/photo.service';
+import { AlbumService } from '@services/album.service';
+import { Album } from '@models/album';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -35,13 +37,17 @@ export class ProfileComponent implements OnInit {
   friendRequest?: Friendrequest;
   newImageFile? : FileList;
   uploadedNewImage: boolean = false;
+
+  albums: Album [] = [];
+
   constructor(
     private profileService: ProfileService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private sessionService: SessionService,
     private friendRequestService : FriendRequestService,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private albumService: AlbumService
   ) {
   }
 
@@ -63,6 +69,8 @@ export class ProfileComponent implements OnInit {
     this.posts = [];
     this.pageNo = 0;
     this.getPosts();
+    this.getAlbums();
+
   }
 
   // Get Posts
@@ -76,7 +84,6 @@ export class ProfileComponent implements OnInit {
     })
   }
   addFriendCallBack() {
-    console.log('addFriendCallBack');
     this.getFriendship();
   }
   // Get User Profile
@@ -89,7 +96,6 @@ export class ProfileComponent implements OnInit {
       } else {
         this.photoSrc="./assets/DefaultProfilePicture.jpg";
       }
-      console.log('photoSrc: ' + this.photoSrc);
       this.isOwnProfile = this.user.id == this.sessionService.getUserId();
       if (this.isOwnProfile) {
         this.friendshipStatus = 'own';
@@ -104,7 +110,6 @@ export class ProfileComponent implements OnInit {
   getFriendship() {
     this.friendRequestService.getFriendship(this.user.id!).subscribe((response: Friendship) => {
       this.friendshipStatus = response.status;
-      console.log('status: ' + this.friendshipStatus);
       if (this.friendshipStatus == 'pending') {
         this.friendRequestService.getFriendRequest(this.user.id!).subscribe((response: Friendrequest) => {
           this.friendRequest = response;
@@ -120,7 +125,6 @@ export class ProfileComponent implements OnInit {
     // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
     
     if((pos + 10) >= max && !this.isLoading && !this.isMaxed)   {
-      console.log('position is maxed');
       this.pageNo++;
       this.isLoading = true;
       this.getPosts();
@@ -149,7 +153,6 @@ export class ProfileComponent implements OnInit {
           self.photoSrc = fileReader.result?.toString();
         }
         fileReader.readAsDataURL(this.newImageFile[0]);
-      console.log("FileUpload -> files", this.newImageFile);
       this.uploadedNewImage = true;
     }
 
@@ -163,13 +166,17 @@ export class ProfileComponent implements OnInit {
       data.append('userId', this.sessionService.getUserId());
       this.photoService.uploadPhoto(data)
       .subscribe((response: Object) => {
-        console.log('success uploading');
         this.getUserProfile();
         this.uploadedNewImage = false;
         this.modalService.dismissAll();
       })
     }
-    
+  }
+
+  getAlbums() {    
+    this.albumService.getAlbumByUserId(this.user.id!).subscribe((response: Album[]) => { 
+      this.albums = response;
+    });
 
   }
 }

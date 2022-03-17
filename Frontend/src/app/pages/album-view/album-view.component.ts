@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Album } from '@models/album';
@@ -14,19 +15,25 @@ import { SessionService } from '@services/session.service';
 export class AlbumViewComponent implements OnInit {
 
   albumId? : number;
+  userId? : number;
   album?: Album;
   currentPhoto? :Photo;
   photoSrc? : string;
   uploadedPhotos? : FileList;
+  isOwnProfile : boolean = false;
   constructor(
     private route: ActivatedRoute,
     public albumService : AlbumService,
     public modalService: NgbModal,
-    public sessionService: SessionService
+    public sessionService: SessionService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
-    this.getAlbum();
+    this.route.params.subscribe(params => {
+      // this.userId = params['id'];
+      this.getAlbum();
+    })
   }
 
   getAlbum(){
@@ -39,6 +46,7 @@ export class AlbumViewComponent implements OnInit {
   getAlbumInfo(){
     this.albumService.getAlbum(this.albumId!).subscribe((response: Album) => {
       this.album = response;
+      this.isOwnProfile = this.album.userIdJson == this.sessionService.getUserId();
     })
   }
   openImage(photo : Photo, content: any) {
@@ -77,10 +85,10 @@ export class AlbumViewComponent implements OnInit {
       this.albumService.uploadPhotos(data).subscribe((response: any) => {
         this.getAlbumInfo();
         this.modalService.dismissAll();
-        // this.getUserProfile();
-        // this.uploadedNewImage = false;
-        // this.modalService.dismissAll();
       })
     }
+  }
+  back(){
+    this.location.back();
   }
 }

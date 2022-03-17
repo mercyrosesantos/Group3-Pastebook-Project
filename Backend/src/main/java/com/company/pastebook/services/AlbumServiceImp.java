@@ -67,8 +67,8 @@ public class AlbumServiceImp implements AlbumService  {
     }
 
     //Delete an Album
-    public ResponseEntity deleteAlbum (Album album) {
-        albumRepository.delete(album);
+    public ResponseEntity deleteAlbum (Long Id) {
+        albumRepository.deleteById(Id);
         return new ResponseEntity("Album Deleted.", HttpStatus.OK);
     }
 
@@ -91,7 +91,9 @@ public class AlbumServiceImp implements AlbumService  {
 
     //Get Album
     public ResponseEntity getAlbumById(Long albumId){
-        return new ResponseEntity(albumRepository.findById(albumId),HttpStatus.OK);
+        Album album = albumRepository.findById(albumId).orElse(null);
+        album.setUserIdJson(album.getUser().getId());
+        return new ResponseEntity(album,HttpStatus.OK);
     }
 
 
