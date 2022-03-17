@@ -60,8 +60,8 @@ export class UserService {
   }
 
   // Update user password
-  updatePassword(user: User): Observable<User> {
-    return this.http.put(`${this.settingsUrl}/password/${user.id}`, user);
+  updatePassword(user: Map<String, String>): Observable<Object> {
+    return this.http.put(`${this.settingsUrl}/password/${user.get("id")}`, user);
   }
   
 }

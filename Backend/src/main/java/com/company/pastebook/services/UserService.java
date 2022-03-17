@@ -4,6 +4,7 @@ import com.company.pastebook.models.User;
 import org.springframework.http.ResponseEntity;
 import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 import java.util.Optional;
 
 public interface UserService {
@@ -35,7 +36,7 @@ public interface UserService {
     ResponseEntity updateUserEmail(Long id, User user);
 
 //    Update User Password
-    ResponseEntity updateUserPassword(Long id, User user);
+    ResponseEntity updateUserPassword(Long id, Map<String, String> body);
 
     // Get user by id
     ResponseEntity getUser(Long id);

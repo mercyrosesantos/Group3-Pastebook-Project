@@ -16,6 +16,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -106,6 +107,7 @@ public class UserServiceImp implements UserService {
         userForUpdating.setLastName(user.getLastName());
         userForUpdating.setBirthDay(user.getBirthDay());
         userForUpdating.setGender(user.getGender());
+        userForUpdating.setMobileNumber(user.getMobileNumber());
         userForUpdating.setUrl(user.getFirstName().toLowerCase()+user.getLastName().toLowerCase()+"-"+user.getId());
         userRepository.save(userForUpdating);
         return new ResponseEntity("User Updated Successfully", HttpStatus.OK);
@@ -116,14 +118,26 @@ public class UserServiceImp implements UserService {
         User userForUpdating = userRepository.findById(id).get();
         userForUpdating.setEmail(user.getEmail());
         String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        if (!userForUpdating.getPassword().equals(encodedPassword)) {
+            return new ResponseEntity("Incorrect password.", HttpStatus.BAD_REQUEST);
+        }
         userRepository.save(userForUpdating);
         return new ResponseEntity("Email Updated Successfully", HttpStatus.OK);
     }
 
 //        Update User Password
-    public ResponseEntity updateUserPassword(Long id, User user) {
+    public ResponseEntity updateUserPassword(Long id, Map<String, String> body) {
         User userForUpdating = userRepository.findById(id).get();
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        String oldPassword = new BCryptPasswordEncoder().encode(body.get("oldPassword"));
+        String encodedPassword = new BCryptPasswordEncoder().encode(body.get("newPassword"));
+        String newPassword = body.get("newPassword");
+        String retypePassword = body.get("retypePassword");
+        if (!oldPassword.equals(userForUpdating.getPassword())) {
+            return new ResponseEntity("Old password provided is incorrect.", HttpStatus.BAD_REQUEST);
+        }
+        if (!newPassword.equals(retypePassword)) {
+            return new ResponseEntity("Password does not match.", HttpStatus.BAD_REQUEST);
+        }
         userForUpdating.setPassword(encodedPassword);
         userRepository.save(userForUpdating);
         return new ResponseEntity("Password Updated Successfully", HttpStatus.OK);
