@@ -109,22 +109,6 @@ public class UserServiceImp implements UserService {
         return new ResponseEntity("User Updated Successfully", HttpStatus.OK);
     }
 
-//    Update User Email
-    public ResponseEntity updateUserEmail(Long id, User user) {
-        User userForUpdating = userRepository.findById(id).get();
-        userForUpdating.setEmail(user.getEmail());
-        userRepository.save(userForUpdating);
-        return new ResponseEntity("Email Updated Successfully", HttpStatus.OK);
-    }
-
-//        Update User Password
-    public ResponseEntity updateUserPassword(Long id, User user) {
-        User userForUpdating = userRepository.findById(id).get();
-        userForUpdating.setPassword(user.getPassword());
-        userRepository.save(userForUpdating);
-        return new ResponseEntity("Password Updated Successfully", HttpStatus.OK);
-    }
-
     // Get online friends
     public ResponseEntity<Object> getOnlineFriends(Long userId){
         ArrayList<User> friends = new ArrayList<>();

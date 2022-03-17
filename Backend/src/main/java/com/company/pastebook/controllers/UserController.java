@@ -120,24 +120,11 @@ public class UserController {
         return builder.compact();
     }
 
-
 //        Update User Info
-    @RequestMapping(value = "/api/settings/information/{userid}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/settings", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateUserInfo(@PathVariable Long userid, @RequestBody User newUser) {
         return userService.updateUserInfo(userid, newUser);
-    }
-
-//    Update User Email
-    @RequestMapping(value = "/api/settings/email/{userid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateUserEmail(@PathVariable Long userid, @RequestBody User newUser) {
-        return userService.updateUserEmail(userid, newUser);
-    }
-
-//        Update User Password
-    @RequestMapping(value = "/api/settings/password/{userid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateUserPassword(@PathVariable Long userid, @RequestBody User newUser) {
-        return userService.updateUserPassword(userid, newUser);
-    }
+}
 
     // Get online friends
     @RequestMapping ( value = "/api/online/{userId}", method = RequestMethod.GET)
@@ -156,5 +143,21 @@ public class UserController {
     ResponseEntity<Object> updateAboutME (@RequestBody User user) {
         return (userService.updateAboutMe(user.getAboutMe(),user.getId()));
     }
+
+//            Update User Info Test
+//    @PutMapping("/api/settings/{userid}")
+//    public ResponseEntity<Object> updateUserInfo(@PathVariable int userid, @RequestBody HashMap<String, Object> info) {
+//        HashMap<String, String> response = new HashMap<>();
+//        User selectedUser = user.findById(userid).get();
+//
+//        selectedUser.setFirstName(info.get("firstName").toString());
+//        selectedUser.setFirstName(info.get("lastName").toString());
+//        selectedUser.setFirstName(info.get("birthday").toString());
+//        selectedUser.setFirstName(info.get("gender").toString());
+//
+//        user.save(selectedUser);
+//        response.put("Result", "Updated User Info");
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
 
 }

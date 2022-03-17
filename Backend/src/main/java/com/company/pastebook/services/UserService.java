@@ -31,12 +31,6 @@ public interface UserService {
 //    Update User Information
     ResponseEntity updateUserInfo(Long id, User user);
 
-//    Update User Email
-    ResponseEntity updateUserEmail(Long id, User user);
-
-//    Update User Password
-    ResponseEntity updateUserPassword(Long id, User user);
-
     // Get user by id
     ResponseEntity getUser(Long id);
 
