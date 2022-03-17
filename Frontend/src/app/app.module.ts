@@ -5,7 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons'; // Icons import
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons'; // Icons import
+import { pencilSquare, houseDoor, personCircle, gearFill, power, bell, handThumbsUp, chatLeftText, arrowLeftCircleFill, cameraFill, penFill } from 'ngx-bootstrap-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -41,6 +42,11 @@ import { AddFriendButtonComponent } from './components/add-friend-button/add-fri
 import { PostsComponent } from './pages/posts/posts.component';
 import { FriendslistComponent } from './pages/friendslist/friendslist.component';
 import { AlbumViewComponent } from './pages/album-view/album-view.component';
+
+// bootstrap icons
+const icons = {
+  pencilSquare, houseDoor, personCircle, gearFill, power, bell, handThumbsUp, chatLeftText, arrowLeftCircleFill, cameraFill, penFill
+};
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }, // http://localhost:4200/
@@ -80,7 +86,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     NgbModule,
-    NgxBootstrapIconsModule.pick(allIcons),
+    NgxBootstrapIconsModule.pick(icons),
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
