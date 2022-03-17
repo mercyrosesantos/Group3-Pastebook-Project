@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '
 import { ErrorStateMatcher } from '@angular/material/core';
 import { User } from '@models/user';
 import { ProfileService } from '@services/profile.service';
+import { SessionService } from '@services/session.service';
 import { UserService } from '@services/user.service';
 import * as moment from 'moment';
 
@@ -30,6 +31,9 @@ export class SettingsComponent implements OnInit {
   mobileNumber: string = "";
   formattedBirthday?: Date;
 
+  userInfo: User = new User;
+  userId: number = this.sessionService.getUserId();
+
   // Show/Hide
   showPass: boolean = false;
   showInfo: boolean = false;
@@ -37,7 +41,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -71,4 +76,39 @@ export class SettingsComponent implements OnInit {
       this.showEmail = false;
     }
   }
+
+  // Update user information
+  updateInfo() {
+
+    this.userInfo.id = this.userId;
+    this.userInfo.firstName = this.firstName;
+    this.userInfo.lastName = this.lastName;
+    this.userInfo.birthDay = new Date(Date.parse(this.birthDay));
+    this.userInfo.gender = this.gender;
+
+    this.userService.updateUser(this.userInfo).subscribe();
+
+  }
+
+  // Update email
+  updateEmail() {
+
+    this.userInfo.id = this.userId;
+    this.userInfo.email = this.email;
+    this.userInfo.password = this.password;
+
+    this.userService.updateEmail(this.userInfo).subscribe();
+
+  }
+
+  // Update password
+  updatePassword() {
+
+    this.userInfo.id = this.userId;
+    this.userInfo.password = this.password;
+
+    this.userService.updatePassword(this.userInfo).subscribe();
+    
+  }
+
 }
