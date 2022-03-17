@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -105,6 +106,7 @@ public class UserServiceImp implements UserService {
         userForUpdating.setLastName(user.getLastName());
         userForUpdating.setBirthDay(user.getBirthDay());
         userForUpdating.setGender(user.getGender());
+        userForUpdating.setUrl(user.getFirstName().toLowerCase()+user.getLastName().toLowerCase()+"-"+user.getId());
         userRepository.save(userForUpdating);
         return new ResponseEntity("User Updated Successfully", HttpStatus.OK);
     }
@@ -113,6 +115,7 @@ public class UserServiceImp implements UserService {
     public ResponseEntity updateUserEmail(Long id, User user) {
         User userForUpdating = userRepository.findById(id).get();
         userForUpdating.setEmail(user.getEmail());
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         userRepository.save(userForUpdating);
         return new ResponseEntity("Email Updated Successfully", HttpStatus.OK);
     }
@@ -120,7 +123,8 @@ public class UserServiceImp implements UserService {
 //        Update User Password
     public ResponseEntity updateUserPassword(Long id, User user) {
         User userForUpdating = userRepository.findById(id).get();
-        userForUpdating.setPassword(user.getPassword());
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+        userForUpdating.setPassword(encodedPassword);
         userRepository.save(userForUpdating);
         return new ResponseEntity("Password Updated Successfully", HttpStatus.OK);
     }
@@ -141,8 +145,10 @@ public class UserServiceImp implements UserService {
 
     // Get user by id
     public ResponseEntity<Object> getUser(Long id) {
+        ArrayList<User> userArray = new ArrayList<>();
         User getUser = userRepository.findById(id).get();
-        return new ResponseEntity<>(getUser, HttpStatus.OK);
+        userArray.add(getUser);
+        return new ResponseEntity<>(userArray, HttpStatus.OK);
     }
 
     //Update AboutMe

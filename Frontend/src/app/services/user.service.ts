@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { SessionService } from './session.service';
 import { User } from '@models/user';
 
 
@@ -15,8 +16,14 @@ export class UserService {
   private registerUrl: string = environment.apiUrl + '/users/register';
   private onlineFriendsUrl: string = environment.apiUrl + '/online/';
 
+  private settingsUrl: string = environment.apiUrl + '/settings';
+  private httpHeaders: HttpHeaders = new HttpHeaders({
+    'Authorization': `${this.sessionService.getToken()}`
+  })
+
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private sessionService: SessionService
   ) { }
 
   login(email: string, password: string): Observable<Object> { 
@@ -40,6 +47,21 @@ export class UserService {
   // Get user by id
   getUser(userId: number): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/${userId}`);
+  }
+
+  // Update user info
+  updateUser(user: User): Observable<User> {
+    return this.http.put(`${this.settingsUrl}/information/${user.id}`, user);
+  }
+
+  // Update user email
+  updateEmail(user: User): Observable<User> {
+    return this.http.put(`${this.settingsUrl}/email/${user.id}`, user);
+  }
+
+  // Update user password
+  updatePassword(user: User): Observable<User> {
+    return this.http.put(`${this.settingsUrl}/password/${user.id}`, user);
   }
   
 }
