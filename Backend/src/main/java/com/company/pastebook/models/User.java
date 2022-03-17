@@ -33,7 +33,7 @@ public class User {
 
     @Column
     @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate birthDay;
+    private Date birthDay;
 
     @Column
     private String gender;
@@ -179,7 +179,7 @@ public class User {
         this.id = id;
     }
 
-    public User(String firstName, String lastName, String email, String password, LocalDate birthDay, String gender, String mobileNumber, String dateJoined, boolean isActive) {
+    public User(String firstName, String lastName, String email, String password, Date birthDay, String gender, String mobileNumber, String dateJoined, boolean isActive) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -232,11 +232,11 @@ public class User {
         this.password = password;
     }
 
-    public LocalDate getBirthDay() {
+    public Date getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(LocalDate birthDay) {
+    public void setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
     }
 
