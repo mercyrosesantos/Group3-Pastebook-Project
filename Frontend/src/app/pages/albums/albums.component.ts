@@ -22,11 +22,12 @@ export class AlbumsComponent implements OnInit {
   photoSrc? : string;
   uploadedPhotos? : FileList;
   albumName?: string;
+
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.userId = params['id'];
-      if (this.sessionService.getUserId() == this.userId) {
-        this.isOwnProfile;
+      if (Number(this.sessionService.getUserId()) == Number(this.userId)) {
+        this.isOwnProfile = true;
       }
       this.getAlbums();
     })
@@ -34,23 +35,19 @@ export class AlbumsComponent implements OnInit {
   }
   getAlbums() {    
     this.albumService.getAlbumByUserId(this.userId!).subscribe((response: Album[]) => { 
-      console.log('response: ' + JSON.stringify(response));
       this.albums = response;
-
     });
 
   }
-  update(album: any, e?: any) {
-    console.log('album: ' + JSON.stringify(album));
-    console.log('e: ' + JSON.stringify(e));
+  update(album: any) {
     this.albumService.updateAlbum(album.albumName,album.id).subscribe((response: Object) => { 
-      console.log('response: ' + JSON.stringify(response));
       this.getAlbums();
     });
   }
-  delete(album: any, e?: any) {
-    console.log('album: ' + JSON.stringify(album));
-    console.log('e: ' + JSON.stringify(e));
+  delete(album:any) {
+    this.albumService.deleteAlbum(album.id).subscribe((response: Object) =>{
+      this.getAlbums();
+    })
   }
   changeUploadedPhotos(event: any) {
     const element = event.currentTarget as HTMLInputElement;
@@ -66,11 +63,14 @@ export class AlbumsComponent implements OnInit {
 
   }
   createAlbum() {
+    if (this.uploadedPhotos == null) {
+      return;
+    }
     this.albumService.createAlbumByUserId(this.sessionService.getUserId(),this.albumName!).subscribe((response: Object) => { 
-      console.log('response: ' + JSON.stringify(response));
-      this.uploadImages(Number(response));
+        this.uploadImages(Number(response));
     });
   }
+
   uploadImages(albumId: number) {
     if (this.uploadedPhotos!= null && this.uploadedPhotos?.length > 0) {
       var data = new FormData();
@@ -82,9 +82,6 @@ export class AlbumsComponent implements OnInit {
       data.append('albumId', albumId.toString());
       this.albumService.uploadPhotos(data).subscribe((response: any) => {
         this.getAlbums();
-        // this.getUserProfile();
-        // this.uploadedNewImage = false;
-        // this.modalService.dismissAll();
       })
     }
   }

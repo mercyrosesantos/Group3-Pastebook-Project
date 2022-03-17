@@ -14,6 +14,7 @@ export class AlbumService {
   private createAlbumUrl: string = environment.apiUrl + '/user/albums/';
   private uploadPhotosUrl: string = environment.apiUrl + '/album/photos/';
   private getAlbumByIdUrl: string = environment.apiUrl + '/albums-view/';
+  private deleteAlbumUrl: string = environment.apiUrl + '/user/deleteAlbum/';
 
   constructor(
     private http: HttpClient,
@@ -40,12 +41,16 @@ export class AlbumService {
     return this.http.post(this.uploadPhotosUrl, formData, { headers,responseType: 'text'});
   }
   
+  //create album
   createAlbumByUserId(userId: number,albumName: string): Observable<Object> {
     return this.http.post(this.createAlbumUrl,{'user' : {
       'id' : userId
     }, 'albumName':albumName}, {responseType: 'text'});
   }
 
-
+  //Delete album
+  deleteAlbum(albumId: number):  Observable<Object> {
+    return this.http.delete(this.deleteAlbumUrl+albumId, {responseType: 'text'});
+  }
   
 }

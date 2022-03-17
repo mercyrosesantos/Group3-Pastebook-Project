@@ -39,9 +39,9 @@ public class AlbumController {
     }
 
     //Delete an album
-    @RequestMapping(value = "api/user/deleteAlbum", method = RequestMethod.DELETE)
-    ResponseEntity<Object> deleteAlbum(@RequestBody Album album){
-        return albumService.deleteAlbum(album);
+    @RequestMapping(value = "api/user/deleteAlbum/{albumId}", method = RequestMethod.DELETE)
+    ResponseEntity<Object> deleteAlbum(@PathVariable Long albumId){
+        return albumService.deleteAlbum(albumId);
     }
 
     //Update an album
@@ -59,6 +59,6 @@ public class AlbumController {
     //Get Album
     @RequestMapping(value = "api/albums-view/{albumId}", method = RequestMethod.GET)
     ResponseEntity<Object> getAlbumById(@PathVariable Long albumId) {
-        return albumService.getAlbumById(albumId);
+        return albumService.getAlbumById(   albumId);
     }
 }

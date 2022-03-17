@@ -27,7 +27,6 @@ export class PostsComponent implements OnInit {
       this.postId = Number(params['postId']);
       this.postService.getPost(this.postId).subscribe((response: Post[]) => {
         this.posts = response;
-        console.log(this.posts);
       });
     });
 

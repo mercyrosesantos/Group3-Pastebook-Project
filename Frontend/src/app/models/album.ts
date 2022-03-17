@@ -10,6 +10,7 @@ export class Album {
         // public userId?: number,
         // public user?: User,
         public albumPhotos?: Photo[],
+        public userIdJson?: number,
         // public photoId?: number,
     ) {}
 }

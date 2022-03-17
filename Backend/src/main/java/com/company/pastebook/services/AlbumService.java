@@ -16,7 +16,7 @@ public interface AlbumService {
     ResponseEntity addPhotos(MultipartFile[] files, Long userId, Long albumId) throws IOException;
 
     //Delete an Album
-    ResponseEntity deleteAlbum (Album album);
+    ResponseEntity deleteAlbum (Long Id);
 
     //Update Album
     ResponseEntity updateAlbum (Album album);
