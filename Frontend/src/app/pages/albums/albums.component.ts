@@ -1,5 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Album } from '@models/album';
 import { AlbumService } from '@services/album.service';
 import { SessionService } from '@services/session.service';
@@ -15,7 +16,8 @@ export class AlbumsComponent implements OnInit {
   constructor(
     public sessionService : SessionService,
     public albumService : AlbumService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
   userId? : number;
   isOwnProfile : boolean = false;
@@ -37,18 +39,39 @@ export class AlbumsComponent implements OnInit {
   getAlbums() {    
     this.albumService.getAlbumByUserId(this.userId!).subscribe((response: Album[]) => { 
       this.albums = response;
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
 
   update(album: any) {
     this.albumService.updateAlbum(album.albumName,album.id).subscribe((response: Object) => { 
       this.getAlbums();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
 
   delete(album:any) {
     this.albumService.deleteAlbum(album.id).subscribe((response: Object) =>{
       this.getAlbums();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
 
@@ -71,6 +94,13 @@ export class AlbumsComponent implements OnInit {
     }
     this.albumService.createAlbumByUserId(this.sessionService.getUserId(),this.albumName!).subscribe((response: Object) => { 
         this.uploadImages(Number(response));
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
 
@@ -84,6 +114,13 @@ export class AlbumsComponent implements OnInit {
       data.append('albumId', albumId.toString());
       this.albumService.uploadPhotos(data).subscribe((response: any) => {
         this.getAlbums();
+      },
+      (error: HttpErrorResponse) => {
+          if (error.status !== 401) {
+              return;
+          }
+          this.sessionService.clear();
+          this.router.navigate(['/login']);
       })
     }
   }

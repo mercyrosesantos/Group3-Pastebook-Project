@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Post } from '@models/post';
 import { PostService } from '@services/post.service';
@@ -18,7 +20,8 @@ export class NewsfeedComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -30,12 +33,22 @@ export class NewsfeedComponent implements OnInit {
     this.postService.getFeed(this.loggedInUser).subscribe((response: Post[]) => {
       this.posts = response;
       this.posts.reverse();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
  }
 
   refreshData() {
     this.dataRefresher =
     setInterval(() => {
+      if (this.sessionService.getToken() == null) {
+        return;
+      }
       this.loadFeed();
     }, 60000); 
   }

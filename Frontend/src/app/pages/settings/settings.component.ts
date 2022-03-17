@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 import { User } from '@models/user';
 import { ProfileService } from '@services/profile.service';
 import { SessionService } from '@services/session.service';
@@ -52,7 +53,8 @@ export class SettingsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private profileService: ProfileService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -123,6 +125,13 @@ export class SettingsComponent implements OnInit {
       this.mobileNumber = this.currentUser.mobileNumber!;
       this.email = this.currentUser.email!;
   
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
 

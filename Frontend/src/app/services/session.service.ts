@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable, Output, EventEmitter } from '@angular/core';
 import { User } from '@models/user';
 
@@ -16,6 +17,10 @@ export class SessionService {
     }
   }
 
+  getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `${this.getToken()}`});
+  }
   getToken(): string {
     return localStorage.getItem('token')!;
   }

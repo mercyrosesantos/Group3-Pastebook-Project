@@ -7,6 +7,7 @@ import { ProfileService } from '@services/profile.service';
 import { SessionService } from '@services/session.service';
 import { User } from '@models/user';
 import { UserService } from '@services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -34,6 +35,13 @@ export class FriendslistComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.friendRequestService.getFriends(this.sessionService.getUserId()).subscribe((response: any) => {
         this.friends = response['body'];
+      },
+      (error: HttpErrorResponse) => {
+          if (error.status !== 401) {
+              return;
+          }
+          this.sessionService.clear();
+          this.router.navigate(['/login']);
       });
     })
   }

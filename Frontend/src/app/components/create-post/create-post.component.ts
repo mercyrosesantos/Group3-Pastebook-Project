@@ -7,6 +7,7 @@ import { PostService } from '@services/post.service';
 import { SessionService } from '@services/session.service';
 import { User } from '@models/user';
 import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-post',
@@ -69,6 +70,13 @@ export class CreatePostComponent implements OnInit {
     this.postService.add(post).subscribe((response: Object) => {
       this.content = '';
       this.whenPost!();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
 }

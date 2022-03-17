@@ -5,7 +5,7 @@ import { Post } from '@models/post';
 import { ProfileService } from 'src/app/services/profile.service';
 import * as moment from 'moment';
 import { Photo } from '@models/photo';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { SessionService } from '@services/session.service';
 import { FriendRequestService } from '@services/friendrequest.service';
@@ -14,6 +14,7 @@ import { Friendrequest } from '@models/friendrequest';
 import { PhotoService } from '@services/photo.service';
 import { AlbumService } from '@services/album.service';
 import { Album } from '@models/album';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -47,7 +48,8 @@ export class ProfileComponent implements OnInit {
     private sessionService: SessionService,
     private friendRequestService : FriendRequestService,
     private photoService: PhotoService,
-    private albumService: AlbumService
+    private albumService: AlbumService,
+    private router: Router
   ) {
   }
 
@@ -79,6 +81,13 @@ export class ProfileComponent implements OnInit {
       if (response.length <this.pageSize) {
         this.isMaxed = true;
       }
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
 
@@ -103,6 +112,13 @@ export class ProfileComponent implements OnInit {
         this.getFriendship();
       }
       this.loadPage();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
 
@@ -112,6 +128,13 @@ export class ProfileComponent implements OnInit {
       if (this.friendshipStatus == 'pending') {
         this.friendRequestService.getFriendRequest(this.user.id!).subscribe((response: Friendrequest) => {
           this.friendRequest = response;
+        },
+        (error: HttpErrorResponse) => {
+            if (error.status !== 401) {
+                return;
+            }
+            this.sessionService.clear();
+            this.router.navigate(['/login']);
         });
       }
     })
@@ -140,6 +163,13 @@ export class ProfileComponent implements OnInit {
   saveAboutMe(){
     this.profileService.updateAboutMe(this.user).subscribe((response: Object) => {
       this.modalService.dismissAll()
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
   changeProfilePic(event: any) {
@@ -162,11 +192,17 @@ export class ProfileComponent implements OnInit {
       var data = new FormData();
       data.append('file', this.newImageFile![0], this.newImageFile![0].name);
       data.append('userId', this.sessionService.getUserId());
-      this.photoService.uploadPhoto(data)
-      .subscribe((response: Object) => {
+      this.photoService.uploadPhoto(data).subscribe((response: Object) => {
         this.getUserProfile();
         this.uploadedNewImage = false;
         this.modalService.dismissAll();
+      },
+      (error: HttpErrorResponse) => {
+          if (error.status !== 401) {
+              return;
+          }
+          this.sessionService.clear();
+          this.router.navigate(['/login']);
       })
     }
   }
@@ -174,6 +210,13 @@ export class ProfileComponent implements OnInit {
   getAlbums() {    
     this.albumService.getAlbumByUserId(this.user.id!).subscribe((response: Album[]) => { 
       this.albums = response;
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
 }

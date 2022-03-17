@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Album } from '@models/album';
 import { Photo } from '@models/photo';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -27,7 +28,8 @@ export class AlbumViewComponent implements OnInit {
     public albumService : AlbumService,
     public modalService: NgbModal,
     public sessionService: SessionService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +49,13 @@ export class AlbumViewComponent implements OnInit {
     this.albumService.getAlbum(this.albumId!).subscribe((response: Album) => {
       this.album = response;
       this.isOwnProfile = this.album.userIdJson == this.sessionService.getUserId();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
 
@@ -88,6 +97,13 @@ export class AlbumViewComponent implements OnInit {
       this.albumService.uploadPhotos(data).subscribe((response: any) => {
         this.getAlbumInfo();
         this.modalService.dismissAll();
+      },
+      (error: HttpErrorResponse) => {
+          if (error.status !== 401) {
+              return;
+          }
+          this.sessionService.clear();
+          this.router.navigate(['/login']);
       })
     }
   }

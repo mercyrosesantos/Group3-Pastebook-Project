@@ -18,13 +18,14 @@ export class UserService {
 
   private settingsUrl: string = environment.apiUrl + '/settings';
 
+
   constructor(
     private http: HttpClient,
     private sessionService: SessionService
   ) { }
 
-  login(email: string, password: string): Observable<Object> { 
-    return this.http.post(this.baseUrl + '/login', {email, password});
+  login(username: string, password: string): Observable<Object> { 
+    return this.http.post(environment.apiUrl + '/authenticate', {username, password} );
   }
 
   // Create user
@@ -33,32 +34,32 @@ export class UserService {
   }
 
   getAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl);
+    return this.http.get<User[]>(this.baseUrl, {headers : this.sessionService.getHeaders()});
   }
 
   // Get online friends
   getOnlineFriends(userId: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.onlineFriendsUrl}${userId}`);
+    return this.http.get<User[]>(`${this.onlineFriendsUrl}${userId}`, {headers : this.sessionService.getHeaders()});
   }
 
   // Get user by id
   getUser(userId: number): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/${userId}`);
+    return this.http.get<User>(`${this.baseUrl}/${userId}`, {headers : this.sessionService.getHeaders()});
   }
 
   // Update user info
   updateUser(user: User): Observable<Object> {
-    return this.http.put(`${this.settingsUrl}/information/${user.id}`, user,{responseType: 'text'});
+    return this.http.put(`${this.settingsUrl}/information/${user.id}`, user,{responseType: 'text', headers : this.sessionService.getHeaders()});
   }
 
   // Update user email
   updateEmail(user: User): Observable<Object> {
-    return this.http.put(`${this.settingsUrl}/email/${user.id}`, user,{responseType: 'text'});
+    return this.http.put(`${this.settingsUrl}/email/${user.id}`, user,{responseType: 'text', headers : this.sessionService.getHeaders()});
   }
 
   // Update user password
   updatePassword(user: any): Observable<Object> {
-    return this.http.put(`${this.settingsUrl}/password/${user["id"]}`, user,{responseType: 'text'});
+    return this.http.put(`${this.settingsUrl}/password/${user["id"]}`, user,{responseType: 'text',  headers : this.sessionService.getHeaders()});
   }
   
 }
