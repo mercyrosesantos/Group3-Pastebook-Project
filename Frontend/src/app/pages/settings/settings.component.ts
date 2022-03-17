@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -6,6 +7,8 @@ import { ProfileService } from '@services/profile.service';
 import { SessionService } from '@services/session.service';
 import { UserService } from '@services/user.service';
 import * as moment from 'moment';
+import { catchError, of } from 'rxjs';
+import Swal from 'sweetalert2';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -36,8 +39,10 @@ export class SettingsComponent implements OnInit {
   lastNameLow: string = "";
 
   userInfo: User = new User;
-  passwordMap!: Map<String, String>;
+  currentUser: User = new User;
+  passwordMap = {};
   userId: number = this.sessionService.getUserId();
+  stringBirthday?: string;
 
   // Show/Hide
   showPass: boolean = false;
@@ -51,6 +56,7 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getUserProfile();
   }
 
   onSubmit() {
@@ -84,7 +90,6 @@ export class SettingsComponent implements OnInit {
 
   // Update user information
   updateInfo() {
-
     this.userInfo.id = this.userId;
     this.userInfo.firstName = this.firstName;
     this.userInfo.lastName = this.lastName;
@@ -99,31 +104,73 @@ export class SettingsComponent implements OnInit {
     this.lastNameLow = this.lastName.toLocaleLowerCase();
     this.sessionService.setUrl(`${this.firstNameLow}${this.lastNameLow}-${this.userId}`);
     
-    this.userService.updateUser(this.userInfo).subscribe();
-
+    this.userService.updateUser(this.userInfo).subscribe((response: Object) => {
+      this.showSuccess(response);
+    },
+    (error: HttpErrorResponse) => {
+      this.showError(error);
+    });
   }
+
+  getUserProfile() {
+    this.profileService.getUserProfileByUrl(this.sessionService.getUrl()).subscribe((response: User) => {
+      this.currentUser = response;
+      this.userId = this.currentUser.id!;
+      this.firstName = this.currentUser.firstName!;
+      this.lastName = this.currentUser.lastName!;
+      this.birthDay = moment(this.currentUser.birthDay).format('YYYY-MM-DD');
+      this.gender = this.currentUser.gender!;
+      this.mobileNumber = this.currentUser.mobileNumber!;
+      this.email = this.currentUser.email!;
+  
+    })
+  }
+
 
   // Update email
   updateEmail() {
-
     this.userInfo.id = this.userId;
     this.userInfo.email = this.email;
     this.userInfo.password = this.oldPassword;
-
-    this.userService.updateEmail(this.userInfo).subscribe();
-
+    this.userService.updateEmail(this.userInfo).subscribe((response: Object) => {
+      this.showSuccess(response);
+    },
+    (error: HttpErrorResponse) => {
+      this.showError(error);
+    });
   }
 
   // Update password
   updatePassword() {
+    this.passwordMap = {
+        "id":  this.userId.toString(),
+        "oldPassword":  this.oldPassword,
+        "newPassword":  this.newPassword,
+        "retypePassword":  this.retypePassword,
 
-    this.passwordMap.set("id", this.userId.toString());
-    this.passwordMap.set("oldPassword", this.oldPassword);
-    this.passwordMap.set("newPassword", this.newPassword);
-    this.passwordMap.set("retypePassword", this.retypePassword);
+    }
+    this.userService.updatePassword(this.passwordMap).subscribe((response: Object) => {
+      this.showSuccess(response);
+    },
+    (error: HttpErrorResponse) => {
+      this.showError(error);
+    });
+  }
 
-    this.userService.updatePassword(this.passwordMap).subscribe();
+  showSuccess(response: Object) {
+    Swal.fire({
+      title : 'Update Succesful',
+      text : response.toString(),
+      icon: "success"
+    });
+  }
 
+  showError(error: HttpErrorResponse) {
+    Swal.fire({
+      title : 'Error in updating',
+      text : error.error,
+      icon: "error"
+    });
   }
 
 }

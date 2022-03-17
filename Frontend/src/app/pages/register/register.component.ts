@@ -8,6 +8,7 @@ import { UserService } from '@services/user.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import * as CryptoJs from 'crypto-js';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -55,8 +56,14 @@ export class RegisterComponent implements OnInit {
   //Registration
   register(user: User) {
     this.userService.register(user).subscribe((response: Object) => {
-      this.router.navigate(['/login']);
+      this.showSuccess(response);
+      
+    },
+    (error: HttpErrorResponse) => {
+      this.showError(error);
     });
+     
+   
   }
 
   successfulLogin(response: Record<string, any>){
@@ -67,5 +74,24 @@ export class RegisterComponent implements OnInit {
     this.sessionService.setUrl(response['url']);
     this.sessionService.setToken(response['token']);
     this.router.navigate(['']);
+  }
+
+  showSuccess(response: any) {
+    var self = this;
+    Swal.fire({
+      title : 'Register Succesful',
+      text : 'Successful',
+      icon: "success"
+    }).then(function() {
+      self.router.navigate(['/login'])
+    });
+  }
+
+  showError(error: HttpErrorResponse) {
+    Swal.fire({
+      title : 'Error in Registration',
+      text : error.error['Result'],
+      icon: "error"
+    });
   }
 }

@@ -51,7 +51,7 @@ public class UserController {
         if (!userService.findByEmail(email).isPresent()) {
             User savedUser = user.save(newUser);
 
-            savedUser.setUrl(newUser.getFirstName().toLowerCase()+newUser.getLastName().toLowerCase() + "-" + savedUser.getId());
+            savedUser.setUrl(newUser.getFirstName().toLowerCase().replaceAll(" ", "")+newUser.getLastName().toLowerCase().replaceAll(" ", "") + "-" + savedUser.getId());
             user.save(savedUser);
             String siteUrl = "http://localhost:8080";
             userService.sendVerificationEmail(newUser, siteUrl);

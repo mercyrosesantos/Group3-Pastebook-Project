@@ -47,18 +47,18 @@ export class UserService {
   }
 
   // Update user info
-  updateUser(user: User): Observable<User> {
-    return this.http.put(`${this.settingsUrl}/information/${user.id}`, user);
+  updateUser(user: User): Observable<Object> {
+    return this.http.put(`${this.settingsUrl}/information/${user.id}`, user,{responseType: 'text'});
   }
 
   // Update user email
-  updateEmail(user: User): Observable<User> {
-    return this.http.put(`${this.settingsUrl}/email/${user.id}`, user);
+  updateEmail(user: User): Observable<Object> {
+    return this.http.put(`${this.settingsUrl}/email/${user.id}`, user,{responseType: 'text'});
   }
 
   // Update user password
-  updatePassword(user: Map<String, String>): Observable<Object> {
-    return this.http.put(`${this.settingsUrl}/password/${user.get("id")}`, user);
+  updatePassword(user: any): Observable<Object> {
+    return this.http.put(`${this.settingsUrl}/password/${user["id"]}`, user,{responseType: 'text'});
   }
   
 }
