@@ -59,7 +59,9 @@ export class RegisterComponent implements OnInit {
         user.email = this.email;
         user.password = this.password;
 
-        this.formattedBirthday = moment(this.birthDay, 'yyyy-MM-dd').toDate();
+        // this.formattedBirthday = moment(this.birthDay, 'yyyy-MM-dd').toDate();
+        this.formattedBirthday = new Date(Date.parse(this.birthDay));
+        user.birthDay = this.formattedBirthday;
         user.gender = this.gender;
         user.mobileNumber = this.mobileNumber;
 
@@ -70,7 +72,7 @@ export class RegisterComponent implements OnInit {
   register(user: User) {
     this.userService.register(user).subscribe((response: Object) => {
       console.log(response); 
-      this.router.navigate(['']);
+      this.router.navigate(['/login']);
     });
   }
 
