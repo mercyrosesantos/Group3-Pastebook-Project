@@ -13,9 +13,7 @@ import { FriendRequestService } from '@services/friendrequest.service';
 })
 export class NavbarComponent implements OnInit {
 
-  // uncomment once other specs are complete:
   hasToken: boolean = (localStorage.getItem('token') !== null);
-  // hasToken: boolean = true;
 
   firstName: String = this.sessionService.getFirstName();
   lastName: String = this.sessionService.getLastName();
@@ -55,15 +53,10 @@ export class NavbarComponent implements OnInit {
   }
 
   onSubmit(){
-
-    console.log(this.keyword);
     this.sessionService.setKeyword(this.keyword);
-
     let searchUrl = '/search/' + this.keyword;
-
     this.router.navigate([searchUrl]);
     this.myForm.resetForm();
-
   }
 
   logout(): void {
@@ -72,7 +65,6 @@ export class NavbarComponent implements OnInit {
   }
 
   refreshData() {
-
     this.dataRefresher =
     setInterval(() => {
       this.firstName = this.sessionService.getFirstName();

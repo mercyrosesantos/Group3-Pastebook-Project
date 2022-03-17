@@ -21,6 +21,7 @@ export class AlbumViewComponent implements OnInit {
   photoSrc? : string;
   uploadedPhotos? : FileList;
   isOwnProfile : boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     public albumService : AlbumService,
@@ -31,7 +32,6 @@ export class AlbumViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      // this.userId = params['id'];
       this.getAlbum();
     })
   }
@@ -49,11 +49,13 @@ export class AlbumViewComponent implements OnInit {
       this.isOwnProfile = this.album.userIdJson == this.sessionService.getUserId();
     })
   }
+
   openImage(photo : Photo, content: any) {
     this.currentPhoto = photo;
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size : 'xl'}).result.then((result) => {
     }, (reason) => {});
   }
+
   openModal(upload: any) {
     this.modalService.open(upload, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     }, (reason) => {});
@@ -73,6 +75,7 @@ export class AlbumViewComponent implements OnInit {
     }
 
   }
+
   uploadImages() {
     if (this.uploadedPhotos!= null && this.uploadedPhotos?.length > 0) {
       var data = new FormData();
@@ -88,6 +91,7 @@ export class AlbumViewComponent implements OnInit {
       })
     }
   }
+  
   back(){
     this.location.back();
   }

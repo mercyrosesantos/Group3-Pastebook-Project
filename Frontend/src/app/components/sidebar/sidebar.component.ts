@@ -27,11 +27,9 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.userService.getOnlineFriends(this.userId).subscribe((response: User[]) => {
       this.friends = response;
     })
-
   }
 
   redirect() {

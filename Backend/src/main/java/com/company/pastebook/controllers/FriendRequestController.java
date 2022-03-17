@@ -1,9 +1,6 @@
 package com.company.pastebook.controllers;
 
 import com.company.pastebook.models.FriendRequest;
-import com.company.pastebook.models.Friendship;
-import com.company.pastebook.models.Post;
-import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.FriendRequestRepository;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.FriendRequestService;
@@ -13,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.HashMap;
 
 @RestController
 @CrossOrigin

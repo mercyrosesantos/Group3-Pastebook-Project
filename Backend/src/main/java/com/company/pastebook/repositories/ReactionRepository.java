@@ -1,6 +1,5 @@
 package com.company.pastebook.repositories;
 
-import com.company.pastebook.models.Post;
 import com.company.pastebook.models.Reaction;
 import com.company.pastebook.models.User;
 import org.springframework.data.jpa.repository.Query;

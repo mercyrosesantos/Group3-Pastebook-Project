@@ -1,6 +1,5 @@
 package com.company.pastebook.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -11,7 +10,6 @@ import java.util.Date;
 public class Reaction {
 
     // Properties
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reactions_seq")
     @SequenceGenerator(name = "reactions_seq", sequenceName = "sequence_reactions", allocationSize = 1)

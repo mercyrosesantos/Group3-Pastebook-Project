@@ -11,7 +11,6 @@ import java.util.Set;
 public class Post implements Comparable<Post> {
 
     // Properties
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_seq")
     @SequenceGenerator(name = "posts_seq", sequenceName = "sequence_posts", allocationSize = 1)
@@ -34,17 +33,6 @@ public class Post implements Comparable<Post> {
     @JsonIgnore
     private Set<Reaction> postReactions;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Set<Reaction> getPostReactions() {
-        return postReactions;
-    }
-
-    public void setPostReactions(Set<Reaction> postReactions) {
-        this.postReactions = postReactions;
-    }
 
     @ManyToOne
     @JoinColumn (name = "timelineUserId", nullable = true)
@@ -106,6 +94,18 @@ public class Post implements Comparable<Post> {
 
     public void setTimelineUser(User timelineUser) {
         this.timelineUser = timelineUser;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<Reaction> getPostReactions() {
+        return postReactions;
+    }
+
+    public void setPostReactions(Set<Reaction> postReactions) {
+        this.postReactions = postReactions;
     }
 
 

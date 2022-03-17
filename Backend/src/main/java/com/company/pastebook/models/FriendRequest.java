@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class FriendRequest {
 
     // Properties
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "friendRequests_seq")
     @SequenceGenerator(name = "friendRequests_seq", sequenceName = "sequence_friendRequests", allocationSize = 1)
@@ -18,18 +17,6 @@ public class FriendRequest {
 
     @Column
     private String status = "pending";
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getRequestor() {
-        return requestor;
-    }
-
-    public void setRequestor(User requestor) {
-        this.requestor = requestor;
-    }
 
     // Requestor Id
     @ManyToOne
@@ -48,10 +35,19 @@ public class FriendRequest {
     public FriendRequest() {
     }
 
+    public FriendRequest(String requestTimestamp, String status) {
+        this.requestTimestamp = requestTimestamp;
+        this.status = status;
+    }
+
     // Getter and Setter
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRequestTimestamp() {
@@ -70,12 +66,19 @@ public class FriendRequest {
         this.status = status;
     }
 
-
     public User getRequestee() {
         return requestee;
     }
 
     public void setRequestee(User requestee) {
         this.requestee = requestee;
+    }
+
+    public User getRequestor() {
+        return requestor;
+    }
+
+    public void setRequestor(User requestor) {
+        this.requestor = requestor;
     }
 }

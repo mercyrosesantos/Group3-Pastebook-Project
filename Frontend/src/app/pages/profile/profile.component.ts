@@ -57,8 +57,6 @@ export class ProfileComponent implements OnInit {
       this.user.url = params['id'];
       this.getUserProfile();
     })
-
-
   }
 
   //Refresh timeline
@@ -83,9 +81,11 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
+
   addFriendCallBack() {
     this.getFriendship();
   }
+
   // Get User Profile
   getUserProfile() {
     this.profileService.getUserProfileByUrl(this.user.url!).subscribe((response: User) => {
@@ -103,10 +103,9 @@ export class ProfileComponent implements OnInit {
         this.getFriendship();
       }
       this.loadPage();
-
-
     })
   }
+
   getFriendship() {
     this.friendRequestService.getFriendship(this.user.id!).subscribe((response: Friendship) => {
       this.friendshipStatus = response.status;
@@ -157,12 +156,11 @@ export class ProfileComponent implements OnInit {
     }
 
   }
+
   uploadImage() {
     if (this.uploadedNewImage) {
       var data = new FormData();
-      // data.append('file',this.photoSrc!);
       data.append('file', this.newImageFile![0], this.newImageFile![0].name);
-
       data.append('userId', this.sessionService.getUserId());
       this.photoService.uploadPhoto(data)
       .subscribe((response: Object) => {
@@ -177,6 +175,5 @@ export class ProfileComponent implements OnInit {
     this.albumService.getAlbumByUserId(this.user.id!).subscribe((response: Album[]) => { 
       this.albums = response;
     });
-
   }
 }
