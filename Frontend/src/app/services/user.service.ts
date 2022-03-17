@@ -17,9 +17,6 @@ export class UserService {
   private onlineFriendsUrl: string = environment.apiUrl + '/online/';
 
   private settingsUrl: string = environment.apiUrl + '/settings';
-  private httpHeaders: HttpHeaders = new HttpHeaders({
-    'Authorization': `${this.sessionService.getToken()}`
-  })
 
   constructor(
     private http: HttpClient,

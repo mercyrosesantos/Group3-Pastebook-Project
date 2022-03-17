@@ -27,6 +27,8 @@ export class NavbarComponent implements OnInit {
   finder?: number;
   userN: number = Number(this.sessionService.getUserId);
 
+  dataRefresher: any;
+
   @ViewChild('myForm', { static: false })
   myForm!: NgForm;
 
@@ -49,6 +51,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.sessionService.getUserId();
+    this.refreshData();
   }
 
   onSubmit(){
@@ -66,5 +69,16 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.sessionService.clear();
     this.router.navigate(['/login']);
+  }
+
+  refreshData() {
+
+    this.dataRefresher =
+    setInterval(() => {
+      this.firstName = this.sessionService.getFirstName();
+      this.lastName = this.sessionService.getLastName();
+      this.profileUrl = this.sessionService.getUrl();
+    }, 60000); 
+
   }
 }

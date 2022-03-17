@@ -32,6 +32,8 @@ export class SettingsComponent implements OnInit {
   formattedBirthday?: Date;
   newPassword: string = "";
   retypePassword: string = "";
+  firstNameLow: string = "";
+  lastNameLow: string = "";
 
   userInfo: User = new User;
   passwordMap!: Map<String, String>;
@@ -90,6 +92,13 @@ export class SettingsComponent implements OnInit {
     this.userInfo.gender = this.gender;
     this.userInfo.mobileNumber = this.mobileNumber;
 
+    this.sessionService.setFirstName(this.firstName);
+    this.sessionService.setLastName(this.lastName);
+
+    this.firstNameLow = this.firstName.toLocaleLowerCase();
+    this.lastNameLow = this.lastName.toLocaleLowerCase();
+    this.sessionService.setUrl(`${this.firstNameLow}${this.lastNameLow}-${this.userId}`);
+    
     this.userService.updateUser(this.userInfo).subscribe();
 
   }
