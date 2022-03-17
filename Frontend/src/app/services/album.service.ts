@@ -33,7 +33,7 @@ export class AlbumService {
 
   //update album
   updateAlbum(albumId: number,albumName: string): Observable<Object> {
-    return this.http.put(this.updateAlbumUrl,{'albumName' : albumId, 'id':albumName});
+    return this.http.put(this.updateAlbumUrl,{'albumName' : albumId, 'id':albumName}, {responseType: 'text'});
   }
   uploadPhotos(formData: FormData) : any{
     let headers = new HttpHeaders();

@@ -116,8 +116,11 @@ public class UserServiceImp implements UserService {
     //    Update User Email
     public ResponseEntity updateUserEmail(Long id, User user) {
         User userForUpdating = userRepository.findById(id).get();
+
+        if(findByEmail(user.getEmail()).isPresent()) {
+            return new ResponseEntity("Email already exists.", HttpStatus.BAD_REQUEST);
+        }
         userForUpdating.setEmail(user.getEmail());
-        // String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         boolean isMatched = new BCryptPasswordEncoder().matches(user.getPassword(), userForUpdating.getPassword());
         if (!isMatched) {
             return new ResponseEntity("Incorrect password.", HttpStatus.BAD_REQUEST);
@@ -129,8 +132,11 @@ public class UserServiceImp implements UserService {
     //        Update User Password
     public ResponseEntity updateUserPassword(Long id, Map<String, String> body) {
         User userForUpdating = userRepository.findById(id).get();
-        // String oldPassword = new BCryptPasswordEncoder().encode(body.get("oldPassword"));
+         String oldPassword = new BCryptPasswordEncoder().encode(body.get("oldPassword"));
         String encodedPassword = new BCryptPasswordEncoder().encode(body.get("newPassword"));
+        System.out.println("oldPassword :" + userForUpdating.getPassword());
+        System.out.println("oldPassword1 : " + body.get("oldPassword"));
+
         boolean isMatched = new BCryptPasswordEncoder().matches(body.get("oldPassword"), userForUpdating.getPassword());
         String newPassword = body.get("newPassword");
         String retypePassword = body.get("retypePassword");
