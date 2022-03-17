@@ -35,12 +35,12 @@ export class LoginComponent implements OnInit {
   }
 
   successfulLogin(response: Record<string, any>){
-    this.sessionService.setEmail(response['email']);
-    this.sessionService.setUserId(response['id']);
-    this.sessionService.setFirstName(response['firstName']);
-    this.sessionService.setLastName(response['lastName']);
-    this.sessionService.setUrl(response['url']);
-    this.sessionService.setToken(response['token']);
+    this.sessionService.setEmail(response['user']['email']);
+    this.sessionService.setUserId(response['user']['id']);
+    this.sessionService.setFirstName(response['user']['firstName']);
+    this.sessionService.setLastName(response['user']['lastName']);
+    this.sessionService.setUrl(response['user']['url']);
+    this.sessionService.setToken(response['jwtToken']['jwtToken']);
     this.router.navigate(['']);
   }
 

@@ -7,6 +7,7 @@ import { FriendRequestService } from '@services/friendrequest.service';
 import { SessionService } from '@services/session.service';
 import { User } from '@models/user';
 import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -49,7 +50,6 @@ export class AddFriendButtonComponent implements OnInit {
   }
 
   onAdd(){
-    console.log('onAdd');
     this.friendRequest = new Friendrequest();
     this.friendRequest.requestor = new User();
     this.friendRequest.requestor.id = this.sessionService.getUserId();
@@ -58,20 +58,39 @@ export class AddFriendButtonComponent implements OnInit {
     this.friendRequest.status = 'pending';
     this.friendRequestService.createFriendRequest(this.friendRequest).subscribe((response: any)=> {
       this.callBack!();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
   onAccept(){
-    console.log('onAccept');
     this.friendRequest!.status! = "accepted";
     this.friendRequestService.createFriendRequest(this.friendRequest!).subscribe((response: any)=> {
       this.callBack!();
-    });
+    }),
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
+    };
   }
   onReject(){
-  console.log('onReject');
   this.friendRequest!.status! = "rejected";
   this.friendRequestService.createFriendRequest(this.friendRequest!).subscribe((response: any)=> {
     this.callBack!();
+  },
+  (error: HttpErrorResponse) => {
+      if (error.status !== 401) {
+          return;
+      }
+      this.sessionService.clear();
+      this.router.navigate(['/login']);
   });
 }
 

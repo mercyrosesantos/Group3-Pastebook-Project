@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { SessionService } from './session.service';
 
 
 
@@ -17,22 +18,23 @@ export class NotificationService {
   notif?: any;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private sessionService: SessionService
   ) { }
 
   // Get all user notifications
   getNotif(userId: number): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/${userId}`);
+    return this.http.get(`${this.baseUrl}/${userId}`, {headers : this.sessionService.getHeaders()});
   }
 
   // Get unread notifications count
   getUnread(userId: number): Observable<Object> {
-    return this.http.get(`${this.unreadUrl}/${userId}`);
+    return this.http.get(`${this.unreadUrl}/${userId}`, {headers : this.sessionService.getHeaders()});
   }
 
   // Set notifications as read
   setAsRead(userId: number): Observable<Object> {
-    return this.http.get(`${this.readUrl}/${userId}`);
+    return this.http.get(`${this.readUrl}/${userId}`, {headers : this.sessionService.getHeaders()});
   }
 
 }

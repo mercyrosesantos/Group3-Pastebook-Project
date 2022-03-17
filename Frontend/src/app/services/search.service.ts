@@ -24,7 +24,7 @@ export class SearchService {
   ) { }
 
   searchAll(searchTerm: string): Observable<Object> { 
-    return this.http.get(`${this.baseUrl}${searchTerm}`);
+    return this.http.get(`${this.baseUrl}${searchTerm}`, {headers : this.sessionService.getHeaders()});
   }
 
 }

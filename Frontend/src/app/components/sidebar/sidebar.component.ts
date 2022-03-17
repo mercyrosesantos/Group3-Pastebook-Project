@@ -6,6 +6,7 @@ import { ProfileService } from '@services/profile.service';
 import { SessionService } from '@services/session.service';
 import { UserService } from '@services/user.service';
 import { User } from '@models/user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,6 +30,13 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getOnlineFriends(this.userId).subscribe((response: User[]) => {
       this.friends = response;
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
 
