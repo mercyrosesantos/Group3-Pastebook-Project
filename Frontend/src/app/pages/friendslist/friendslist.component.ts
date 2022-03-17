@@ -21,17 +21,13 @@ export class FriendslistComponent implements OnInit {
   userId: number = this.sessionService.getUserId();
   finder?: number;
 
-
-
   constructor(
-
     private activatedRoute: ActivatedRoute,
     private friendRequestService: FriendRequestService,
     private profileService: ProfileService,
     private router: Router,
     private sessionService: SessionService,
     private userService: UserService
-
   ) { }
 
   ngOnInit(): void{

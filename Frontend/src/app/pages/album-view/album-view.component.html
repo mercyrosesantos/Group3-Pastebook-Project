@@ -30,13 +30,13 @@
     </ng-template>
     
     <ng-template #addPhotos let-modal>
-                    <div class="card">
-                        <h5>Add Photos</h5>
-                        <img [src]= "photoSrc != null ? photoSrc : 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'" class="card-img-top" alt="Waterfall">
-                        <input type="file" class="form-control" id="customFile" placeholder="Add Album Photo" multiple accept="image/*" (change)="changeUploadedPhotos($event)"/>
-                        <div class="card-body">
-                            <a  class="btn btn-primary" (click)="uploadImages()">Add Photos</a>
-                        </div>
-                    </div>
+        <div class="card">
+            <h5>Add Photos</h5>
+            <img [src]= "photoSrc != null ? photoSrc : 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'" class="card-img-top" alt="Waterfall">
+            <input type="file" class="form-control" id="customFile" placeholder="Add Album Photo" multiple accept="image/*" (change)="changeUploadedPhotos($event)"/>
+            <div class="card-body">
+                <a  class="btn btn-primary" (click)="uploadImages()">Add Photos</a>
+            </div>
+        </div>
     </ng-template>
 </section>

@@ -4,7 +4,6 @@
             <div class="card-body container p-3 rounded" style=" background-color: lightgray;">
                  <div class="row rounded" >
                      <div class = "col-sm-1">
-                        
                         <img class="card-img-top"  
                         [src]="post.user?.photo?.image != null ? 'data:image/png;base64,' + post.user?.photo?.image : './assets/DefaultProfilePicture.jpg' " class="rounded-circle"  width="80" height="80" />
                     </div>
@@ -21,8 +20,6 @@
                             &nbsp;&nbsp;&nbsp;{{ post.timelineUser?.firstName }} {{ post.timelineUser?.lastName }}
                         </a></h4>
                     </div>
-                    
-
                  </div>
                  <div class="row rounded p-2" style=" background-color: gray; " routerLink="/posts/{{post.id}}">
                     <p class="col-sm-12">{{ post.content }}</p>
@@ -33,7 +30,6 @@
                         <div (click)="open(content)" class="col-sm-6">
                             {{likeInformation?.like}}
                         </div>
-                        
                     </div>
                     <div *ngIf="!isCurrentUserLiked" class = "col-sm-2 offset-md-1 row" >
                         <i-bs name="hand-thumbs-up" class="col-sm-2" height="22" width="22" (click)="createLikeReaction()"></i-bs>

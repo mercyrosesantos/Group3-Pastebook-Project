@@ -32,28 +32,11 @@ public class FriendRequestServiceImp implements FriendRequestService{
     private FriendshipRepository friendshipRepository;
 
 
-    // Find by requestor Id
-    public Optional<FriendRequest> findByRequestorId(Long requestorId) {
-        return Optional.ofNullable(friendRequestRepository.findByRequestorId(requestorId));
-    }
-
-    // Find by requestee Id
-    public Optional<FriendRequest> findByRequesteeId(Long requesteeId) {
-        return Optional.ofNullable(friendRequestRepository.findByRequesteeId(requesteeId));
-    }
-
     // Find by status
     public Optional<FriendRequest> findByStatus(String status) {
         return Optional.ofNullable(friendRequestRepository.findByStatus(status));
     }
 
-
-    // Get friend requests
-    public Iterable<FriendRequest> getFriendRequests(String status){
-        ArrayList<FriendRequest> friendRequestArrayList = new ArrayList<>();
-        friendRequestArrayList.add(friendRequestRepository.findByStatus("pending"));
-        return friendRequestArrayList;
-    }
 
     // Get friendship and if there's friend request sent
     public Friendship getFriendship(Long requestorId, Long requesteeId) {
@@ -66,13 +49,9 @@ public class FriendRequestServiceImp implements FriendRequestService{
                 friendRequest = friendRequestRepository.findByRequestorIdAndRequesteeId(requesteeId,requestorId);
             }
 
-
             if (friendRequest == null) {
                 return friendship;
             }
-            System.out.println("requestor: " + friendRequest.getRequestor().getId());
-            System.out.println("requeste: " + friendRequest.getRequestee().getId());
-            System.out.println("status: " + friendRequest.getStatus());
             if (friendRequest.getStatus().equalsIgnoreCase("rejected")) {
                 friendship.setStatus("rejected");
             } else if (friendRequest.getStatus().equalsIgnoreCase("pending")) {
@@ -80,7 +59,6 @@ public class FriendRequestServiceImp implements FriendRequestService{
                     friendship.setStatus("awaiting confirmation");
                 } else if (friendRequest.getRequestee().getId().equals(requestorId)) {
                     friendship.setStatus("pending");
-
                 }
             }
         } else {
@@ -91,7 +69,6 @@ public class FriendRequestServiceImp implements FriendRequestService{
 
     //Create/Update FriendRequest
     public ResponseEntity createOrUpdateFriendRequest(FriendRequest friendRequest) {
-        System.out.println("friendRequest: " + friendRequest.getRequestee());
         Boolean isNew = friendRequest.getId() == null;
         FriendRequest savedFriendRequest = friendRequestRepository.save(friendRequest);
         if (isNew) {
@@ -111,7 +88,6 @@ public class FriendRequestServiceImp implements FriendRequestService{
             newFriendship1.setActive(true);
             notificationService.createNotification("acceptedRequest", friendRequest.getId());
 
-
             friendshipRepository.save(newFriendship1);
             friendshipRepository.save(newFriendship2);
             notificationService.createNotification("acceptedRequest", friendRequest.getId());
@@ -122,14 +98,12 @@ public class FriendRequestServiceImp implements FriendRequestService{
     }
 
 
-
     //Get Friend Request status
     public FriendRequest getFriendRequest(@PathVariable Long userId, @PathVariable Long friendId) {
         FriendRequest friendRequest = friendRequestRepository.findByRequestorIdAndRequesteeId(userId,friendId);
         if (friendRequest == null ) {
             friendRequest = friendRequestRepository.findByRequestorIdAndRequesteeId(friendId,userId);
         }
-
         return friendRequest;
     }
 
@@ -141,10 +115,7 @@ public class FriendRequestServiceImp implements FriendRequestService{
                 friends.add(friendships.getFriend());
             }
         }
-        System.out.println("friends: " + friends.size());
         return new ResponseEntity(friends, HttpStatus.OK);
-
-
     }
 }
 

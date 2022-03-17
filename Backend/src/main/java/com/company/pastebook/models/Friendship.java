@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class Friendship {
 
     // Properties
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "friendships_seq")
     @SequenceGenerator(name = "friendships_seq", sequenceName = "sequence_friendships", allocationSize = 1)
@@ -19,36 +18,11 @@ public class Friendship {
     @Column
     private boolean isActive = true;
 
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @ManyToOne
     @JoinColumn(name = "userId", nullable = true)
     private User user;
 
-
-
-
     private String status;
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     // Friend Id
     @ManyToOne
@@ -60,10 +34,20 @@ public class Friendship {
     public Friendship() {
     }
 
+    public Friendship(String friendshipTimestamp, boolean isActive, String status) {
+        this.friendshipTimestamp = friendshipTimestamp;
+        this.isActive = isActive;
+        this.status = status;
+    }
+
     // Getter and Setter
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFriendshipTimestamp() {
@@ -88,5 +72,21 @@ public class Friendship {
 
     public void setFriend(User friend) {
         this.friend = friend;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

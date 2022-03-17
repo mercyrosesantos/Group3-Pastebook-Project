@@ -1,7 +1,6 @@
 package com.company.pastebook.services;
 
 import com.company.pastebook.models.Photo;
-import com.company.pastebook.models.Post;
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.PhotoRepository;
 import com.company.pastebook.repositories.UserRepository;

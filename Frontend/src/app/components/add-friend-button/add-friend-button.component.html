@@ -1,12 +1,11 @@
-    <button type="submit" (click)="onAdd()" class="btn btn-success" id="add-friend-button" *ngIf="friendshipStatus=='strangers'">Add Friend</button>
+<button type="submit" (click)="onAdd()" class="btn btn-success" id="add-friend-button" *ngIf="friendshipStatus=='strangers'">Add Friend</button>
 
 <div *ngIf="friendshipStatus=='pending'">
     <button type="submit" (click)="onAccept()" class="btn btn-success" id="add-friend-button" >Accept</button>
     <button type="submit" (click)="onReject()" class="btn btn-success" id="add-friend-button" >Reject</button>
 </div>
 
-    
-    <button type="submit" class="btn btn-success" id="add-friend-button" *ngIf="friendshipStatus=='awaiting confirmation'">Waiting Confirmation</button>
+<button type="submit" class="btn btn-success" id="add-friend-button" *ngIf="friendshipStatus=='awaiting confirmation'">Waiting Confirmation</button>
 
 
 

@@ -1,20 +1,14 @@
 package com.company.pastebook.controllers;
 
 import com.company.pastebook.models.Album;
-import com.company.pastebook.models.Photo;
-import com.company.pastebook.models.Reaction;
-import com.company.pastebook.models.User;
 import com.company.pastebook.services.AlbumService;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 @RestController
 @CrossOrigin
@@ -26,8 +20,6 @@ public class AlbumController {
     //Create an album
     @RequestMapping(value = "api/user/albums", method = RequestMethod.POST)
     ResponseEntity<Object> createAlbum(@RequestBody Album album){
-        System.out.println("album user: " + album.getUser().getId());
-
         return albumService.createAlbum(album);
     }
 
@@ -50,13 +42,13 @@ public class AlbumController {
         return albumService.updateAlbum(album);
     }
 
-    //Get Album
+    //Get album per Use
     @RequestMapping(value = "api/album/{userId}", method = RequestMethod.GET)
     ResponseEntity<Object> getAlbum(@PathVariable Long userId) {
         return albumService.getAlbum(userId);
     }
 
-    //Get Album
+    //Get Album by AlbumID
     @RequestMapping(value = "api/albums-view/{albumId}", method = RequestMethod.GET)
     ResponseEntity<Object> getAlbumById(@PathVariable Long albumId) {
         return albumService.getAlbumById(   albumId);

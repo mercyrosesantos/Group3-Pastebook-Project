@@ -22,14 +22,12 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.route.params.subscribe(params => {
       this.postId = Number(params['postId']);
       this.postService.getPost(this.postId).subscribe((response: Post[]) => {
         this.posts = response;
       });
     });
-
   }
 
 }

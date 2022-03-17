@@ -16,8 +16,6 @@ import * as CryptoJs from 'crypto-js';
 })
 export class RegisterComponent implements OnInit {
 
-  
-
   // Variable Declarations
   firstName: string = "";
   lastName: string = "";
@@ -42,36 +40,21 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.firstName);
-    console.log(this.lastName);
-    console.log(this.email);
-    console.log(this.encryptedPassword);
-    console.log(this.birthDay);
-    console.log(this.gender);
-    console.log(this.mobileNumber);
-
-    
-
-
     let user = new User();
         user.firstName = this.firstName;
         user.lastName = this.lastName;
         user.email = this.email;
         user.password = this.password;
-
-        // this.formattedBirthday = moment(this.birthDay, 'yyyy-MM-dd').toDate();
         this.formattedBirthday = new Date(Date.parse(this.birthDay));
         user.birthDay = this.formattedBirthday;
         user.gender = this.gender;
         user.mobileNumber = this.mobileNumber;
-
         this.register(user);
   }
 
   //Registration
   register(user: User) {
     this.userService.register(user).subscribe((response: Object) => {
-      console.log(response); 
       this.router.navigate(['/login']);
     });
   }
@@ -84,7 +67,5 @@ export class RegisterComponent implements OnInit {
     this.sessionService.setUrl(response['url']);
     this.sessionService.setToken(response['token']);
     this.router.navigate(['']);
-    console.log(this.sessionService.getUserId());
   }
-
 }
