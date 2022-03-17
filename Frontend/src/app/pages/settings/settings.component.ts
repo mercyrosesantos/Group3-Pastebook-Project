@@ -25,13 +25,16 @@ export class SettingsComponent implements OnInit {
   firstName: string = "";
   lastName: string = "";
   email: string = "";
-  password: string = "";
+  oldPassword: string = "";
   birthDay: string = "";
   gender: string = "";
   mobileNumber: string = "";
   formattedBirthday?: Date;
+  newPassword: string = "";
+  retypePassword: string = "";
 
   userInfo: User = new User;
+  passwordMap!: Map<String, String>;
   userId: number = this.sessionService.getUserId();
 
   // Show/Hide
@@ -85,6 +88,7 @@ export class SettingsComponent implements OnInit {
     this.userInfo.lastName = this.lastName;
     this.userInfo.birthDay = new Date(Date.parse(this.birthDay));
     this.userInfo.gender = this.gender;
+    this.userInfo.mobileNumber = this.mobileNumber;
 
     this.userService.updateUser(this.userInfo).subscribe();
 
@@ -95,7 +99,7 @@ export class SettingsComponent implements OnInit {
 
     this.userInfo.id = this.userId;
     this.userInfo.email = this.email;
-    this.userInfo.password = this.password;
+    this.userInfo.password = this.oldPassword;
 
     this.userService.updateEmail(this.userInfo).subscribe();
 
@@ -104,11 +108,13 @@ export class SettingsComponent implements OnInit {
   // Update password
   updatePassword() {
 
-    this.userInfo.id = this.userId;
-    this.userInfo.password = this.password;
+    this.passwordMap.set("id", this.userId.toString());
+    this.passwordMap.set("oldPassword", this.oldPassword);
+    this.passwordMap.set("newPassword", this.newPassword);
+    this.passwordMap.set("retypePassword", this.retypePassword);
 
-    this.userService.updatePassword(this.userInfo).subscribe();
-    
+    this.userService.updatePassword(this.passwordMap).subscribe();
+
   }
 
 }

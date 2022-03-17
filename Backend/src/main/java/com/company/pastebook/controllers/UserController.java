@@ -135,8 +135,8 @@ public class UserController {
 
 //        Update User Password
     @RequestMapping(value = "/api/settings/password/{userid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateUserPassword(@PathVariable Long userid, @RequestBody User newUser) {
-        return userService.updateUserPassword(userid, newUser);
+    public ResponseEntity<Object> updateUserPassword(@PathVariable Long userid, @RequestBody Map<String, String> body) {
+        return userService.updateUserPassword(userid, body);
     }
 
     // Get online friends

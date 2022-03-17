@@ -161,7 +161,7 @@
             <div class="d-flex gap-2 w-100 justify-content-between">
                 <div>
                     <h6 class="mb-0">Update Information</h6>
-                    <p class="mb-0 opacity-75">Update your First Name, Last Name, Birthday, Gender</p>
+                    <p class="mb-0 opacity-75">Update your First Name, Last Name, Birthday, Gender, Mobile Number</p>
                 </div>
             <button type="button" class="btn btn-primary"  (click)="toggleInfo()">Edit</button>
             </div>
@@ -205,6 +205,11 @@
                                 <input type="text" class="form-control" [(ngModel)]="gender" name="gender" id="validationDefault04" placeholder="Gender">
                             </div>
 
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form37cg">Mobile Number</label>
+                                <input type="text" class="form-control" [(ngModel)]="mobileNumber" name="mobileNumber" id="validationDefault04" placeholder="Mobile Number">
+                            </div>
+
                             <div class="d-flex justify-content-center">
                                 <button class="btn btn-primary btn-md btn-block" (click)="updateInfo()">Save</button>
                             </div>
@@ -245,7 +250,7 @@
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form34cg">Password</label>
-                                <input type="password" name="password" class="form-control" [(ngModel)]="password" #name="ngModel"
+                                <input type="password" name="password" class="form-control" [(ngModel)]="oldPassword" #name="ngModel"
                                 [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" required>
                                 <div class="invalid-feedback" *ngIf="userForm.submitted && name.invalid">
                                     <p *ngIf="name.errors?.['required']">Password is required</p>
@@ -281,9 +286,19 @@
                 <div class="d-flex gap-2 w-100 justify-content-between">
                     <div>
                         <form #userForm="ngForm" (ngSubmit)="userForm.form.valid && onSubmit()" class="mainpage">
+
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="form34cg">Password</label>
-                                <input type="password" name="password" class="form-control" [(ngModel)]="password" #name="ngModel"
+                                <label class="form-label" for="form34cg">Old Password</label>
+                                <input type="password" name="password" class="form-control" [(ngModel)]="oldPassword" #name="ngModel"
+                                [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" required>
+                                <div class="invalid-feedback" *ngIf="userForm.submitted && name.invalid">
+                                    <p *ngIf="name.errors?.['required']">Password is required</p>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form34cg">New Password</label>
+                                <input type="password" name="password" class="form-control" [(ngModel)]="newPassword" #name="ngModel"
                                 [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" required>
                                 <div class="invalid-feedback" *ngIf="userForm.submitted && name.invalid">
                                     <p *ngIf="name.errors?.['required']">Password is required</p>
@@ -292,7 +307,7 @@
 
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form34cg">Retype your Password</label>
-                                <input type="password" name="password" class="form-control" [(ngModel)]="password" #name="ngModel"
+                                <input type="password" name="password" class="form-control" [(ngModel)]="retypePassword" #name="ngModel"
                                 [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" required>
                                 <div class="invalid-feedback" *ngIf="userForm.submitted && name.invalid">
                                     <p *ngIf="name.errors?.['required']">Retype Password is required</p>
