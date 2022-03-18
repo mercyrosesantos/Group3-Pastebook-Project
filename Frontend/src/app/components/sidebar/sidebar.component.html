@@ -6,9 +6,9 @@
         <ul>
             <li *ngFor="let user of friends">
                 <div class="container" id="list">
-                    <i-bs name="person-circle" height="15" width="15"></i-bs>
+                    <i-bs name="person-circle" height="15" width="15" style="color: rgb(52, 180, 52);"></i-bs>
                     <div class="card-body">
-                        <a class="card-title" routerLink="/profile/{{user.url}}" (click)="redirect()">{{user.firstName}} {{user.lastName}}</a>
+                        <a class="card-title" routerLink="/profile/{{user.url}}">{{user.firstName}} {{user.lastName}}</a>
                     </div>
                 </div>
             </li>

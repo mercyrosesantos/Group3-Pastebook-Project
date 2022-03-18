@@ -24,25 +24,25 @@ export class ProfileService {
 
   // Get Posts
   getUserTimeline(userId: number, pageNo: number): Observable<Post[]> {
-    return this.http.get<Post[]>(this.baseUrl + userId + '/' + pageNo);
+    return this.http.get<Post[]>(this.baseUrl + userId + '/' + pageNo, {headers : this.sessionService.getHeaders()});
   }
 
   // Get User Profile
   getUserProfile(userId: number): Observable<User> {
-    return this.http.get<User>(this.profileUrl +  userId );
+    return this.http.get<User>(this.profileUrl +  userId, {headers : this.sessionService.getHeaders()});
   }
   getUserProfileByUrl(url: string): Observable<User> {
-    return this.http.get<User>(environment.apiUrl + '/' +  url );
+    return this.http.get<User>(environment.apiUrl + '/' +  url, {headers : this.sessionService.getHeaders()});
   }
 
 
   // Create Reactions
   createReaction(reaction: any): Observable<Object> {
-    return this.http.post(this.reactionUrl,reaction,{responseType: 'text'});
+    return this.http.post(this.reactionUrl,reaction,{responseType: 'text',  headers : this.sessionService.getHeaders()});
   }
 
   //Update About Me
   updateAboutMe(user: User): Observable<Object> {
-    return this.http.put(this.aboutMeUrl,user,{responseType: 'text'});
+    return this.http.put(this.aboutMeUrl,user,{responseType: 'text',  headers : this.sessionService.getHeaders()});
   }
 }

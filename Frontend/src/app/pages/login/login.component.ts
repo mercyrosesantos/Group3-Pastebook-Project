@@ -22,11 +22,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('login: ' + this.sessionService.getUserId());
     if (this.sessionService.getUserId() != null) {
       this.router.navigate(['/']);
     }
-
   }
 
   onSubmit(): void { 
@@ -37,29 +35,22 @@ export class LoginComponent implements OnInit {
   }
 
   successfulLogin(response: Record<string, any>){
-    this.sessionService.setEmail(response['email']);
-    this.sessionService.setUserId(response['id']);
-    this.sessionService.setFirstName(response['firstName']);
-    this.sessionService.setLastName(response['lastName']);
-    this.sessionService.setUrl(response['url']);
-    // this.sessionService.setIsAdmin(response['isAdmin']);
-    this.sessionService.setToken(response['token']);
+    this.sessionService.setEmail(response['user']['email']);
+    this.sessionService.setUserId(response['user']['id']);
+    this.sessionService.setFirstName(response['user']['firstName']);
+    this.sessionService.setLastName(response['user']['lastName']);
+    this.sessionService.setUrl(response['user']['url']);
+    this.sessionService.setToken(response['jwtToken']['jwtToken']);
     this.router.navigate(['']);
-    console.log(this.sessionService.getUserId());
   }
 
   failedLogin(result: Record<string, any>){
 
     let data: Record<string, any> = result['error'];
-
-    console.log(data);
-
     if (data['result'] === 'incorrect_credentials') {
       Swal.fire('Login Failed', 'You have entered incorrect credentials, please try again', 'error');
     } else if (data['result'] === 'user_not_found') {
       Swal.fire('Login Failed', 'User does not exist, please try again.', 'error');
     }
-
   }
-
 }

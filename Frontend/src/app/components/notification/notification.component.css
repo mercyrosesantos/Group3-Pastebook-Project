@@ -6,7 +6,7 @@ justify-content: center;
 width: 30px;
 height: 30px;
 color: #333333;
-background: #dddddd;
+background: #f1ebeb;
 border: none;
 outline: none;
 border-radius: 50%;
@@ -35,7 +35,7 @@ border-radius: 50%;
 }
 
 .dropdown-menu {
-    margin-left: -150px;
+    margin-left: -200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     overflow-y: auto;
     overflow-x: hidden;

@@ -3,40 +3,37 @@
         <div class="card mb-3 col-md-8 offset-md-2 rounded p-3" style="background-color: gray;">
             <div class="card-body container p-3 rounded" style=" background-color: lightgray;">
                  <div class="row rounded" >
-                     <div class = "col-sm-2">
-                        
+                     <div class = "col-sm-1">
                         <img class="card-img-top"  
                         [src]="post.user?.photo?.image != null ? 'data:image/png;base64,' + post.user?.photo?.image : './assets/DefaultProfilePicture.jpg' " class="rounded-circle"  width="80" height="80" />
                     </div>
                     <div class = "col-sm-4">
-                        <h4><a style='text-decoration: none;' routerLink="/profile/{{post.user?.url}}">{{ post.user?.firstName }} {{ post.user?.lastName }}</a></h4>
-                    {{formattedPostTimeStamp}}
+                        <h4><a style='text-decoration: none;' routerLink="/profile/{{post.user?.url}}">&nbsp;&nbsp;&nbsp;{{ post.user?.firstName }} {{ post.user?.lastName }}</a></h4>
+                        &nbsp;&nbsp;&nbsp;{{formattedPostTimeStamp}}
                     </div>
-                    <h3 class="col-md-1" *ngIf="post?.timelineUser?.id != post?.user?.id">></h3>
-                    <div class = "col-sm-3" *ngIf="post?.timelineUser?.id != post?.user?.id">
-                        <h4><a style='text-decoration: none;' routerLink="/profile/{{post.timelineUser?.url}}">
-                            {{ post.timelineUser?.firstName }} {{ post.timelineUser?.lastName }}
+                    <h3 class="col-sm-1" *ngIf="post?.timelineUser?.id != post?.user?.id">></h3>
+                    <div class = "col-sm-1" *ngIf="post?.timelineUser?.id != post?.user?.id">
+                        <img class="card-img-top" [src]="post.timelineUser?.photo?.image != null ? 'data:image/png;base64,' + post.timelineUser?.photo?.image : './assets/DefaultProfilePicture.jpg' " class="rounded-circle"  width="80" height="80" />
+                    </div>
+                    <div class = "col-sm-4" *ngIf="post?.timelineUser?.id != post?.user?.id">
+                        <h4  class="col-sm-11"><a style='text-decoration: none;' routerLink="/profile/{{post.timelineUser?.url}}">
+                            &nbsp;&nbsp;&nbsp;{{ post.timelineUser?.firstName }} {{ post.timelineUser?.lastName }}
                         </a></h4>
-
                     </div>
-                    
-
                  </div>
-                 <div class="row rounded p-2" style=" background-color: gray; ">
+                 <div class="row rounded p-2" style=" background-color: gray; " routerLink="/posts/{{post.id}}">
                     <p class="col-sm-12">{{ post.content }}</p>
                 </div>
                 <div class="row">
                     <div *ngIf="isCurrentUserLiked" class = "col-sm-2 offset-md-1 row"> 
-                        <!-- change color to blue after checking documentations -->
-                        <i-bs name="hand-thumbs-up-fill" height="22" width="22"></i-bs>
+                        <i-bs name="hand-thumbs-up" class="col-sm-2" height="22" width="22" style="color: blue;"></i-bs>
                         <div (click)="open(content)" class="col-sm-6">
                             {{likeInformation?.like}}
                         </div>
-                        
                     </div>
                     <div *ngIf="!isCurrentUserLiked" class = "col-sm-2 offset-md-1 row" >
-                        <i-bs name="hand-thumbs-up" height="22" width="22" (click)="createLikeReaction()"></i-bs>
-                        <div (click)="open(content)" class="col-sm-1">
+                        <i-bs name="hand-thumbs-up" class="col-sm-2" height="22" width="22" (click)="createLikeReaction()"></i-bs>
+                        <div (click)="open(content)" class="col-sm-6">
                             {{likeInformation?.like}}
                         </div>
                     </div>

@@ -24,11 +24,17 @@ export class PostService {
   ) { }
 
   add(post: Post): Observable<Object> {
-    return this.http.post(this.createPostUrl, post);
+    return this.http.post(this.createPostUrl, post, {headers : this.sessionService.getHeaders()}
+    );
   }
 
   getFeed(userId: number): Observable<Post[]>{
-    return this.http.get<Post[]>(`${this.feedUrl}${userId}`)
+    return this.http.get<Post[]>(`${this.feedUrl}${userId}`, {headers : this.sessionService.getHeaders()}
+    )
   }
 
+  getPost(postId: number): Observable<Post[]>{
+    return this.http.get<Post[]>(`${this.baseUrl}/${postId}`, {headers : this.sessionService.getHeaders()}
+    );
+  }
 }

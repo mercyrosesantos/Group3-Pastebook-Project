@@ -10,9 +10,5 @@ import java.util.List;
 
 @Repository
 public interface FriendshipRepository extends CrudRepository<Friendship, Object> {
-
     Friendship findByUserIdAndFriendId(Long userId, Long friendId);
-
-    Friendship findByUserId(Long userId);
-
 }

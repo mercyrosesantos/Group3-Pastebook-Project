@@ -17,9 +17,6 @@ export class FriendRequestService {
   private friendRequestUrl: string = environment.apiUrl + '/friendrequests/'
   private friendshipUrl: string = environment.apiUrl + '/friendship/'
   private friendslistUrl: string = environment.apiUrl + '/friendslist/'
-  private httpHeaders: HttpHeaders = new HttpHeaders({
-    'Authorization': `${this.sessionService.getToken()}`
-  })
 
   constructor(
     private http: HttpClient,
@@ -28,20 +25,20 @@ export class FriendRequestService {
 
   // Create/update friend request
   createFriendRequest( friendRequest: Friendrequest): Observable<Object> {
-    return this.http.post(this.friendRequestUrl,friendRequest,{responseType: 'text'});
+    return this.http.post(this.friendRequestUrl,friendRequest,{responseType: 'text',  headers : this.sessionService.getHeaders()});
 } 
   // Get friendship and if there's friend request sent
   getFriendship( friendId: number): Observable<Object> {
-    return this.http.get<Friendship>(this.friendshipUrl + this.sessionService.getUserId() +'/'+ friendId);
+    return this.http.get<Friendship>(this.friendshipUrl + this.sessionService.getUserId() +'/'+ friendId, {headers : this.sessionService.getHeaders()});
 } 
   //Get friend request status
   getFriendRequest( friendId: number): Observable<Object> {
-  return this.http.get<Friendrequest>(this.friendRequestUrl + this.sessionService.getUserId() +'/'+ friendId);
+  return this.http.get<Friendrequest>(this.friendRequestUrl + this.sessionService.getUserId() +'/'+ friendId, {headers : this.sessionService.getHeaders()});
 } 
 
   //Get all friends
-  getFriends(userId:Number): Observable<Object>{
-    return this.http.get<Friendship>(this.friendslistUrl + this.sessionService.getUserId());
+  getFriends(userId:Number): Observable<User[]>{
+    return this.http.get<User[] >(this.friendslistUrl + this.sessionService.getUserId(), {headers : this.sessionService.getHeaders()});
   }
 
  

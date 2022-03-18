@@ -1,7 +1,6 @@
 package com.company.pastebook.controllers;
 
 import com.company.pastebook.Constants;
-import com.company.pastebook.models.Post;
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.UserRepository;
 import com.company.pastebook.services.ReactionService;
@@ -52,7 +51,7 @@ public class UserController {
         if (!userService.findByEmail(email).isPresent()) {
             User savedUser = user.save(newUser);
 
-            savedUser.setUrl(newUser.getFirstName().toLowerCase()+newUser.getLastName().toLowerCase() + "-" + savedUser.getId());
+            savedUser.setUrl(newUser.getFirstName().toLowerCase().replaceAll(" ", "")+newUser.getLastName().toLowerCase().replaceAll(" ", "") + "-" + savedUser.getId());
             user.save(savedUser);
             String siteUrl = "http://localhost:8080";
             userService.sendVerificationEmail(newUser, siteUrl);
@@ -135,8 +134,8 @@ public class UserController {
 
 //        Update User Password
     @RequestMapping(value = "/api/settings/password/{userid}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateUserPassword(@PathVariable Long userid, @RequestBody User newUser) {
-        return userService.updateUserPassword(userid, newUser);
+    public ResponseEntity<Object> updateUserPassword(@PathVariable Long userid, @RequestBody Map<String, String> body) {
+        return userService.updateUserPassword(userid, body);
     }
 
     // Get online friends

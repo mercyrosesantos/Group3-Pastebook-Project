@@ -1,0 +1,42 @@
+<section class="pb-4">
+    <div class="bg-white border rounded-5 container-fluid">
+            <i-bs name="arrow-left-circle-fill" width="25" height="25" (click)="back()"></i-bs><b>Back to Albums</b>
+            <section class="p-4 text-center w-100">
+                <h3>{{album?.albumName}}</h3>
+                <a class="btn btn-primary" (click)="openModal(addPhotos)" *ngIf="isOwnProfile">Add Photos</a>
+            </section>
+            <div class="row">
+                <div *ngFor = "let photo of album?.albumPhotos" class ="col-md-3 pb-5 px-1" >
+                    <div class="card">
+                    <img class="card-img-top" [src]="'data:image/png;base64,'+photo.image" alt="Card image cap" width="300" height="300">
+                    <div class="card-body">
+                        <h5 class="card-title">{{album?.albumName}}</h5>
+                        <a class="btn btn-primary" (click)="openImage(photo,content)">View</a>
+                      </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+        
+    <ng-template #content let-modal>
+        <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title"></h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+            <img [src]="'data:image/png;base64,'+currentPhoto?.image" width="1100" height="1100"/>
+        </div>
+    </ng-template>
+    
+    <ng-template #addPhotos let-modal>
+        <div class="card">
+            <h5>Add Photos</h5>
+            <img [src]= "photoSrc != null ? photoSrc : 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'" class="card-img-top" alt="Waterfall">
+            <input type="file" class="form-control" id="customFile" placeholder="Add Album Photo" multiple accept="image/*" (change)="changeUploadedPhotos($event)"/>
+            <div class="card-body">
+                <a  class="btn btn-primary" (click)="uploadImages()">Add Photos</a>
+            </div>
+        </div>
+    </ng-template>
+</section>

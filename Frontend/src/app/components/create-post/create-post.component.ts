@@ -7,6 +7,7 @@ import { PostService } from '@services/post.service';
 import { SessionService } from '@services/session.service';
 import { User } from '@models/user';
 import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-post',
@@ -47,9 +48,6 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.content);
-    console.log(this.userId);
-
     let post = new Post();
     post.content = this.content;
 
@@ -58,13 +56,11 @@ export class CreatePostComponent implements OnInit {
     post.user = user;
 
     post.postTimestamp = this.postTime;
-    // post.timelineUserId = parseInt(this.timeline);
     
     let timeline: User = new User();
     timeline.id = parseInt(this.timeline);
     post.timelineUser = timeline;
   
-    
     this.addPost(post);
     this.myForm.resetForm();
     this.router.navigate([this.currentUrl]);
@@ -72,9 +68,15 @@ export class CreatePostComponent implements OnInit {
 
   addPost(post: Post){
     this.postService.add(post).subscribe((response: Object) => {
-      console.log(response);
       this.content = '';
       this.whenPost!();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
 }

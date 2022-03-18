@@ -8,6 +8,7 @@ import { UserService } from '@services/user.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import * as CryptoJs from 'crypto-js';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +16,6 @@ import * as CryptoJs from 'crypto-js';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  
 
   // Variable Declarations
   firstName: string = "";
@@ -42,36 +41,29 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.firstName);
-    console.log(this.lastName);
-    console.log(this.email);
-    console.log(this.encryptedPassword);
-    console.log(this.birthDay);
-    console.log(this.gender);
-    console.log(this.mobileNumber);
-
-    
-
-
     let user = new User();
         user.firstName = this.firstName;
         user.lastName = this.lastName;
         user.email = this.email;
         user.password = this.password;
-
-        this.formattedBirthday = moment(this.birthDay, 'yyyy-MM-dd').toDate();
+        this.formattedBirthday = new Date(Date.parse(this.birthDay));
+        user.birthDay = this.formattedBirthday;
         user.gender = this.gender;
         user.mobileNumber = this.mobileNumber;
-
         this.register(user);
   }
 
   //Registration
   register(user: User) {
     this.userService.register(user).subscribe((response: Object) => {
-      console.log(response); 
-      this.router.navigate(['']);
+      this.showSuccess(response);
+      
+    },
+    (error: HttpErrorResponse) => {
+      this.showError(error);
     });
+     
+   
   }
 
   successfulLogin(response: Record<string, any>){
@@ -82,7 +74,24 @@ export class RegisterComponent implements OnInit {
     this.sessionService.setUrl(response['url']);
     this.sessionService.setToken(response['token']);
     this.router.navigate(['']);
-    console.log(this.sessionService.getUserId());
   }
 
+  showSuccess(response: any) {
+    var self = this;
+    Swal.fire({
+      title : 'Register Succesful',
+      text : 'Successful',
+      icon: "success"
+    }).then(function() {
+      self.router.navigate(['/login'])
+    });
+  }
+
+  showError(error: HttpErrorResponse) {
+    Swal.fire({
+      title : 'Error in Registration',
+      text : error.error['Result'],
+      icon: "error"
+    });
+  }
 }

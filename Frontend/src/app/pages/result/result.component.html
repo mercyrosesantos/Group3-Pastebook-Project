@@ -1,20 +1,19 @@
 <app-sidebar></app-sidebar>
 <div class="sidebar" id="search">
   <div class="container-fluid">
-      <div class="card" style="width: 50%;">
+      <div class="card" id="mainContainer">
           <div class="card-body">
             <a class="card-title" routerLink="/search"><h5>Search Result</h5></a>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item" *ngFor="let user of result">
-              <div class="card" style="width: 18rem;">
-                  <!-- <img src="profilePic" class="card-img-top" alt="..."> -->
+              <div class="card" id="details">
                   <img class="card-img-top" [src]="user?.photo?.image != null ? 'data:image/png;base64,' + user?.photo?.image : './assets/DefaultProfilePicture.jpg'" class="rounded-circle"  width="100" height="110">
                   <div class="card-body">
                     <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
                     <a routerLink="/profile/{{user.url}}" class="btn btn-primary" (click)="redirect()">Visit Profile</a>
                   </div>
-                </div>
+              </div>
             </li>
           </ul>
       </div>

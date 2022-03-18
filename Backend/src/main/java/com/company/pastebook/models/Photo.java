@@ -11,7 +11,6 @@ import java.util.Set;
 public class Photo {
 
     //Properties
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "photos_seq")
     @SequenceGenerator(name = "photos_seq", sequenceName = "sequence_photos", allocationSize = 1)
@@ -36,6 +35,7 @@ public class Photo {
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn (name = "albumId", nullable = true)
     private Album album;
 
@@ -46,8 +46,6 @@ public class Photo {
 
 
     //Constructors
-
-
     public Photo() {
     }
 

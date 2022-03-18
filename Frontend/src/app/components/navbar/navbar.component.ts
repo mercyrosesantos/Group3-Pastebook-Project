@@ -13,9 +13,7 @@ import { FriendRequestService } from '@services/friendrequest.service';
 })
 export class NavbarComponent implements OnInit {
 
-  // uncomment once other specs are complete:
   hasToken: boolean = (localStorage.getItem('token') !== null);
-  // hasToken: boolean = true;
 
   firstName: String = this.sessionService.getFirstName();
   lastName: String = this.sessionService.getLastName();
@@ -26,6 +24,8 @@ export class NavbarComponent implements OnInit {
   friend?: User;
   finder?: number;
   userN: number = Number(this.sessionService.getUserId);
+
+  dataRefresher: any;
 
   @ViewChild('myForm', { static: false })
   myForm!: NgForm;
@@ -49,18 +49,14 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.sessionService.getUserId();
+    this.refreshData();
   }
 
   onSubmit(){
-
-    console.log(this.keyword);
     this.sessionService.setKeyword(this.keyword);
-
     let searchUrl = '/search/' + this.keyword;
-
     this.router.navigate([searchUrl]);
     this.myForm.resetForm();
-
   }
 
   logout(): void {
@@ -68,13 +64,13 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  friendslist(){
-    this.route.params.subscribe(params => {
-    this.userId = params['userId'];
-    this.friendRequestService.getFriends(this.userN).subscribe((response: User) => {
-      this.friend = response;
-    });
-    console.log(this.friend);
-  })}
+  refreshData() {
+    this.dataRefresher =
+    setInterval(() => {
+      this.firstName = this.sessionService.getFirstName();
+      this.lastName = this.sessionService.getLastName();
+      this.profileUrl = this.sessionService.getUrl();
+    }, 60000); 
 
+  }
 }

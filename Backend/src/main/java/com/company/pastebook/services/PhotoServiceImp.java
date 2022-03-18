@@ -1,7 +1,6 @@
 package com.company.pastebook.services;
 
 import com.company.pastebook.models.Photo;
-import com.company.pastebook.models.Post;
 import com.company.pastebook.models.User;
 import com.company.pastebook.repositories.PhotoRepository;
 import com.company.pastebook.repositories.UserRepository;
@@ -22,7 +21,7 @@ public class PhotoServiceImp implements PhotoService{
     public ResponseEntity uploadPhoto (Photo photo){
         Photo newPhoto = photoRepository.save(photo);
         User user = userRepository.findById(photo.getUser().getId()).orElse(null);
-        user.setPhoto(newPhoto  );
+        user.setPhoto(newPhoto);
         userRepository.save(user);
         return new ResponseEntity("Photo uploaded.", HttpStatus.OK);
     }

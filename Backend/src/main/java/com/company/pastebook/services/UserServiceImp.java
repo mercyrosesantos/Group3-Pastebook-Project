@@ -9,12 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -32,45 +34,45 @@ public class UserServiceImp implements UserService {
     @Autowired
     private JavaMailSenderImpl mailSenderImpl;
 
-//    Register User
+    //    Register User
     public void createUser(User user, String siteUrl) {
     }
 
-//    Get all Users
+    //    Get all Users
     public Iterable<User> getUsers() {
         return userRepository.findAll();
     }
 
-//    Find by email
+    //    Find by email
     public Optional<User> findByEmail(String email) {
         return Optional.ofNullable(userRepository.findByEmail(email));
     }
 
-//    Login
+    //    Login
     public Iterable<User> verifyUser(String email){
         ArrayList<User> key = new ArrayList<>();
         key.add(userRepository.findByEmail(email));
         return key;
     }
 
-// Get User Profile
+    // Get User Profile
     public ResponseEntity getUserProfile(Long id){
         User userProfile = userRepository.findById(id).get();
         return new ResponseEntity(userProfile, HttpStatus.OK);
     }
 
-// Get User Profile by Url
+    // Get User Profile by Url
     public ResponseEntity getUserProfileByUrl(String url){
         User userProfileByUrl = userRepository.findByUrl(url);
         return new ResponseEntity(userProfileByUrl, HttpStatus.OK);
     }
 
-//    User Verification
+    //    User Verification
     public boolean isEnabled() {
         return user.isEnabled();
     }
 
-//    Sending Verification Email
+    //    Sending Verification Email
     public void sendVerificationEmail(User user, String siteUrl) throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
         String fromAddress = "pastebook.group3@gmail.com";
@@ -98,31 +100,54 @@ public class UserServiceImp implements UserService {
         mailSenderImpl.send(message);
     }
 
-//    Update User Information
+    //    Update User Information
     public ResponseEntity updateUserInfo(Long id, User user) {
         User userForUpdating = userRepository.findById(id).get();
         userForUpdating.setFirstName(user.getFirstName());
         userForUpdating.setLastName(user.getLastName());
         userForUpdating.setBirthDay(user.getBirthDay());
         userForUpdating.setGender(user.getGender());
+        userForUpdating.setMobileNumber(user.getMobileNumber());
+        userForUpdating.setUrl(user.getFirstName().toLowerCase()+user.getLastName().toLowerCase()+"-"+user.getId());
         userRepository.save(userForUpdating);
-        return new ResponseEntity("User Updated Successfully", HttpStatus.OK);
+        return new ResponseEntity("User updated successfully.", HttpStatus.OK);
     }
 
-//    Update User Email
+    //    Update User Email
     public ResponseEntity updateUserEmail(Long id, User user) {
         User userForUpdating = userRepository.findById(id).get();
+
+        if(findByEmail(user.getEmail()).isPresent()) {
+            return new ResponseEntity("Email already exists.", HttpStatus.BAD_REQUEST);
+        }
         userForUpdating.setEmail(user.getEmail());
+        boolean isMatched = new BCryptPasswordEncoder().matches(user.getPassword(), userForUpdating.getPassword());
+        if (!isMatched) {
+            return new ResponseEntity("Incorrect password.", HttpStatus.BAD_REQUEST);
+        }
         userRepository.save(userForUpdating);
-        return new ResponseEntity("Email Updated Successfully", HttpStatus.OK);
+        return new ResponseEntity("Email updated successfully.", HttpStatus.OK);
     }
 
-//        Update User Password
-    public ResponseEntity updateUserPassword(Long id, User user) {
+    //        Update User Password
+    public ResponseEntity updateUserPassword(Long id, Map<String, String> body) {
         User userForUpdating = userRepository.findById(id).get();
-        userForUpdating.setPassword(user.getPassword());
+         String oldPassword = new BCryptPasswordEncoder().encode(body.get("oldPassword"));
+        String encodedPassword = new BCryptPasswordEncoder().encode(body.get("newPassword"));
+
+
+        boolean isMatched = new BCryptPasswordEncoder().matches(body.get("oldPassword"), userForUpdating.getPassword());
+        String newPassword = body.get("newPassword");
+        String retypePassword = body.get("retypePassword");
+        if (!isMatched) {
+            return new ResponseEntity("Old password provided is incorrect.", HttpStatus.BAD_REQUEST);
+        }
+        if (!newPassword.equals(retypePassword)) {
+            return new ResponseEntity("Password does not match.", HttpStatus.BAD_REQUEST);
+        }
+        userForUpdating.setPassword(encodedPassword);
         userRepository.save(userForUpdating);
-        return new ResponseEntity("Password Updated Successfully", HttpStatus.OK);
+        return new ResponseEntity("Password updated successfully.", HttpStatus.OK);
     }
 
     // Get online friends
@@ -141,8 +166,10 @@ public class UserServiceImp implements UserService {
 
     // Get user by id
     public ResponseEntity<Object> getUser(Long id) {
+        ArrayList<User> userArray = new ArrayList<>();
         User getUser = userRepository.findById(id).get();
-        return new ResponseEntity<>(getUser, HttpStatus.OK);
+        userArray.add(getUser);
+        return new ResponseEntity<>(userArray, HttpStatus.OK);
     }
 
     //Update AboutMe

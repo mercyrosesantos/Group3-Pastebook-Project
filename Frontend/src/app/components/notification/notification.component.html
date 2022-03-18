@@ -1,6 +1,6 @@
 <div ngbDropdown>
     <a ngbDropdownToggle class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="setNotifAsRead();">
-        <i-bs name="bell-fill" id="bell" width="23" height="23"></i-bs>
+        <i-bs name="bell" id="bell" width="23" height="23"></i-bs>
         <span class="icon-button__badge">{{ this.unreadNotif?.valueOf() }}</span>
     </a>
     <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -8,7 +8,7 @@
             <div class="notify_item">
 				<div class="notify_info">
 					<p>{{ item.friend.firstName }} {{ item.friend.lastName }} {{ item.notificationType }} {{ item.isRead }}</p>
-					<span class="notify_time">{{ item.notificationTimestamp }}</span>
+					<span class="notify_time">{{ item.notificationTimestamp | date:'medium' }}</span>
 				</div>
 			</div>
             <hr/>

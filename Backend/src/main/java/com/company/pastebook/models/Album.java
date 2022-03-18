@@ -1,6 +1,7 @@
 package com.company.pastebook.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +12,6 @@ import java.util.Set;
 public class Album {
 
     // Properties
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "album_seq")
     @SequenceGenerator(name = "album_seq", sequenceName = "sequence_album", allocationSize = 1)
@@ -27,12 +27,14 @@ public class Album {
     private boolean isActive = true;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn (name = "userId", nullable = true)
     private User user;
 
-    @OneToMany(mappedBy = "album")
-    @JsonIgnore
+    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Photo> albumPhotos;
+
+    private Long userIdJson;
 
     //Constructors
 
@@ -44,6 +46,8 @@ public class Album {
         this.albumTimestamp = albumTimestamp;
         this.isActive = isActive;
     }
+
+    //Getters and Setters
 
     public long getId() {
         return id;
@@ -77,10 +81,12 @@ public class Album {
         isActive = active;
     }
 
+    @JsonIgnore
     public User getUser() {
         return user;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public void setUser(User user) {
         this.user = user;
     }
@@ -91,5 +97,13 @@ public class Album {
 
     public void setAlbumPhotos(Set<Photo> albumPhotos) {
         this.albumPhotos = albumPhotos;
+    }
+
+    public Long getUserIdJson() {
+        return userIdJson;
+    }
+
+    public void setUserIdJson(Long userIdJson) {
+        this.userIdJson = userIdJson;
     }
 }

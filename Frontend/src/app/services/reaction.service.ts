@@ -4,9 +4,9 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Post } from '@models/post';
 import { Reaction } from '@models/reaction';
 import { User } from '@models/user';
+import { SessionService } from './session.service';
 
 
 @Injectable({
@@ -18,17 +18,18 @@ export class ReactionService {
   private likesByPostUrl: string = environment.apiUrl + '/likes/';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private sessionService: SessionService
   ) { }
 
   // Get Comments by Post
   getCommentsByPost(postId?: number): Observable<Reaction[]> {
-    return this.http.get<Reaction[]>(this.commentsByPostUrl+postId);
+    return this.http.get<Reaction[]>(this.commentsByPostUrl+postId, {headers : this.sessionService.getHeaders()});
   }
 
   // Get Likes by Post
   getLikesByPost(postId?: number): Observable<User[]> {
-    return this.http.get<User[]>(this.likesByPostUrl+postId);
+    return this.http.get<User[]>(this.likesByPostUrl+postId, {headers : this.sessionService.getHeaders()});
   }
   
 }

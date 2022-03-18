@@ -5,13 +5,16 @@ import { Post } from '@models/post';
 import { ProfileService } from 'src/app/services/profile.service';
 import * as moment from 'moment';
 import { Photo } from '@models/photo';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { SessionService } from '@services/session.service';
 import { FriendRequestService } from '@services/friendrequest.service';
 import { Friendship } from '@models/friendship';
 import { Friendrequest } from '@models/friendrequest';
 import { PhotoService } from '@services/photo.service';
+import { AlbumService } from '@services/album.service';
+import { Album } from '@models/album';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -35,13 +38,18 @@ export class ProfileComponent implements OnInit {
   friendRequest?: Friendrequest;
   newImageFile? : FileList;
   uploadedNewImage: boolean = false;
+
+  albums: Album [] = [];
+
   constructor(
     private profileService: ProfileService,
     private route: ActivatedRoute,
     private modalService: NgbModal,
     private sessionService: SessionService,
     private friendRequestService : FriendRequestService,
-    private photoService: PhotoService
+    private photoService: PhotoService,
+    private albumService: AlbumService,
+    private router: Router
   ) {
   }
 
@@ -51,8 +59,6 @@ export class ProfileComponent implements OnInit {
       this.user.url = params['id'];
       this.getUserProfile();
     })
-
-
   }
 
   //Refresh timeline
@@ -63,6 +69,8 @@ export class ProfileComponent implements OnInit {
     this.posts = [];
     this.pageNo = 0;
     this.getPosts();
+    this.getAlbums();
+
   }
 
   // Get Posts
@@ -73,12 +81,20 @@ export class ProfileComponent implements OnInit {
       if (response.length <this.pageSize) {
         this.isMaxed = true;
       }
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
+
   addFriendCallBack() {
-    console.log('addFriendCallBack');
     this.getFriendship();
   }
+
   // Get User Profile
   getUserProfile() {
     this.profileService.getUserProfileByUrl(this.user.url!).subscribe((response: User) => {
@@ -89,7 +105,6 @@ export class ProfileComponent implements OnInit {
       } else {
         this.photoSrc="./assets/DefaultProfilePicture.jpg";
       }
-      console.log('photoSrc: ' + this.photoSrc);
       this.isOwnProfile = this.user.id == this.sessionService.getUserId();
       if (this.isOwnProfile) {
         this.friendshipStatus = 'own';
@@ -97,17 +112,29 @@ export class ProfileComponent implements OnInit {
         this.getFriendship();
       }
       this.loadPage();
-
-
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
+
   getFriendship() {
     this.friendRequestService.getFriendship(this.user.id!).subscribe((response: Friendship) => {
       this.friendshipStatus = response.status;
-      console.log('status: ' + this.friendshipStatus);
       if (this.friendshipStatus == 'pending') {
         this.friendRequestService.getFriendRequest(this.user.id!).subscribe((response: Friendrequest) => {
           this.friendRequest = response;
+        },
+        (error: HttpErrorResponse) => {
+            if (error.status !== 401) {
+                return;
+            }
+            this.sessionService.clear();
+            this.router.navigate(['/login']);
         });
       }
     })
@@ -120,7 +147,6 @@ export class ProfileComponent implements OnInit {
     // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
     
     if((pos + 10) >= max && !this.isLoading && !this.isMaxed)   {
-      console.log('position is maxed');
       this.pageNo++;
       this.isLoading = true;
       this.getPosts();
@@ -137,6 +163,13 @@ export class ProfileComponent implements OnInit {
   saveAboutMe(){
     this.profileService.updateAboutMe(this.user).subscribe((response: Object) => {
       this.modalService.dismissAll()
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     })
   }
   changeProfilePic(event: any) {
@@ -149,27 +182,41 @@ export class ProfileComponent implements OnInit {
           self.photoSrc = fileReader.result?.toString();
         }
         fileReader.readAsDataURL(this.newImageFile[0]);
-      console.log("FileUpload -> files", this.newImageFile);
       this.uploadedNewImage = true;
     }
 
   }
+
   uploadImage() {
     if (this.uploadedNewImage) {
       var data = new FormData();
-      // data.append('file',this.photoSrc!);
       data.append('file', this.newImageFile![0], this.newImageFile![0].name);
-
       data.append('userId', this.sessionService.getUserId());
-      this.photoService.uploadPhoto(data)
-      .subscribe((response: Object) => {
-        console.log('success uploading');
+      this.photoService.uploadPhoto(data).subscribe((response: Object) => {
         this.getUserProfile();
         this.uploadedNewImage = false;
         this.modalService.dismissAll();
+      },
+      (error: HttpErrorResponse) => {
+          if (error.status !== 401) {
+              return;
+          }
+          this.sessionService.clear();
+          this.router.navigate(['/login']);
       })
     }
-    
+  }
 
+  getAlbums() {    
+    this.albumService.getAlbumByUserId(this.user.id!).subscribe((response: Album[]) => { 
+      this.albums = response;
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
+    });
   }
 }

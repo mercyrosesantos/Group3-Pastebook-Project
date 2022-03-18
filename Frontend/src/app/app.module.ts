@@ -5,7 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons'; // Icons import
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons'; // Icons import
+import { pencilSquare, houseDoor, personCircle, gearFill, power, bell, handThumbsUp, chatLeftText, arrowLeftCircleFill, cameraFill, penFill, peopleFill, search } from 'ngx-bootstrap-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -14,18 +15,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { AlbumsComponent } from './pages/albums/albums.component';
-
-
-import { MatDividerModule } from '@angular/material/divider';
-import { MatListModule } from '@angular/material/list';
 import { PostComponent } from './components/post/post.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { NewsfeedComponent } from './components/newsfeed/newsfeed.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { ResultComponent } from './pages/result/result.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
+import { PostsComponent } from './pages/posts/posts.component';
+import { FriendslistComponent } from './pages/friendslist/friendslist.component';
+import { AlbumViewComponent } from './pages/album-view/album-view.component';
+
 
 // Register Imports
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -34,13 +40,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { PhotoComponent } from './components/photo/photo.component';
-import { ResultComponent } from './pages/result/result.component';
-import { NotificationComponent } from './components/notification/notification.component';
-import { AddFriendButtonComponent } from './components/add-friend-button/add-friend-button.component';
-import { FriendslistComponent } from './pages/friendslist/friendslist.component';
 
 
+// bootstrap icons
+const icons = {
+  pencilSquare, houseDoor, personCircle, gearFill, power, bell, handThumbsUp, chatLeftText, arrowLeftCircleFill, cameraFill, penFill, peopleFill, search
+};
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }, // http://localhost:4200/
@@ -49,9 +54,10 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'search/:keyword', component: ResultComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'albums', component: AlbumsComponent},
-  { path: 'friendslist/:id', component: FriendslistComponent }
-  // { path: '**', component: NotFoundComponent }
+  { path: 'albums/:id', component: AlbumsComponent},
+  { path: 'albums-view/:id', component: AlbumViewComponent},
+  { path: 'posts/:postId', component: PostsComponent },
+  { path: 'friends', component: FriendslistComponent }
 ];
 @NgModule({
   declarations: [
@@ -65,19 +71,19 @@ const appRoutes: Routes = [
     HomeComponent,
     LoginComponent,
     CreatePostComponent,
-    PhotoComponent,
     ResultComponent,
     NotificationComponent,
     AddFriendButtonComponent,
     SettingsComponent,
     AlbumsComponent,
+    PostsComponent,
     FriendslistComponent,
-    
+    AlbumViewComponent,
   ],
   imports: [
     BrowserModule,
     NgbModule,
-    NgxBootstrapIconsModule.pick(allIcons),
+    NgxBootstrapIconsModule.pick(icons),
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,

@@ -9,6 +9,8 @@ import { ReactionService } from '@services/reaction.service';
 import { Reaction } from '@models/reaction';
 import { SessionService } from '@services/session.service';
 import { User } from '@models/user';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 
@@ -31,7 +33,8 @@ export class PostComponent implements OnInit {
     private profileService: ProfileService,
     private reactionService: ReactionService,
     private sessionService: SessionService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) { 
     
   }
@@ -56,6 +59,13 @@ export class PostComponent implements OnInit {
     }
     this.profileService.createReaction(likeReaction).subscribe((response: Object) => {
       this.getLikesFromPost();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
 
@@ -76,6 +86,13 @@ export class PostComponent implements OnInit {
     this.profileService.createReaction(commentReaction).subscribe((response: Object) => {
       this.currentComment = '';
       this.getCommentsFromPost();
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
 
@@ -87,6 +104,13 @@ export class PostComponent implements OnInit {
         comment.reactionTimeString = moment(comment?.reactionTimestamp).format('MMMM DD, YYYY HH:mm:ss');
       }
       this.formattedPostTimeStamp = moment(this.post.postTimestamp).format('MMMM DD, YYYY HH:mm:ss');
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
 
@@ -100,6 +124,13 @@ export class PostComponent implements OnInit {
         this.likeInformation.likeIds.add(user.id!);
       }
       this.isCurrentUserLiked = this.likeInformation.likeIds.has(parseInt(this.sessionService.getUserId()));
+    },
+    (error: HttpErrorResponse) => {
+        if (error.status !== 401) {
+            return;
+        }
+        this.sessionService.clear();
+        this.router.navigate(['/login']);
     });
   }
   
