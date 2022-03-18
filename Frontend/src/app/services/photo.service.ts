@@ -27,9 +27,8 @@ export class PhotoService {
   
  //Upload a Photo
   uploadPhoto(formData: FormData) : Observable<Object>{
-    let headers = new HttpHeaders();
+    let headers = this.sessionService.getHeaders();
     headers.set('Accept', "multipart/form-data");
-    headers.set('Authorization', `Bearer ${this.sessionService.getToken()}`)
     return this.http.post(this.uploadPhotoUrl, formData, { headers });
   }
   
