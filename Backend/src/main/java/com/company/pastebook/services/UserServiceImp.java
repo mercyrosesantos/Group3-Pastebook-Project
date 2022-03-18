@@ -134,7 +134,7 @@ public class UserServiceImp implements UserService {
         User userForUpdating = userRepository.findById(id).get();
          String oldPassword = new BCryptPasswordEncoder().encode(body.get("oldPassword"));
         String encodedPassword = new BCryptPasswordEncoder().encode(body.get("newPassword"));
-       
+
 
         boolean isMatched = new BCryptPasswordEncoder().matches(body.get("oldPassword"), userForUpdating.getPassword());
         String newPassword = body.get("newPassword");

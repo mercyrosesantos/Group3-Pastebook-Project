@@ -9,9 +9,9 @@ public interface ReactionService {
     ResponseEntity createReaction(Reaction reaction);
 
     //Get Comments by Post
-    public ResponseEntity getCommentsByPost(Long postId);
+    ResponseEntity getCommentsByPost(Long postId);
 
     //Get Likes by Post
-    public ResponseEntity getLikesByPost(Long postId);
+    ResponseEntity getLikesByPost(Long postId);
 
 }
