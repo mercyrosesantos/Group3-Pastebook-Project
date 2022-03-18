@@ -30,6 +30,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.contains).toContain('');
+    expect(compiled.querySelector('.content span')?.getElementsByTagName("nav")!=null);
   });
 });
