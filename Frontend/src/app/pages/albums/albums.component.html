@@ -2,7 +2,7 @@
     <div id="backgroundColor">
         <section class="p-4 text-center text-white w-100">
             <h3>Albums</h3>
-                <div class="d-flex justify-content-center">
+                <div class="justify-content-center">
                     <div class="row">
                         <div class="col-sm-3 " *ngIf="isOwnProfile">
                             <div class="card text-black" id="cardBackgroundColor" >
@@ -18,22 +18,23 @@
                                 </div>
                             </div>
                         </div>
-                    <div class="col-sm-3 d-lg-block" *ngFor="let album of albums">
-                        <div class="card" id="cardBackgroundColor">
-                            <img [src]="album!.albumPhotos?.length! > 0 ? 'data:image/png;base64,' + album.albumPhotos![0].image :'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUgELpGy0OdpNxkGdW3S7QgPlY6F-cQ8Eigt3YTjFAS2pcQz4scfaeGXYK35JyDGSlLhU&usqp=CAU'" class="card-img-top" alt="Waterfall">
-                            <div class="card-body">
-                                <input type="text" class="form-control" placeholder="{{album.albumName}}" [(ngModel)] = "album.albumName">
-                                <div class = "row" *ngIf="isOwnProfile">
-                                    <button class="btn btn-primary col-md-3 offset-sm-1" routerLink="/albums-view/{{this.album.id}}">View</button>
-                                    <button class="btn btn-primary col-md-3 offset-sm-1" (click)="update(album)">Update</button>
-                                    <button class="btn btn-primary col-md-3 offset-sm-1" (click)="delete(album)">Delete</button>
-                                </div>
-                                <div class = "row" *ngIf="!isOwnProfile">
-                                    <button class="btn btn-primary col-md-3 offset-sm-4" routerLink="/albums-view/{{this.album.id}}">View</button>
+                        <div class="col-sm-3"   *ngIf="!isOwnProfile"></div>
+                        <div class="col-sm-3 d-lg-block" *ngFor="let album of albums">
+                            <div class="card" id="cardBackgroundColor">
+                                <img width="150" height="150" [src]="album!.albumPhotos?.length! > 0 ? 'data:image/png;base64,' + album.albumPhotos![0].image :'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUgELpGy0OdpNxkGdW3S7QgPlY6F-cQ8Eigt3YTjFAS2pcQz4scfaeGXYK35JyDGSlLhU&usqp=CAU'" class="card-img-top" alt="Waterfall">
+                                <div class="card-body">
+                                    <input type="text" class="form-control" placeholder="{{album.albumName}}" [(ngModel)] = "album.albumName">
+                                    <div class = "row" *ngIf="isOwnProfile">
+                                        <button class="btn btn-primary col-md-3" routerLink="/albums-view/{{this.album.id}}">View</button>
+                                        <button class="btn btn-primary col-md-4 offset-md-1 " (click)="update(album)">Update</button>
+                                        <button class="btn btn-primary col-md-3 offset-sm-1" (click)="delete(album)">Delete</button>
+                                    </div>
+                                    <div class = "row" *ngIf="!isOwnProfile">
+                                        <button class="btn btn-primary col-md-6 offset-md-3" routerLink="/albums-view/{{this.album.id}}">View</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </section>
