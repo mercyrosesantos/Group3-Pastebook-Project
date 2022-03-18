@@ -3,11 +3,11 @@
         <div class="card mb-3 col-md-8 offset-md-2 rounded p-3" style="background-color: rgb(182, 180, 137)">
             <div class="card-body container p-3 rounded" style=" background-color: rgb(224, 221, 170)">
                  <div class="row rounded" >
-                     <div class = "col-sm-2">
+                     <div class = "col-sm-1">
                         <img class="card-img-top"  
                         [src]="post.user?.photo?.image != null ? 'data:image/png;base64,' + post.user?.photo?.image : './assets/DefaultProfilePicture.jpg' " class="rounded-circle"  width="70" height="70" />
                     </div>
-                    <div class = "col-sm-10">
+                    <div class = "col-sm-4">
                         <h4><a style='text-decoration: black; text-decoration-color: black;' routerLink="/profile/{{post.user?.url}}">{{ post.user?.firstName }} {{ post.user?.lastName }}</a></h4>
                     {{formattedPostTimeStamp}}
                     </div>
@@ -25,14 +25,14 @@
                     <p class="col-sm-12">{{ post.content }}</p>
                 </div>
                 <div class="row">
-                    <div *ngIf="isCurrentUserLiked" class = "col-sm-2 offset-md-1"> 
+                    <div *ngIf="isCurrentUserLiked" class = "col-sm-2 offset-md-1 row"> 
                         <!-- change color to blue after checking documentations -->
-                        <i-bs name="hand-thumbs-up-fill" height="22" width="22"></i-bs>
+                        <i-bs name="hand-thumbs-up-fill" height="22" width="22" class="col-sm-1"></i-bs>
                         <a (click)="open(content)" class="col-sm-6">{{likeInformation?.like}}</a>
                         
                     </div>
-                    <div *ngIf="!isCurrentUserLiked" class = "col-sm-2 offset-md-1" >
-                        <i-bs name="hand-thumbs-up" height="22" width="22" (click)="createLikeReaction()"></i-bs>
+                    <div *ngIf="!isCurrentUserLiked" class = "col-sm-2 offset-md-1 row" >
+                        <i-bs name="hand-thumbs-up" height="22" width="22" (click)="createLikeReaction()" class="col-sm-1"></i-bs>
                         <a (click)="open(content)" id="reactionPointer" class="col-sm-1">{{likeInformation?.like}}</a>
                     </div>
                     <div class="col-sm-2">
