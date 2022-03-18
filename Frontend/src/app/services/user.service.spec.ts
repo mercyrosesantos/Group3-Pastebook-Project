@@ -38,7 +38,7 @@ describe('UserService', () => {
       .login(inputEmail, inputPassword)
       .subscribe((data) => expect(data).toEqual(testData));
 
-      const req = httpController.expectOne('http://localhost:8080/api/users/login');
+      const req = httpController.expectOne('http://localhost:8080/api/authenticate');
 
       expect(req.request.method).toEqual('POST');
 
@@ -117,6 +117,61 @@ describe('UserService', () => {
 
       req.flush(testData);
   });
+
+  it('#updateUser should update user information', () => {
+    const user = new User();
+    const testData = 'Updated user';
+    const userId = undefined; 
+
+    userService
+      .updateUser(user)
+      .subscribe((data) => expect(data).toEqual(testData));
+
+      const req = httpController.expectOne(environment.apiUrl + '/settings'+'/information/'+ userId);
+
+      expect(req.request.method).toEqual('PUT');
+
+      req.flush(testData);
+  });
+
+  it('#updateEmail should update user email', () => {
+    const user = new User();
+    const testData = 'Updated email';
+    const userId = undefined; 
+
+    userService
+      .updateEmail(user)
+      .subscribe((data) => expect(data).toEqual(testData));
+
+      const req = httpController.expectOne(environment.apiUrl + '/settings'+'/email/'+ userId);
+
+      expect(req.request.method).toEqual('PUT');
+
+      req.flush(testData);
+  });
+
+  it('#updatePassword should update user email', () => {
+    const user = new User();
+    const testData = 'Updated password';
+    const userId = undefined; 
+
+    userService
+      .updatePassword(user)
+      .subscribe((data) => expect(data).toEqual(testData));
+
+      const req = httpController.expectOne(environment.apiUrl + '/settings'+'/password/'+ userId);
+
+      expect(req.request.method).toEqual('PUT');
+
+      req.flush(testData);
+  });
+
+
+
+
+
+
+
 
 
 

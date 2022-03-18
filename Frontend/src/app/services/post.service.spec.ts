@@ -4,6 +4,7 @@ import { PostService } from './post.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { User } from '@models/user';
+import { Post } from '@models/post';
 
 describe('PostService', () => {
   let postService: PostService;
@@ -71,5 +72,28 @@ describe('PostService', () => {
 
       req.flush(testData);
   });
+
+  it('#getPost should show a post', () => {
+    const postId = 1;
+    const testData = [{
+      id: 1,
+      content: 'hello',
+      postTimeStamp: new Date,
+      isActive: true,
+      user: new User(),
+      timeline: new User()
+    }];
+    postService
+      .getPost(postId)
+      .subscribe((data) => expect(data).toEqual(testData));
+
+      const req = httpController.expectOne(environment.apiUrl + '/posts/' + postId);
+
+      expect(req.request.method).toEqual('GET');
+
+      req.flush(testData);
+  });
+
+
   
 });

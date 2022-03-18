@@ -1,9 +1,7 @@
-import { EventEmitter, Output } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
 import { SessionService } from './session.service';
-import { User } from '@models/user';
+import { HttpClient } from '@angular/common/http';
 
 describe('SessionService', () => {
   let sessionService: SessionService;
@@ -20,11 +18,7 @@ describe('SessionService', () => {
   });
 
   it('should be created', () => {
-    const testData = true;
-    const inputEmail = 'admin';
+    expect(sessionService).toBeDefined();
   });
-
-  
-  
 
 });
