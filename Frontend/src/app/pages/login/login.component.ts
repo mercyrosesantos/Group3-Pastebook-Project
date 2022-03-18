@@ -45,12 +45,7 @@ export class LoginComponent implements OnInit {
   }
 
   failedLogin(result: Record<string, any>){
-
     let data: Record<string, any> = result['error'];
-    if (data['result'] === 'incorrect_credentials') {
       Swal.fire('Login Failed', 'You have entered incorrect credentials, please try again', 'error');
-    } else if (data['result'] === 'user_not_found') {
-      Swal.fire('Login Failed', 'User does not exist, please try again.', 'error');
-    }
   }
 }
