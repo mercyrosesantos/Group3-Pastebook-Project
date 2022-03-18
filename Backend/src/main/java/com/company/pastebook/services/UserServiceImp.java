@@ -108,7 +108,7 @@ public class UserServiceImp implements UserService {
         userForUpdating.setBirthDay(user.getBirthDay());
         userForUpdating.setGender(user.getGender());
         userForUpdating.setMobileNumber(user.getMobileNumber());
-        userForUpdating.setUrl(user.getFirstName().toLowerCase()+user.getLastName().toLowerCase()+"-"+user.getId());
+        userForUpdating.setUrl(user.getFirstName().toLowerCase().replaceAll(" ", "")+user.getLastName().toLowerCase().replaceAll(" ", "")+"-"+user.getId());
         userRepository.save(userForUpdating);
         return new ResponseEntity("User updated successfully.", HttpStatus.OK);
     }
