@@ -38,9 +38,8 @@ export class AlbumService {
     return this.http.put(this.updateAlbumUrl,{'albumName' : albumId, 'id':albumName}, {responseType: 'text',  headers : this.sessionService.getHeaders()});
   }
   uploadPhotos(formData: FormData) : any{
-    let headers = new HttpHeaders();
+    let headers = this.sessionService.getHeaders();
     headers.set('Accept', "multipart/form-data");
-    headers.set('Authorization', `Bearer ${this.sessionService.getToken()}`)
     return this.http.post(this.uploadPhotosUrl, formData, { headers,responseType: 'text'});
   }
   
