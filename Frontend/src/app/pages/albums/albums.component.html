@@ -1,11 +1,11 @@
-<section class="pb-4">
-    <div class="bg-white border rounded-5">
-            <section class="p-4 text-center w-100">
-                <h3>Albums</h3>
+<section class="pb-7">
+    <div id="backgroundColor">
+        <section class="p-4 text-center text-white w-100">
+            <h3>Albums</h3>
                 <div class="d-flex justify-content-center">
                     <div class="row">
-                        <div class="col-lg-3 " *ngIf="isOwnProfile">
-                            <div class="card">
+                        <div class="col-sm-3 " *ngIf="isOwnProfile">
+                            <div class="card text-black" id="cardBackgroundColor" >
                                 <h5>Add Album</h5>
                                 <img [src]= "photoSrc != null ? photoSrc : 'https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640'" class="card-img-top" alt="Waterfall">
                                 <input type="file" class="form-control" id="customFile" placeholder="Add Album Photo" multiple accept="image/*" (change)="changeUploadedPhotos($event)"/>
@@ -13,13 +13,13 @@
                                     <div class="mb-2">
                                         <input type="text" class="form-control" id="validationDefault04" placeholder="Album Title" autocomplete="off" [(ngModel)]="albumName">
                                     </div>
-                                    <a  class="btn btn-primary" *ngIf="this.uploadedPhotos == null">Add Album</a>
+                                    <a  class="btn btn-primary text-black" *ngIf="this.uploadedPhotos == null" >Add Album</a>
                                     <a  class="btn btn-primary" (click)="createAlbum()" *ngIf="this.uploadedPhotos != null">Add Album</a>
                                 </div>
                             </div>
                         </div>
-                    <div class="col-lg-3 d-none d-lg-block" *ngFor="let album of albums">
-                        <div class="card">
+                    <div class="col-sm-3 d-lg-block" *ngFor="let album of albums">
+                        <div class="card" id="cardBackgroundColor">
                             <img [src]="album!.albumPhotos?.length! > 0 ? 'data:image/png;base64,' + album.albumPhotos![0].image :'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUgELpGy0OdpNxkGdW3S7QgPlY6F-cQ8Eigt3YTjFAS2pcQz4scfaeGXYK35JyDGSlLhU&usqp=CAU'" class="card-img-top" alt="Waterfall">
                             <div class="card-body">
                                 <input type="text" class="form-control" placeholder="{{album.albumName}}" [(ngModel)] = "album.albumName">

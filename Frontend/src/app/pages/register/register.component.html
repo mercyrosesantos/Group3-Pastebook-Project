@@ -1,11 +1,12 @@
-<section class="vh-200 bg-image" style="background-image: url('https://forms.office.com/Images/Theme/meeting.png');">
+<section style="background-color: rgb(224, 221, 170);">
     <div class="mask d-flex align-items-center h-50 gradient-custom-3">
         <div class="container h-50">
             <div class="row d-flex justify-content-center align-items-center h-50">
-                <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6" id="middleform">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-4">
-                        <h3 class="text-uppercase text-center mb-5">Create an account</h3>
+                        <h3 class="text-uppercase text-center">Sign Up</h3>
+                        <p class="text-center">Don't forget to fill out all the fields!</p>
                         <form #userForm="ngForm" (ngSubmit)="userForm.form.valid && onSubmit()" class="mainpage">
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form31cg">First Name</label>
@@ -69,7 +70,7 @@
                             <div class="d-flex justify-content-center">
                                 <button class="btn btn-primary btn-md btn-block" (click)="encrypt()">Submit</button>
                             </div>
-                            <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
+                            <p class="text-center text-muted mt-5 mb-0">Already have an account? <a routerLink="/login" class="fw-bold text-body"><u>Login here</u></a></p>
                         </form>
                         </div>
                     </div>
