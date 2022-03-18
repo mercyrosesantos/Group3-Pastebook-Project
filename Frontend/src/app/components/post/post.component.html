@@ -1,15 +1,14 @@
 <div>
     <div class="row rounded">
-        <div class="card mb-3 col-md-8 offset-md-2 rounded p-3" style="background-color: gray;">
-            <div class="card-body container p-3 rounded" style=" background-color: lightgray;">
+        <div class="card mb-3 col-md-8 offset-md-2 rounded p-3" style="background-color: rgb(182, 180, 137)">
+            <div class="card-body container p-3 rounded" style=" background-color: rgb(224, 221, 170)">
                  <div class="row rounded" >
                      <div class = "col-sm-2">
-                        
                         <img class="card-img-top"  
-                        [src]="post.user?.photo?.image != null ? 'data:image/png;base64,' + post.user?.photo?.image : './assets/DefaultProfilePicture.jpg' " class="rounded-circle"  width="80" height="80" />
+                        [src]="post.user?.photo?.image != null ? 'data:image/png;base64,' + post.user?.photo?.image : './assets/DefaultProfilePicture.jpg' " class="rounded-circle"  width="70" height="70" />
                     </div>
-                    <div class = "col-sm-4">
-                        <h4><a style='text-decoration: none;' routerLink="/profile/{{post.user?.url}}">{{ post.user?.firstName }} {{ post.user?.lastName }}</a></h4>
+                    <div class = "col-sm-10">
+                        <h4><a style='text-decoration: black; text-decoration-color: black;' routerLink="/profile/{{post.user?.url}}">{{ post.user?.firstName }} {{ post.user?.lastName }}</a></h4>
                     {{formattedPostTimeStamp}}
                     </div>
                     <h3 class="col-md-1" *ngIf="post?.timelineUser?.id != post?.user?.id">></h3>
@@ -22,23 +21,19 @@
                     
 
                  </div>
-                 <div class="row rounded p-2" style=" background-color: gray; ">
+                 <div class="row rounded p-2" id="postDesign" style="background-color: rgb(250, 250, 250); ">
                     <p class="col-sm-12">{{ post.content }}</p>
                 </div>
                 <div class="row">
-                    <div *ngIf="isCurrentUserLiked" class = "col-sm-2 offset-md-1 row"> 
+                    <div *ngIf="isCurrentUserLiked" class = "col-sm-2 offset-md-1"> 
                         <!-- change color to blue after checking documentations -->
                         <i-bs name="hand-thumbs-up-fill" height="22" width="22"></i-bs>
-                        <div (click)="open(content)" class="col-sm-6">
-                            {{likeInformation?.like}}
-                        </div>
+                        <a (click)="open(content)" class="col-sm-6">{{likeInformation?.like}}</a>
                         
                     </div>
-                    <div *ngIf="!isCurrentUserLiked" class = "col-sm-2 offset-md-1 row" >
+                    <div *ngIf="!isCurrentUserLiked" class = "col-sm-2 offset-md-1" >
                         <i-bs name="hand-thumbs-up" height="22" width="22" (click)="createLikeReaction()"></i-bs>
-                        <div (click)="open(content)" class="col-sm-1">
-                            {{likeInformation?.like}}
-                        </div>
+                        <a (click)="open(content)" id="reactionPointer" class="col-sm-1">{{likeInformation?.like}}</a>
                     </div>
                     <div class="col-sm-2">
                         <i-bs name="chat-left-text" height="22" width="22"></i-bs>
@@ -47,11 +42,11 @@
                 </div>
                 <div class="row">
                     <div class = "col-sm-10 offset-md-1">
-                        <textarea class="textinput" placeholder="Comment" [(ngModel)]="currentComment"></textarea>
+                        <textarea class="textinput" placeholder="Write a comment..." [(ngModel)]="currentComment"></textarea>
                         <br/>
                     </div>
                     <div class = "col-sm-1 offset-md-9">
-                        <button type="button" class="btn btn-outline-secondary btn-sm" (click)="createCommentReaction()">Comment</button>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="createCommentReaction()">Comment</button>
                     </div>
                 </div>
                 <div class = "col-sm-8 offset-md-1" *ngFor="let comment of comments" > 

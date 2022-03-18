@@ -3,16 +3,15 @@
     <div class="mainpage">
         <div class="card-group">
 
-            <div class="card text-black bg-secondary border-0">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <img class="card-img-top" src={{photoSrc}} class="rounded-circle"  width="100" height="110">          
-                            <i-bs name="camera-fill" height="25" width="25" (click)="open(content)" *ngIf="isOwnProfile"></i-bs>
+            <div class="card text-black border-0" id="profileBackground">
+                <div class="card-body">
+                    <div class="row">
+                        <div col-sm-3>
+                            <img class="card-img-top" src={{photoSrc}} class="rounded-circle"  width="90" height="90" id="elementSpacings">          
+                            <i-bs name="camera-fill"  id="elementSpacings" height="25" width="25" (click)="open(content)" *ngIf="isOwnProfile"></i-bs>
                             <app-add-friend-button [friendshipStatus]="friendshipStatus"[friendRequest]="friendRequest" [friendId] = "user?.id" [callBack] ="addFriendCallBack.bind(this)" ></app-add-friend-button>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5><br>
+                        </div>
+                        <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5><br>
                             <div class="row" *ngIf="isOwnProfile">
                                 <i-bs name="pen-fill" height="18" width="18" class="col-sm-3" (click)="open(aboutMe)"></i-bs>
                                 <h6 class="Card-text col-md-6" (click)="open(aboutMe)">About Me</h6> 
@@ -22,16 +21,15 @@
                             </div>
                             <p *ngIf="isOwnProfile" (click)="open(aboutMe)">{{user.aboutMe}}</p>
                             <p *ngIf="!isOwnProfile">{{user.aboutMe}}</p>
-                        </div>
-                    </div> 
+                    </div>
                 </div>
-            </div>        
-               
-            <div class="card text-black bg-secondary border-0">
+            </div>
+
+            <div class="card text-black border-0" id="profileBackground">
                 <div class="card-body">
                     <div class="row">
-                        <i-bs name="pen-fill" height="18" width="18" class="col-sm-3"></i-bs>
-                        <h5 class="card-title col-md-8">Profile Information</h5>
+                        <i-bs name="pen-fill" height="18" width="18" class="col-sm-1" id="elementSpacing"></i-bs>
+                        <h5 class="card-title col-md-10">Profile Information</h5>
                     </div>
                     <ul class="list-unstyled card-text">
                         <li>Birth Date: {{formattedBirthday}}</li>
@@ -42,17 +40,20 @@
                 </div>
             </div>
 
-            <div class="card text-black bg-secondary border-0">
+            <div class="card text-black border-0" id="profileBackground">
                 <div class="card-body">
                     <h5 class="card-title">Albums</h5>
                 </div>
             </div>
             
         </div>
-        <div style=" background-color: lightgray;" *ngIf = "friendshipStatus == 'friends' || friendshipStatus == 'own'" >
-            <div class="row rounded">
-                <app-create-post timeline={{user.id}} class="col-sm-9 offset-md-2"[whenPost]="loadPage.bind(this)"></app-create-post>
+        <div style=" background-color: rgb(32, 50, 57)" *ngIf = "friendshipStatus == 'friends' || friendshipStatus == 'own'" >
+            <br>
+            <div class="row">
+                <br>
+                <app-create-post timeline={{user.id}} class="col-sm-8 offset-md-2" [whenPost]="loadPage.bind(this)"></app-create-post>
             </div>
+            <br>
             <app-post *ngFor="let post of posts" [post] = "post">{{post.content}}</app-post>
             <div class="d-flex align-items-center" *ngIf ="isLoading">
                 <strong>Loading...</strong>

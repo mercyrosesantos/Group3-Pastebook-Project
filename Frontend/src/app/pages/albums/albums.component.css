@@ -17,3 +17,11 @@ img {
     width: 70%;
     border: 1px solid #ddd;
 }
+
+#backgroundColor {
+    background-color: rgb(32, 50, 57);
+}
+
+#cardBackgroundColor {
+    background-color: rgb(224, 221, 170);
+}

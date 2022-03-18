@@ -1,19 +1,32 @@
-<div class="row justify-content-center">
-    <div class="col-12 col-md-6">
-        <h3>Login</h3>
-        <form (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" [(ngModel)]="email" name="email" required>
+<section style="background-color: rgb(224, 221, 170);">
+    <div class="mask d-flex align-items-center h-50 gradient-custom-3">
+        <div class="container h-50" id="genform">
+            <div class="row d-flex justify-content-center align-items-center h-50">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6" id="middleform">
+                    <div class="card" style="border-radius: 15px;">
+                        <div class="card-body p-4">
+                        <h3 class="text-uppercase text-center">Sign In</h3>
+                        <p class="text-center">Welcome to Pastebook!</p>
+                        <form (ngSubmit)="onSubmit()">
+                            <div class="form-outline mb-4">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" [(ngModel)]="email" name="email" required>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" [(ngModel)]="password" name="password" required>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-success btn-md btn-block" [disabled]="!email || !password" (click)="onSubmit()">Submit</button>
+                            </div>
+                            <p class="text-center text-muted mt-5 mb-0">Don't have an account yet? <a href="/register" class="fw-bold text-body"><u>Register here</u></a></p>
+                        </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control" [(ngModel)]="password" name="password" required>
-            </div>
-            <div class="d-grid gap-2 col-6">
-                <button type="submit" [disabled]="!email || !password"  class="btn btn-success" (click)="onSubmit()">Login</button>
-                <a class="btn btn-primary" routerLink="/register" role="button">Register</a>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>

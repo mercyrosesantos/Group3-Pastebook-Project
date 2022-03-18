@@ -8,6 +8,7 @@
     padding-right: 5px;
     padding-bottom: 10px;
     overflow-y: scroll;
+    background-color: rgb(32, 50, 57);
 }
 
 app-create-post {
