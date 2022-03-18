@@ -37,8 +37,6 @@ public class AlbumServiceImp implements AlbumService  {
     public ResponseEntity addPhotos(MultipartFile[] files, Long userId, Long albumId) throws IOException {
 
         ArrayList<Photo> photos = new ArrayList<>();
-        System.out.println("albumid : " + albumId);
-        System.out.println("userId : " + userId);
         for(MultipartFile file : files) {
 
             Photo photo = new Photo();
