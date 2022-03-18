@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons'; // Icons import
-import { pencilSquare, houseDoor, personCircle, gearFill, power, bell, handThumbsUp, chatLeftText, arrowLeftCircleFill, cameraFill, penFill, peopleFill, search } from 'ngx-bootstrap-icons';
+import { pencilSquare, houseDoor, personCircle, gearFill, power, bell, handThumbsUp, chatLeftText, arrowLeftCircleFill, cameraFill, penFill, peopleFill, search,handThumbsUpFill } from 'ngx-bootstrap-icons';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -44,7 +44,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 // bootstrap icons
 const icons = {
-  pencilSquare, houseDoor, personCircle, gearFill, power, bell, handThumbsUp, chatLeftText, arrowLeftCircleFill, cameraFill, penFill, peopleFill, search
+  pencilSquare, houseDoor, personCircle, gearFill, power, bell, handThumbsUp, chatLeftText, arrowLeftCircleFill, cameraFill, penFill, peopleFill, search, handThumbsUpFill
 };
 
 const appRoutes: Routes = [
